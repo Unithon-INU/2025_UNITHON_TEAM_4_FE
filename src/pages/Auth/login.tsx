@@ -1,7 +1,25 @@
+import { useState } from "react";
 import { LogIn, Eye } from "lucide-react";
 import Navbar from "../../components/Navbar";
+import login from "../../apis/login";
 
 const LoginPage = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleLogin = async () => {
+    try {
+      setError("");
+      const response = await login({ email, password });
+      console.log("로그인 성공:", response);
+      alert("로그인 성공했습니다!"); // 로그인 요청
+      window.location.replace("/main"); // 🔁 여기서 페이지 이동!
+    } catch (err) {
+      setError("오류가 발생했습니다.");
+    } //나중에 response status에 따라 에러 메시지 다르게 처리하기
+  };
+
   return (
     <div
       className="fixed left-0 top-0 w-screen h-screen flex items-center justify-center bg-white z-50"
@@ -21,7 +39,7 @@ const LoginPage = () => {
           </p>
         </div>
 
-        <form className="space-y-5">
+        <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
           <div>
             <label htmlFor="email" className="block text-sm font-semibold text-gray-800 mb-1">
               이메일
@@ -30,6 +48,8 @@ const LoginPage = () => {
               type="email"
               id="email"
               name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full h-11 rounded-lg border border-gray-200 px-3 text-base placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-green-200"
               placeholder="이메일 주소를 입력하세요"
               autoComplete="off"
@@ -45,6 +65,8 @@ const LoginPage = () => {
                 type="password"
                 id="password"
                 name="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="w-full h-11 rounded-lg border border-gray-200 px-3 pr-10 text-base placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-green-200"
                 placeholder="비밀번호를 입력하세요"
                 autoComplete="off"
@@ -77,8 +99,11 @@ const LoginPage = () => {
             </a>
           </div>
 
+          {error && <p className="text-sm text-red-500 text-center">{error}</p>}
+
           <button
             type="button"
+            onClick={handleLogin}
             className="w-full h-11 rounded-lg font-bold text-white bg-green-500 hover:bg-green-600 transition-colors text-base mt-1 text-center"
           >
             로그인
