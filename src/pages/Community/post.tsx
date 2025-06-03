@@ -11,7 +11,7 @@ import {
   BookmarkPlus,
 } from "lucide-react";
 import Navbar from "../../components/Navbar";
-import CommentSection from "../../components/CommentSection";
+import CommentSection from "./components/CommentSection";
 
 interface PostImage {
   id: number;
@@ -86,7 +86,7 @@ export default function PostDetailPage() {
       <div className="min-h-screen bg-white">
         <Navbar />
         <div className="container mx-auto px-4 py-8 flex justify-center items-center min-h-[60vh]">
-          <div className="inline-block h-12 w-12 animate-spin rounded-full border-4 border-solid border-green-500 border-r-transparent"></div>
+          <div className="inline-block h-12 w-12 animate-spin rounded-full border-4 border-solid border-gray-300 border-r-transparent"></div>
         </div>
       </div>
     );
@@ -194,7 +194,7 @@ export default function PostDetailPage() {
                     key={index}
                     onClick={() => setCurrentImageIndex(index)}
                     className={`h-2 w-2 rounded-full ${
-                      index === currentImageIndex ? "bg-green-500" : "bg-gray-300"
+                      index === currentImageIndex ? "bg-[#ff651b]" : "bg-gray-300"
                     }`}
                     aria-label={`이미지 ${index + 1}로 이동`}
                   />
@@ -204,7 +204,7 @@ export default function PostDetailPage() {
           </div>
 
           {/* 작성자 정보 및 상호작용 버튼 */}
-          <div className="flex justify-between items-center mb-6 pb-4 border-b border-gray-200">
+          <div className="flex justify-between items-center mb-6 pb-4 border-b border-[#ff651b]">
             <div className="flex items-center">
               <div className="w-10 h-10 rounded-full bg-gray-200 overflow-hidden relative flex items-center justify-center">
                 <img
@@ -237,8 +237,8 @@ export default function PostDetailPage() {
               <button
                 onClick={toggleBookmark}
                 className={`flex items-center ${
-                  isBookmarked ? "text-green-500" : "text-gray-500"
-                } hover:text-green-500 transition-colors`}
+                  isBookmarked ? "text-[#ff651b]" : "text-gray-500"
+                } hover:text-[#ff651b] transition-colors`}
               >
                 <BookmarkPlus className={`h-5 w-5 ${isBookmarked ? "fill-current" : ""}`} />
               </button>

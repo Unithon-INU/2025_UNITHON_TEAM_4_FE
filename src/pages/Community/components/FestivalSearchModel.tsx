@@ -52,10 +52,10 @@ export default function FestivalSearchModal({ onClose }: FestivalSearchModalProp
           <div className="flex items-center gap-2">
             {/* 언어 선택 드롭다운 (기본 select) */}
             <div className="flex items-center gap-1">
-              <Globe className="h-5 w-5 text-gray-700" />
+              <Globe className="h-5 w-5 text-[#ff651b]" />
               <select
                 value={modalLanguage}
-                className="border border-gray-300 rounded-md px-2 py-1 text-gray-700 focus:outline-none focus:ring-green-500 focus:border-green-500"
+                className="border border-gray-300 rounded-md px-2 py-1 text-gray-700 focus:outline-none focus:ring-gray-300 focus:border-gray-300 "
               >
                 {languages.map((lang) => (
                   <option key={lang.code} value={lang.code}>
@@ -75,7 +75,7 @@ export default function FestivalSearchModal({ onClose }: FestivalSearchModalProp
             {/* 지역 선택 */}
             <select
               value={selectedRegion}
-              className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-green-500 focus:border-green-500 md:w-1/3"
+              className="border border-gray-300 rounded-md p-2  md:w-1/3 focus:outline-none focus:ring-gray-300 focus:border-gray-300"
             >
               {regions.map((region) => (
                 <option key={region.code} value={region.code}>
@@ -90,7 +90,7 @@ export default function FestivalSearchModal({ onClose }: FestivalSearchModalProp
                 type="text"
                 placeholder={uiText.searchPlaceholder}
                 value={searchTerm}
-                className="w-full border border-gray-300 rounded-md p-2 pl-10 focus:outline-none focus:ring-green-500 focus:border-green-500"
+                className="w-full border border-gray-300 rounded-md p-2 pl-10 focus:outline-none focus:ring-gray-300 focus:border-gray-300"
                 readOnly
               />
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -101,7 +101,7 @@ export default function FestivalSearchModal({ onClose }: FestivalSearchModalProp
             {/* 검색 버튼 */}
             <button
               type="button"
-              className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition-colors"
+              className="bg-[#ff651b] text-white px-4 py-2 rounded-md hover:bg-[#ff651b] transition-colors"
             >
               {uiText.searchButton}
             </button>

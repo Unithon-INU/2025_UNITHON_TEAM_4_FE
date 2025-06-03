@@ -137,7 +137,7 @@ export default function CommentSection({ postId }: CommentSectionProps) {
   };
 
   return (
-    <div className="border-t border-gray-200 pt-6">
+    <div className="border-t border-[#ff651b] pt-6">
       <h3 className="text-xl font-bold mb-6">댓글 {comments.length}개</h3>
       {loading ? (
         <div className="flex justify-center py-8">
@@ -177,7 +177,7 @@ export default function CommentSection({ postId }: CommentSectionProps) {
                         <p className="mb-1">{translatedComments[comment.id]}</p>
                         <button
                           onClick={() => resetTranslation(comment.id)}
-                          className="text-xs text-green-600 hover:text-green-700"
+                          className="text-xs text-gray-800 hover:text-gray-800"
                         >
                           원문 보기
                         </button>
@@ -188,7 +188,7 @@ export default function CommentSection({ postId }: CommentSectionProps) {
                         {comment.language !== currentLanguage && comment.translations && (
                           <button
                             onClick={() => handleTranslate(comment.id, currentLanguage)}
-                            className="text-xs text-green-600 hover:text-green-700"
+                            className="text-xs text-gray-800 hover:text-gray-800"
                           >
                             번역 보기
                           </button>
@@ -207,7 +207,7 @@ export default function CommentSection({ postId }: CommentSectionProps) {
       <form onSubmit={handleSubmitComment} className="mt-4">
         <div className="flex items-start space-x-4">
           <div className="flex-shrink-0 pt-1">
-            <div className="w-8 h-8 rounded-full bg-gray-200 overflow-hidden flex items-center justify-center">
+            <div className="w-8 h-8 rounded-full bg-[#fffefb] shadow-lg border border-gray-200overflow-hidden flex items-center justify-center">
               <img
                 src="/placeholder.svg?height=32&width=32"
                 alt="Current user"
@@ -220,14 +220,14 @@ export default function CommentSection({ postId }: CommentSectionProps) {
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
               placeholder="댓글을 작성해주세요..."
-              className="w-full border border-gray-300 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent min-h-[48px] pr-12 resize-none text-[15px]"
+              className="w-full bg-[#fffefb] shadow-lg border border-gray-200 rounded-lg py-2 px-3 focus:outline-none "
               rows={1}
               maxLength={500}
             />
             <button
               type="submit"
               disabled={!newComment.trim()}
-              className="absolute right-3 bottom-2 text-green-500 hover:text-green-600 disabled:text-gray-300 disabled:cursor-not-allowed"
+              className="absolute right-3 bottom-2 text-[#ffb37b] hover:text-[#ff651b] disabled:text-[#ffb37b] disabled:cursor-not-allowed"
             >
               <Send className="h-10 w-8" />
             </button>

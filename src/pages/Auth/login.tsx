@@ -30,7 +30,7 @@ const LoginPage = () => {
               type="email"
               id="email"
               name="email"
-              className="w-full h-11 rounded-lg border border-gray-200 px-3 text-base placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-green-200"
+              className="w-full h-11 rounded-lg border border-gray-200 px-3 text-base placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#ff651b]"
               placeholder="이메일 주소를 입력하세요"
               autoComplete="off"
             />
@@ -45,7 +45,7 @@ const LoginPage = () => {
                 type="password"
                 id="password"
                 name="password"
-                className="w-full h-11 rounded-lg border border-gray-200 px-3 pr-10 text-base placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-green-200"
+                className="w-full h-11 rounded-lg border border-gray-200 px-3 pr-10 text-base placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#ff651b]"
                 placeholder="비밀번호를 입력하세요"
                 autoComplete="off"
               />
@@ -72,14 +72,14 @@ const LoginPage = () => {
                 로그인 상태 유지
               </label>
             </div>
-            <a href="#" className="text-green-500 hover:underline font-medium">
+            <a href="#" className="text-[#ff651b] hover:underline font-medium">
               비밀번호를 잊으셨나요?
             </a>
           </div>
 
           <button
             type="button"
-            className="w-full h-11 rounded-lg font-bold text-white bg-green-500 hover:bg-green-600 transition-colors text-base mt-1 text-center"
+            className="w-full h-11 rounded-lg font-bold text-white bg-[#ff651b] hover:bg-[#ff651b] transition-colors text-base mt-1 text-center"
           >
             로그인
           </button>
@@ -88,7 +88,7 @@ const LoginPage = () => {
         <div className="mt-6 text-center">
           <p className="text-sm text-gray-500">
             아직 계정이 없으신가요?{" "}
-            <span className="text-green-500 hover:underline font-medium cursor-pointer">
+            <span className="text-[#ff651b] hover:underline font-medium cursor-pointer">
               회원가입
             </span>
           </p>

@@ -19,7 +19,7 @@ export default function LanguageFilter({ selectedLanguage }: LanguageFilterProps
   ];
 
   return (
-    <div className="flex items-center gap-2 border border-gray-300 rounded-full px-4 py-2 bg-white">
+    <div className="flex items-center gap-2bg-[#fffefb] rounded-full shadow-lg border border-gray-200 px-4 py-2 bg-white">
       <Filter className="h-5 w-5 text-gray-500" />
       <select
         value={selectedLanguage}

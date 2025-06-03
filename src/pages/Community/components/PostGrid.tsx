@@ -105,13 +105,13 @@ export default function PostGrid() {
     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-6 w-full">
       {posts.map((post) => (
         <Link key={post.id} to={`/community/${post.id}`} className="group block">
-          <div className="overflow-hidden rounded-lg bg-gray-100 aspect-square relative shadow-sm hover:shadow-md transition-all duration-300 border border-green-100">
+          <div className="overflow-hidden rounded-lg bg-gray-100 aspect-square relative shadow-sm hover:shadow-md transition-all duration-300 ">
             <img
               src={post.image}
               alt={post.title}
               className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
             />
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-green-900/70 to-transparent p-3 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#ffd6b0]/90 to-transparent p-3 text-gray-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
               <p className="text-sm font-medium truncate">{post.title}</p>
               <div className="flex items-center justify-between mt-1">
                 <span className="text-xs opacity-80">@{post.author}</span>
@@ -119,7 +119,9 @@ export default function PostGrid() {
               </div>
             </div>
           </div>
-          <h3 className="mt-2 text-sm font-medium text-gray-800 truncate">{post.title}</h3>
+          <h3 className="mt-2 text-sm font-medium text-gray-800 truncate text-center">
+            {post.title}
+          </h3>
         </Link>
       ))}
     </div>

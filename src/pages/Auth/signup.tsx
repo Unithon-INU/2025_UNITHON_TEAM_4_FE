@@ -18,8 +18,8 @@ const SignupPage = () => {
         <div className="max-w-md w-full bg-white border border-gray-200 rounded-2xl shadow p-8">
           <div className="text-center mb-8">
             <div className="flex justify-center mb-4">
-              <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center">
-                <UserPlus className="h-8 w-8 text-green-600" />
+              <div className="w-16 h-16 bg-[#ff651b]/10 rounded-full flex items-center justify-center">
+                <UserPlus className="h-8 w-8 text-[#ff651b]" />
               </div>
             </div>
             <h1 className="text-2xl font-bold text-gray-900">회원가입</h1>
@@ -114,15 +114,15 @@ const SignupPage = () => {
                   id="agreeTerms"
                   name="agreeTerms"
                   type="checkbox"
-                  className="h-4 w-4 text-green-500 border-gray-300 rounded"
+                  className="h-4 w-4 text-[#ff651b] border-gray-300 rounded"
                 />
                 <label htmlFor="agreeTerms" className="ml-2 text-sm text-gray-700">
                   <span className="text-red-500 mr-1">*</span>
-                  <a href="#" className="text-green-500 hover:text-green-600 underline">
+                  <a href="#" className="text-[#ff651b] hover:text-[#ff651b] underline">
                     이용약관
                   </a>
                   과{" "}
-                  <a href="#" className="text-green-500 hover:text-green-600 underline">
+                  <a href="#" className="text-[#ff651b] hover:text-[#ff651b] underline">
                     개인정보 처리방침
                   </a>
                   에 동의합니다
@@ -132,7 +132,7 @@ const SignupPage = () => {
 
             <button
               type="button"
-              className="w-full h-11 rounded-lg font-bold text-white bg-green-500 hover:bg-green-600 transition-colors text-base mt-2 text-center"
+              className="w-full h-11 rounded-lg font-bold text-white bg-[#ff651b] hover:bg-[#ff651b] transition-colors text-base mt-2 text-center"
             >
               회원가입
             </button>
@@ -143,7 +143,7 @@ const SignupPage = () => {
               이미 계정이 있으신가요?{" "}
               <a
                 href="/login"
-                className="text-green-500 hover:text-green-600 font-medium underline"
+                className="text-[#ff651b] hover:text-[#ff651b] font-medium underline"
               >
                 로그인
               </a>

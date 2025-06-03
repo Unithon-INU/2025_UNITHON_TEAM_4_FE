@@ -9,6 +9,8 @@ import LoginPage from "../pages/Auth/login";
 import SignupPage from "../pages/Auth/signup";
 import MyPage from "../pages/Mypage";
 import PostPage from "../pages/Community/post";
+import CreatePostPage from "../pages/Community/create";
+
 const routes: RouteObject[] = [
   { path: RoutePath.Main, element: <MainPage /> },
   // { path: RoutePath.Onboarding, element: <OnboardingPage /> },
@@ -19,6 +21,7 @@ const routes: RouteObject[] = [
   { path: RoutePath.Signup, element: <SignupPage /> },
   { path: RoutePath.MyPage, element: <MyPage /> },
   { path: RoutePath.PostPage, element: <PostPage /> },
+  { path: RoutePath.CreatePostPage, element: <CreatePostPage /> },
 ];
 
 const Router = createBrowserRouter(routes);

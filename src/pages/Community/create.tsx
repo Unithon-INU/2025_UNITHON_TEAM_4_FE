@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { X, Search, Check } from "lucide-react";
 import Navbar from "../../components/Navbar";
-import FestivalSearchModal from "../../components/FestivalSearchModal";
-import LanguageSelector from "../../components/LanguageSelector";
+import FestivalSearchModal from "./components/FestivalSearchModel";
+import LanguageSelector from "./components/LanguageSelector";
 
 export default function CreatePostPage() {
   // 예시 데이터 (상태 관리 없음)
@@ -49,7 +49,7 @@ export default function CreatePostPage() {
                 축제 이름 <span className="text-red-500">*</span>
               </label>
               <div
-                className="flex justify-between items-center border border-gray-300 rounded-md p-3 cursor-pointer hover:border-green-500"
+                className="flex justify-between items-center border border-gray-300 rounded-md p-3 cursor-pointer "
                 onClick={() => setIsModalOpen(true)}
               >
                 <span className="text-gray-900">{formData.festivalName}</span>
@@ -70,7 +70,7 @@ export default function CreatePostPage() {
               <label className="block text-sm font-medium text-gray-700">
                 이미지 <span className="text-red-500">*</span>
               </label>
-              <div className="border-2 border-dashed border-gray-300 rounded-md p-6 text-center hover:border-green-500 transition-colors">
+              <div className="border-2 border-dashed border-gray-300 rounded-md p-6 text-center hover:border-[#ff651b] transition-colors">
                 <div className="relative">
                   <div className="relative h-64 w-full flex items-center justify-center">
                     <img
@@ -101,7 +101,7 @@ export default function CreatePostPage() {
               <textarea
                 rows={6}
                 placeholder="축제에 대한 경험과 느낌을 자유롭게 작성해주세요..."
-                className="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-green-500 focus:border-green-500"
+                className="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-[#ff651b] focus:border-[#ff651b]"
                 value={formData.content}
                 readOnly
               />
@@ -117,7 +117,7 @@ export default function CreatePostPage() {
               </button>
               <button
                 type="button"
-                className="px-6 py-2 rounded-md text-white flex items-center gap-2 bg-green-500"
+                className="px-6 py-2 rounded-md text-white flex items-center gap-2 bg-[#ff651b]"
               >
                 <Check className="h-5 w-5" />
                 게시하기

@@ -112,8 +112,8 @@ export default function MyPage() {
                       </button>
                     </div>
                     {/* 가입일 */}
-                    <div className="pt-4 border-t">
-                      <p className="text-xs text-gray-400">가입일: {userProfile.joinDate}</p>
+                    <div className="pt-4 border-t border-[#ff651b]">
+                      <p className="text-xs text-gray-300">가입일: {userProfile.joinDate}</p>
                     </div>
                   </div>
                 </div>
@@ -126,7 +126,7 @@ export default function MyPage() {
                   <div className="flex items-center gap-4">
                     <div className="w-6 h-6 grid grid-cols-3 gap-0.5 ">
                       {[...Array(9)].map((_, i) => (
-                        <div key={i} className="w-1.5 h-1.5 bg-gray-400 rounded-sm" />
+                        <div key={i} className="w-1.5 h-1.5 bg-[#ff651b] rounded-sm" />
                       ))}
                     </div>
                     <span className="font-medium">내 게시물</span>
@@ -139,7 +139,7 @@ export default function MyPage() {
                       <div
                         key={post.id + "-" + idx}
                         className="bg-gray-100 rounded-lg shadow-sm cursor-pointer hover:shadow-md transition-shadow relative mb-6"
-                        style={{ minHeight: 150, maxHeight: 300}}
+                        style={{ minHeight: 150, maxHeight: 300 }}
                       >
                         {/* 이미지 영역 */}
                         <div className="aspect-[5/3] rounded-lg bg-gray-200 flex items-center justify-center">
@@ -185,7 +185,7 @@ export default function MyPage() {
                           )}
                         </div>
                         {/* 하단 정보 오버레이 */}
-                        <div className="relative bottom-0 left-0 right-0 bg-black/60 text-white p-2">
+                        <div className="relative bottom-0 left-0 right-0 bg-gray-300 text-black p-2">
                           <div className="flex items-center justify-between text-xs">
                             <div className="flex items-center gap-1">
                               <MessageCircle className="w-3 h-3" />
@@ -194,7 +194,7 @@ export default function MyPage() {
                             <span>{post.createdAt}</span>
                           </div>
                         </div>
-                        <div className="p-3 ">
+                        <div className="p-3 bg-gradient-to-t from-[#ffd6b0]/90 to-transparent">
                           <h3 className="font-medium text-sm mb-1 truncate">{post.title}</h3>
                           <div className="flex items-center justify-between text-xs text-gray-400">
                             <span>{post.category}</span>
