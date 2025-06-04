@@ -16,7 +16,7 @@ import { Calendar } from "../components/Calendar";
 import { addMonths, format } from "date-fns";
 import { ko } from "date-fns/locale";
 import { motion } from "framer-motion";
-import { pre } from 'framer-motion/client';
+// import { pre } from 'framer-motion/client';
 
 interface PeriodSelectorBarProps {
   isCompact: boolean;
@@ -54,7 +54,7 @@ export function PeriodSelectorBar({
   onEndDateChange,
   onRegionChange,
   onExpandClick,
-  onCollapseClick,
+  // onCollapseClick,
   onSearch,
 }: PeriodSelectorBarProps) {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
@@ -178,9 +178,6 @@ export function PeriodSelectorBar({
   </PopoverTrigger>
                         <PopoverContent
                           onClick={(e) => e.stopPropagation()}
-                          side="bottom"
-                          sideOffset={8}
-                          forceMount
                           className="absolute left-[43%]  transform -translate-x-1/2 w-[720px]  bg-[#fffefb] rounded-xl shadow-lg z-50"
                         >
                           <div className="flex">

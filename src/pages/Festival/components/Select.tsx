@@ -7,17 +7,32 @@ const selectTriggerVariants = cva(
   "flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm   disabled:cursor-not-allowed disabled:opacity-50"
 );
 
-// Context to manage open state
-const SelectContext = createContext<{
+interface SelectContextType {
   open: boolean;
-  setOpen: (value: boolean) => void;
-} | null>(null);
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  value: string;
+  onValueChange: (value: string) => void;
+}
 
-export const Select = ({ children }: { children: React.ReactNode }) => {
+const SelectContext = createContext<SelectContextType | null>(null);
+
+interface SelectProps {
+  value: string;
+  onValueChange: (value: string) => void;
+  className?: string;
+  children: React.ReactNode;
+}
+
+export const Select = ({
+  value,
+  onValueChange,
+  className = "",
+  children,
+}: SelectProps) => {
   const [open, setOpen] = useState(false);
   return (
-    <SelectContext.Provider value={{ open, setOpen }}>
-      <div className="relative w-full">{children}</div>
+    <SelectContext.Provider value={{ open, setOpen, value, onValueChange }}>
+      <div className={`relative w-full ${className}`}>{children}</div>
     </SelectContext.Provider>
   );
 };
@@ -46,7 +61,14 @@ export const SelectTrigger = React.forwardRef<
 SelectTrigger.displayName = "SelectTrigger";
 
 export const SelectValue = ({ placeholder }: { placeholder?: string }) => {
-  return <span className="text-sm text-muted-foreground">{placeholder}</span>;
+  const context = useContext(SelectContext);
+  if (!context) throw new Error("SelectValue must be used within Select");
+  const { value } = context;
+  return (
+    <span className="text-sm text-muted-foreground">
+      {value ? value : placeholder}
+    </span>
+  );
 };
 
 export const SelectContent = ({ children }: { children: React.ReactNode }) => {
@@ -66,20 +88,18 @@ export const SelectContent = ({ children }: { children: React.ReactNode }) => {
 export const SelectItem = ({
   children,
   value,
-  onClick,
 }: {
   children: React.ReactNode;
   value: string;
-  onClick?: () => void;
 }) => {
   const context = useContext(SelectContext);
   if (!context) throw new Error("SelectItem must be used within Select");
-  const { setOpen } = context;
+  const { setOpen, onValueChange } = context;
 
   return (
     <div
       onClick={() => {
-        onClick?.();
+        onValueChange(value);
         setOpen(false);
       }}
       className="cursor-pointer rounded-sm px-2 py-1.5 hover:bg-accent hover:text-accent-foreground"

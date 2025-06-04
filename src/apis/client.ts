@@ -1,7 +1,7 @@
 import axios, { InternalAxiosRequestConfig } from "axios";
 
 const client = axios.create({
-  baseURL: import.meta.env.VITE_UNITHON_SEVER_URL,
+  baseURL: import.meta.env.VITE_UNITHON_SERVER_URL,
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",

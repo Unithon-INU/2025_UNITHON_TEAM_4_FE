@@ -1,5 +1,4 @@
 // src/components/Calendar.tsx
-import { m } from 'framer-motion';
 import styles from "./Calendar.module.css";
 import {
   format,
@@ -15,12 +14,14 @@ import {
 
 interface CalendarProps {
   month: Date;
+  onMonthChange: (date: Date) => void; // 이 줄을 추가!
   selectedStart: Date | null;
   selectedEnd: Date | null;
-  hoveredDate: Date | null;
-  setHoveredDate: (date: Date | null) => void;
   setSelectedStart: (date: Date | null) => void;
   setSelectedEnd: (date: Date | null) => void;
+  hoveredDate: Date | null;
+  setHoveredDate: (date: Date | null) => void;
+  onDateRangeChange: (range: { start: Date | null; end: Date | null }) => void;
 }
 
 export function Calendar({

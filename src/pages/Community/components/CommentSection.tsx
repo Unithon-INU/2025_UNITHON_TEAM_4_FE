@@ -21,7 +21,7 @@ export default function CommentSection({ postId }: CommentSectionProps) {
   const [newComment, setNewComment] = useState("");
   const [loading, setLoading] = useState(true);
   const [translatedComments, setTranslatedComments] = useState<{ [key: number]: string }>({});
-  const [currentLanguage, setCurrentLanguage] = useState("ko"); // 실제로는 네브바에서 선택한 언어를 가져와야 함
+  const [currentLanguage] = useState("ko"); // 실제로는 네브바에서 선택한 언어를 가져와야 함
 
   useEffect(() => {
     // 실제 구현에서는 API 호출로 댓글을 가져올 것입니다
@@ -141,7 +141,7 @@ export default function CommentSection({ postId }: CommentSectionProps) {
       <h3 className="text-xl font-bold mb-6">댓글 {comments.length}개</h3>
       {loading ? (
         <div className="flex justify-center py-8">
-          <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-green-500 border-r-transparent"></div>
+          <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-[#ff651b] border-r-transparent"></div>
         </div>
       ) : (
         <div className="space-y-7 mb-8">

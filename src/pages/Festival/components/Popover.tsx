@@ -59,9 +59,11 @@ export function PopoverTrigger({
 export function PopoverContent({
   children,
   className = "",
+  onClick,
 }: {
   children: React.ReactNode;
   className?: string;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
 }) {
   const { isOpen, setIsOpen } = usePopover();
   const ref = useRef<HTMLDivElement>(null);
@@ -82,6 +84,7 @@ export function PopoverContent({
     <div
       ref={ref}
       className={`absolute right-0 top-full z-20 mt-2 w-80 rounded-md border bg-white p-4 shadow-lg ${className}`}
+      onClick={onClick}
     >
       {children}
     </div>

@@ -103,11 +103,11 @@ export default function MyPage() {
                     {/* 버튼들 */}
                     <div className="space-y-3">
                       <button className="w-full border border-gray-300 rounded bg-white px-4 py-2 flex items-center justify-center hover:bg-gray-50">
-                        <Edit className="w-4 h-4 mr-2" />
+                        <Edit className="w-4 h-4 mr-2 text-[#ff651b]" />
                         프로필 수정
                       </button>
                       <button className="w-full border border-gray-300 rounded bg-white px-4 py-2 flex items-center justify-center hover:bg-gray-50">
-                        <Settings2Icon className="w-4 h-4 mr-2" />
+                        <Settings2Icon className="w-4 h-4 mr-2 text-[#ff651b]" />
                         계정 설정
                       </button>
                     </div>
@@ -138,15 +138,17 @@ export default function MyPage() {
                     {posts.map((post, idx) => (
                       <div
                         key={post.id + "-" + idx}
-                        className="bg-gray-100 rounded-lg shadow-sm cursor-pointer hover:shadow-md transition-shadow relative mb-6"
-                        style={{ minHeight: 150, maxHeight: 300 }}
+                        className="overflow-hidden rounded-lg bg-gray-100 aspect-square relative shadow-sm hover:shadow-md transition-all duration-300 mb-6 group cursor-pointer"
                       >
                         {/* 이미지 영역 */}
-                        <div className="aspect-[5/3] rounded-lg bg-gray-200 flex items-center justify-center">
-                          <div className="w-8 h-8 bg-gray-300 rounded" />
-                        </div>
+                        <img
+                          src={post.image}
+                          alt={post.title}
+                          className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
+                        />
+
                         {/* 더보기 메뉴 */}
-                        <div className="absolute top-2 right-2">
+                        <div className="absolute top-2 right-2 z-20">
                           <button
                             className="w-6 h-6 flex items-center justify-center bg-white rounded-full shadow hover:bg-gray-100"
                             onClick={(e) => {
@@ -184,21 +186,20 @@ export default function MyPage() {
                             </div>
                           )}
                         </div>
+
                         {/* 하단 정보 오버레이 */}
-                        <div className="relative bottom-0 left-0 right-0 bg-gray-300 text-black p-2">
-                          <div className="flex items-center justify-between text-xs">
+                        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-3 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
+                          <div className="flex items-center justify-between text-xs mb-1 opacity-80">
                             <div className="flex items-center gap-1">
                               <MessageCircle className="w-3 h-3" />
                               <span>{post.comments}</span>
                             </div>
                             <span>{post.createdAt}</span>
                           </div>
-                        </div>
-                        <div className="p-3 bg-gradient-to-t from-[#ffd6b0]/90 to-transparent">
-                          <h3 className="font-medium text-sm mb-1 truncate">{post.title}</h3>
-                          <div className="flex items-center justify-between text-xs text-gray-400">
+                          <p className="text-sm font-medium truncate">{post.title}</p>
+                          <div className="flex items-center justify-between mt-1 text-xs opacity-80">
                             <span>{post.category}</span>
-                            <span>{post.author}</span>
+                            <span>@{post.author}</span>
                           </div>
                         </div>
                       </div>

@@ -10,7 +10,6 @@ import SignupPage from "../pages/Auth/signup";
 import MyPage from "../pages/Mypage";
 import PostPage from "../pages/Community/post";
 import CreatePostPage from "../pages/Community/create";
-
 const routes: RouteObject[] = [
   { path: RoutePath.Main, element: <MainPage /> },
   // { path: RoutePath.Onboarding, element: <OnboardingPage /> },

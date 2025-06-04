@@ -1,13 +1,42 @@
+import { useState } from "react";
 import { UserPlus, Eye } from "lucide-react";
 import Navbar from "../../components/Navbar";
+import signup from "../../apis/signup";
 
-const NAVBAR_HEIGHT = 90; // 네비게이션 바 높이(px)
+const NAVBAR_HEIGHT = 90;
 
 const SignupPage = () => {
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleSignup = async () => {
+    if (!email || !name || !password || !confirmPassword) {
+      setError("모든 필수 항목을 입력해주세요.");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setError("비밀번호가 일치하지 않습니다.");
+      return;
+    }
+
+    try {
+      setError("");
+      await signup({ name, email, password });
+      alert("회원가입이 완료되었습니다!");
+      window.location.replace("/login");
+    } catch (err) {
+      setError("회원가입 중 문제가 발생했습니다.");
+      console.error("회원가입 실패:", err);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white overflow-hidden">
       <Navbar />
-
       <main
         className="flex justify-center items-center"
         style={{
@@ -30,17 +59,17 @@ const SignupPage = () => {
             </p>
           </div>
 
-          {/* 폼 영역 */}
-          <form className="space-y-5">
+          <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
             <div className="space-y-2">
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                이메일 (아이디로 사용) <span className="text-red-500">*</span>
+                이메일 <span className="text-red-500">*</span>
               </label>
               <input
                 type="email"
                 id="email"
-                name="email"
-                className="w-full h-11 rounded-lg border border-gray-200 px-3 text-base placeholder:text-gray-400 focus:outline-none"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full h-11 rounded-lg border border-gray-200 px-3"
                 placeholder="이메일 주소를 입력하세요"
                 autoComplete="off"
               />
@@ -53,9 +82,10 @@ const SignupPage = () => {
               <input
                 type="text"
                 id="nickname"
-                name="nickname"
-                className="w-full h-11 rounded-lg border border-gray-200 px-3 text-base placeholder:text-gray-400 focus:outline-none"
-                placeholder="커뮤니티에서 사용할 닉네임을 입력하세요"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full h-11 rounded-lg border border-gray-200 px-3"
+                placeholder="닉네임을 입력하세요"
                 autoComplete="off"
               />
             </div>
@@ -68,9 +98,10 @@ const SignupPage = () => {
                 <input
                   type="password"
                   id="password"
-                  name="password"
-                  className="w-full h-11 rounded-lg border border-gray-200 px-3 pr-10 text-base placeholder:text-gray-400 focus:outline-none"
-                  placeholder="8자 이상의 비밀번호를 입력하세요"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full h-11 rounded-lg border border-gray-200 px-3 pr-10"
+                  placeholder="비밀번호를 입력하세요"
                   autoComplete="off"
                 />
                 <button
@@ -92,8 +123,9 @@ const SignupPage = () => {
                 <input
                   type="password"
                   id="confirmPassword"
-                  name="confirmPassword"
-                  className="w-full h-11 rounded-lg border border-gray-200 px-3 pr-10 text-base placeholder:text-gray-400 focus:outline-none"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  className="w-full h-11 rounded-lg border border-gray-200 px-3 pr-10"
                   placeholder="비밀번호를 다시 입력하세요"
                   autoComplete="off"
                 />
@@ -108,30 +140,11 @@ const SignupPage = () => {
               </div>
             </div>
 
-            <div>
-              <div className="flex items-start">
-                <input
-                  id="agreeTerms"
-                  name="agreeTerms"
-                  type="checkbox"
-                  className="h-4 w-4 text-[#ff651b] border-gray-300 rounded"
-                />
-                <label htmlFor="agreeTerms" className="ml-2 text-sm text-gray-700">
-                  <span className="text-red-500 mr-1">*</span>
-                  <a href="#" className="text-[#ff651b] hover:text-[#ff651b] underline">
-                    이용약관
-                  </a>
-                  과{" "}
-                  <a href="#" className="text-[#ff651b] hover:text-[#ff651b] underline">
-                    개인정보 처리방침
-                  </a>
-                  에 동의합니다
-                </label>
-              </div>
-            </div>
+            {error && <p className="text-sm text-red-500 text-center">{error}</p>}
 
             <button
               type="button"
+              onClick={handleSignup}
               className="w-full h-11 rounded-lg font-bold text-white bg-[#ff651b] hover:bg-[#ff651b] transition-colors text-base mt-2 text-center"
             >
               회원가입

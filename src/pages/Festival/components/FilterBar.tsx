@@ -46,7 +46,7 @@ export function FilterBar({
       <SearchBar onSearch={onSearch} defaultValue={searchQuery} />
 
       <Popover>
-        <PopoverTrigger asChild>
+        <PopoverTrigger >
           <Button variant="outline" className="gap-2">
             <Filter className="h-4 w-4" />
             필터

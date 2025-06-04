@@ -10,6 +10,8 @@ export const sampleFestivals = [
     keywords: ["가을", "전통", "야경", "경상남도"],
     description: "천년의 역사를 품은 진주성에서 펼쳐지는 화려한 빛의 향연",
     featured: true,
+    startDate: "2024-10-01", 
+    endDate: "2024-10-31", 
   },
   {
     id: "2",
@@ -20,6 +22,8 @@ export const sampleFestivals = [
     keywords: ["여름", "해변", "체험", "충청남도"],
     description: "대천해수욕장에서 즐기는 세계적인 머드 체험 축제",
     featured: true,
+    startDate: "2024-07-15", 
+    endDate: "2024-07-24", 
   },
   {
     id: "3",
@@ -29,6 +33,8 @@ export const sampleFestivals = [
     image: "https://placehold.co/500x500/fdf2f8/be185d?text=벚꽃축제",
     keywords: ["봄", "벚꽃", "자연", "경상남도"],
     description: "아름다운 벚꽃 터널과 함께하는 봄의 향연",
+    startDate: "2024-04-01", 
+    endDate: "2024-04-10", 
   },
   {
     id: "4",
@@ -38,6 +44,8 @@ export const sampleFestivals = [
     image: "https://placehold.co/500x500/f0f9ff/0284c7?text=등불축제",
     keywords: ["가을", "등불", "서울", "야경"],
     description: "청계천을 따라 펼쳐지는 아름다운 등불 전시",
+    startDate: "2024-11-01", 
+    endDate: "2024-11-17", 
   },
   {
     id: "5",
@@ -47,6 +55,8 @@ export const sampleFestivals = [
     image: "https://placehold.co/500x500/fdf4ff/a21caf?text=탈춤축제",
     keywords: ["가을", "전통", "공연", "경상북도"],
     description: "한국의 전통 탈춤을 현대적으로 재해석한 문화 축제",
+    startDate: "2024-09-27", 
+    endDate: "2024-10-06", 
   },
   {
     id: "6",
@@ -56,6 +66,8 @@ export const sampleFestivals = [
     image: "https://placehold.co/500x500/f0f9ff/0369a1?text=산천어축제",
     keywords: ["겨울", "얼음낚시", "체험", "강원도"],
     description: "화천의 겨울을 뜨겁게 달구는 얼음 위의 축제",
+    startDate: "2024-01-06",
+    endDate: "2024-01-28",
   },
   {
     id: "7",
@@ -66,6 +78,8 @@ export const sampleFestivals = [
     keywords: ["가을", "불꽃", "야경", "부산"],
     description: "광안대교를 배경으로 펼쳐지는 화려한 불꽃쇼",
     featured: true,
+    startDate: "2024-10-25",
+    endDate: "2024-10-26",
   },
   {
     id: "8",
@@ -75,6 +89,8 @@ export const sampleFestivals = [
     image: "https://placehold.co/500x500/f8fafc/475569?text=한지축제",
     keywords: ["봄", "전통", "공예", "전라북도"],
     description: "천년 전통 한지의 아름다움을 느낄 수 있는 문화 축제",
+    startDate: "2024-05-01",
+    endDate: "2024-05-05",
   },
   {
     id: "9",
@@ -84,6 +100,8 @@ export const sampleFestivals = [
     image: "https://placehold.co/500x500/ecfeff/0891b2?text=청자축제",
     keywords: ["여름", "전통", "공예", "전라남도"],
     description: "고려청자의 고장 강진에서 열리는 전통 도자기 축제",
+    startDate: "2024-07-27",
+    endDate: "2024-08-04",
   },
   {
     id: "10",
@@ -93,6 +111,8 @@ export const sampleFestivals = [
     image: "https://placehold.co/500x500/fef2f2/b91c1c?text=들불축제",
     keywords: ["봄", "불꽃", "전통", "제주도"],
     description: "제주의 옛 목축문화를 재현한 오름 불놓기 축제",
+    startDate: "2024-03-08",
+    endDate: "2024-03-10",
   },
   {
     id: "11",
@@ -102,6 +122,8 @@ export const sampleFestivals = [
     image: "https://placehold.co/500x500/f5f3ff/7e22ce?text=오페라축제",
     keywords: ["가을", "공연", "음악", "대구"],
     description: "세계적인 오페라 작품을 한자리에서 만나볼 수 있는 축제",
+    startDate: "2024-10-11",
+    endDate: "2024-11-03",
   },
   {
     id: "12",
@@ -111,6 +133,8 @@ export const sampleFestivals = [
     image: "https://placehold.co/500x500/ecfeff/0891b2?text=단오제",
     keywords: ["여름", "전통", "유네스코", "강원도"],
     description: "유네스코 인류무형문화유산으로 지정된 천년 전통 축제",
+    startDate: "2024-06-18",
+    endDate: "2024-06-25",
   },
 ];
 
