@@ -1,11 +1,12 @@
 import { RouterProvider } from "react-router-dom";
 import Router from "./routes/router";
+import ReactQuerySetting from "./libraries/reactQuery/ReactQuerySetting";
 import "./index.css";
 function App() {
   return (
-    <div className="min-h-screen bg-white ">
-      <RouterProvider router={Router} />
-    </div>
+    <ReactQuerySetting>
+      <RouterProvider router={Router}  />
+    </ReactQuerySetting>
   );
 }
 

@@ -1,12 +1,9 @@
-// src/pages/Festival/components/FeaturedFestivalSlider.tsx
-import { useState, useEffect, useRef } from "react";
 import { MapPin, Calendar, Star, ChevronLeft, ChevronRight } from "lucide-react";
-import { sampleFestivals } from "../constants";
-type Festival = (typeof sampleFestivals)[number];
-
 import { Button } from "../../../components/ui/button";
 import { Badge } from "../../../components/ui/Badge";
 import { Link } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import type { Festival } from "./FestivalGrid";
 
 interface FeaturedFestivalSliderProps {
   festivals: Festival[];
@@ -20,7 +17,6 @@ export function FeaturedFestivalSlider({ festivals }: FeaturedFestivalSliderProp
 
   useEffect(() => {
     if (!isAutoPlaying || festivals.length <= 1) return;
-
     progressRef.current = window.setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
@@ -30,7 +26,6 @@ export function FeaturedFestivalSlider({ festivals }: FeaturedFestivalSliderProp
         return prev + 2;
       });
     }, 100);
-
     return () => {
       if (progressRef.current) clearInterval(progressRef.current);
     };
@@ -39,7 +34,6 @@ export function FeaturedFestivalSlider({ festivals }: FeaturedFestivalSliderProp
   const goToSlide = (index: number) => {
     setCurrentIndex(index);
     setProgress(0);
-    // setIsAutoPlaying(false); 이거때문에 슬라이드를 강제로 넘기면 자동재생을 중지하게됨
   };
 
   const goToPrevious = () => goToSlide((currentIndex - 1 + festivals.length) % festivals.length);
@@ -63,7 +57,6 @@ export function FeaturedFestivalSlider({ festivals }: FeaturedFestivalSliderProp
           </Button>
         </div>
       </div>
-
       <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-rose-50 to-orange-50">
         <div
           className="flex transition-transform duration-500 ease-in-out"
@@ -77,7 +70,7 @@ export function FeaturedFestivalSlider({ festivals }: FeaturedFestivalSliderProp
                 <div className="relative flex h-80 items-center overflow-hidden px-8 lg:h-96">
                   <div className="absolute inset-0">
                     <img
-                      src={festival.image || "/placeholder.svg"}
+                      src={festival.image2 || festival.image || "/placeholder.svg"}
                       alt={festival.name}
                       className="h-full w-full object-cover"
                       onError={(e) => {
@@ -88,7 +81,6 @@ export function FeaturedFestivalSlider({ festivals }: FeaturedFestivalSliderProp
                     />
                     <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
                   </div>
-
                   <div className="relative z-10 flex h-full w-full items-center">
                     <div className="container flex items-center justify-between">
                       <div className="max-w-2xl space-y-4 text-[#Fffefb]">
@@ -103,11 +95,9 @@ export function FeaturedFestivalSlider({ festivals }: FeaturedFestivalSliderProp
                             {festival.keywords[0]}
                           </Badge>
                         </div>
-
                         <h3 className="text-3xl font-bold leading-tight lg:text-4xl">
                           {festival.name}
                         </h3>
-
                         <div className="flex flex-col space-y-2 text-[#Fffefb]/80">
                           <div className="flex items-center gap-2">
                             <MapPin className="h-4 w-4 text-[#ff651b]" />
@@ -118,11 +108,9 @@ export function FeaturedFestivalSlider({ festivals }: FeaturedFestivalSliderProp
                             <span className="text-sm lg:text-base">{festival.period}</span>
                           </div>
                         </div>
-
-                        <p className="max-w-lg text-sm leading-relaxed text-[#fffefb]/80 lg:text-base">
+                        <p className="max-w-lg text-sm leading-relaxed text-[#fffefb]/80 lg:text-base line-clamp-3 min-h-[4rem]">
                           {festival.description}
                         </p>
-
                         <div className="flex flex-wrap gap-2">
                           {festival.keywords.slice(1, 4).map((keyword) => (
                             <Badge
@@ -134,12 +122,10 @@ export function FeaturedFestivalSlider({ festivals }: FeaturedFestivalSliderProp
                             </Badge>
                           ))}
                         </div>
-
-                        <Button variant="ghost"className="mt-4 bg-[#ff651b]/90 hover:bg-[#ff651b]">
+                        <Button variant="ghost" className="mt-4 bg-[#ff651b]/90 hover:bg-[#ff651b]">
                           자세히 보기
                         </Button>
                       </div>
-
                       <div className="hidden lg:block">
                         <div className="relative h-64 w-80 overflow-hidden rounded-xl shadow-2xl">
                           <img
@@ -162,7 +148,6 @@ export function FeaturedFestivalSlider({ festivals }: FeaturedFestivalSliderProp
             </div>
           ))}
         </div>
-
         {festivals.length > 1 && (
           <div className="absolute bottom-6 left-1/2 -translate-x-1/2">
             <div className="flex items-center gap-1 rounded-full bg-[#fffefb]/30 px-4 py-1 backdrop-blur-sm">
@@ -181,7 +166,6 @@ export function FeaturedFestivalSlider({ festivals }: FeaturedFestivalSliderProp
             </div>
           </div>
         )}
-
         <div className="absolute bottom-0 left-0 h-[3px] w-full bg-[#fffefb]/20">
           <div
             className="h-full bg-[#ff651b] opacity-[77%] transition-all ease-linear"
@@ -189,7 +173,6 @@ export function FeaturedFestivalSlider({ festivals }: FeaturedFestivalSliderProp
           />
         </div>
       </div>
-
       <div className="mt-4 text-center">
         <p className="text-sm text-gray-500">
           {currentIndex + 1} / {festivals.length} 추천 축제
