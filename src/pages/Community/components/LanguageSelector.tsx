@@ -19,10 +19,10 @@ export default function LanguageSelector({ selectedLanguage }: LanguageSelectorP
 
   return (
     <div className="flex items-center gap-2 w-full">
-      <Globe className="h-5 w-5 text-gray-500" />
+      <Globe className="h-5 w-5 text-[#ff651b]" />
       <select
         value={selectedLanguage}
-        className="flex-1 border border-gray-300 rounded-md p-3 text-gray-700 focus:outline-none focus:ring-green-500 focus:border-green-500"
+        className="flex-1 border border-gray-300 rounded-md p-3 text-gray-700 focus:outline-none  focus:ring-gray-300 focus:border-gray-300"
       >
         {languages.map((lang) => (
           <option key={lang.code} value={lang.code}>

@@ -11,7 +11,7 @@ import {
   BookmarkPlus,
 } from "lucide-react";
 import Navbar from "../../components/Navbar";
-import CommentSection from "../../components/CommentSection";
+import CommentSection from "./components/CommentSection";
 
 interface PostImage {
   id: number;
@@ -38,7 +38,8 @@ export default function PostDetailPage() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
-
+  const [isShared, setIsShared] = useState(false);
+  const [isCommented, setIsCommented] = useState(false);
   useEffect(() => {
     // 실제 구현에서는 API 호출로 데이터를 가져올 것입니다
     const fetchPost = async () => {
@@ -80,13 +81,15 @@ export default function PostDetailPage() {
 
   const toggleLike = () => setIsLiked(!isLiked);
   const toggleBookmark = () => setIsBookmarked(!isBookmarked);
+  const toggleShare = () => setIsShared(!isShared);
+  const toggleComment = () => setIsCommented(!isCommented);
 
   if (loading) {
     return (
       <div className="min-h-screen bg-white">
         <Navbar />
         <div className="container mx-auto px-4 py-8 flex justify-center items-center min-h-[60vh]">
-          <div className="inline-block h-12 w-12 animate-spin rounded-full border-4 border-solid border-green-500 border-r-transparent"></div>
+          <div className="inline-block h-12 w-12 animate-spin rounded-full border-4 border-solid border-[#ff651b] border-r-transparent"></div>
         </div>
       </div>
     );
@@ -123,12 +126,12 @@ export default function PostDetailPage() {
             <h1 className="text-3xl font-bold text-gray-900">{post.title}</h1>
             <div className="flex items-center mt-3 text-gray-600">
               <div className="flex items-center">
-                <Calendar className="h-4 w-4 mr-1" />
+                <Calendar className="h-4 w-4 mr-1 text-[#ff651b]" />
                 <span className="text-sm">{post.date}</span>
               </div>
               <span className="mx-2">•</span>
               <div className="flex items-center">
-                <Globe className="h-4 w-4 mr-1" />
+                <Globe className="h-4 w-4 mr-1  text-[#ff651b]" />
                 <span className="text-sm">
                   {post.language === "ko"
                     ? "한국어"
@@ -149,7 +152,7 @@ export default function PostDetailPage() {
                     : post.language}
                 </span>
               </div>
-              <span className="mx-2">•</span>
+              <span className="mx-2 text-[#ff651b]">•</span>
               <span className="text-sm">{post.region}</span>
             </div>
           </div>
@@ -194,7 +197,7 @@ export default function PostDetailPage() {
                     key={index}
                     onClick={() => setCurrentImageIndex(index)}
                     className={`h-2 w-2 rounded-full ${
-                      index === currentImageIndex ? "bg-green-500" : "bg-gray-300"
+                      index === currentImageIndex ? "bg-[#ff651b]" : "bg-gray-300"
                     }`}
                     aria-label={`이미지 ${index + 1}로 이동`}
                   />
@@ -204,7 +207,7 @@ export default function PostDetailPage() {
           </div>
 
           {/* 작성자 정보 및 상호작용 버튼 */}
-          <div className="flex justify-between items-center mb-6 pb-4 border-b border-gray-200">
+          <div className="flex justify-between items-center mb-6 pb-4 border-b border-[#ff651b]">
             <div className="flex items-center">
               <div className="w-10 h-10 rounded-full bg-gray-200 overflow-hidden relative flex items-center justify-center">
                 <img
@@ -221,24 +224,34 @@ export default function PostDetailPage() {
               <button
                 onClick={toggleLike}
                 className={`flex items-center ${
-                  isLiked ? "text-red-500" : "text-gray-500"
-                } hover:text-red-500 transition-colors`}
+                  isLiked ? "text-[#ff651b]" : "text-gray-500"
+                } hover:text-[#ff651b] transition-colors`}
               >
                 <Heart className={`h-5 w-5 ${isLiked ? "fill-current" : ""}`} />
                 <span className="ml-1 text-sm">{isLiked ? post.likes + 1 : post.likes}</span>
               </button>
-              <button className="flex items-center text-gray-500 hover:text-gray-700 transition-colors">
+              <button
+                onClick={toggleComment}
+                className={`flex items-center ${
+                  isCommented ? "text-[#ff651b]" : "text-gray-500"
+                } hover:text-[#ff651b] transition-colors`}
+              >
                 <MessageCircle className="h-5 w-5" />
                 <span className="ml-1 text-sm">{post.comments}</span>
               </button>
-              <button className="flex items-center text-gray-500 hover:text-gray-700 transition-colors">
+              <button
+                onClick={toggleShare}
+                className={`flex items-center ${
+                  isShared ? "text-[#ff651b]" : "text-gray-500"
+                } hover:text-[#ff651b] transition-colors`}
+              >
                 <Share2 className="h-5 w-5" />
               </button>
               <button
                 onClick={toggleBookmark}
                 className={`flex items-center ${
-                  isBookmarked ? "text-green-500" : "text-gray-500"
-                } hover:text-green-500 transition-colors`}
+                  isBookmarked ? "text-[#ff651b]" : "text-gray-500"
+                } hover:text-[#ff651b] transition-colors`}
               >
                 <BookmarkPlus className={`h-5 w-5 ${isBookmarked ? "fill-current" : ""}`} />
               </button>

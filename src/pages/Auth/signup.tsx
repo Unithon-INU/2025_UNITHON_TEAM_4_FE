@@ -47,8 +47,8 @@ const SignupPage = () => {
         <div className="max-w-md w-full bg-white border border-gray-200 rounded-2xl shadow p-8">
           <div className="text-center mb-8">
             <div className="flex justify-center mb-4">
-              <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center">
-                <UserPlus className="h-8 w-8 text-green-600" />
+              <div className="w-16 h-16 bg-[#ff651b]/10 rounded-full flex items-center justify-center">
+                <UserPlus className="h-8 w-8 text-[#ff651b]" />
               </div>
             </div>
             <h1 className="text-2xl font-bold text-gray-900">회원가입</h1>
@@ -95,15 +95,16 @@ const SignupPage = () => {
                 비밀번호 <span className="text-red-500">*</span>
               </label>
               <div className="relative">
-              <input
-                type="password"
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full h-11 rounded-lg border border-gray-200 px-3 pr-10"
-                placeholder="비밀번호를 입력하세요"
-                autoComplete="off"
-              /><button
+                <input
+                  type="password"
+                  id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full h-11 rounded-lg border border-gray-200 px-3 pr-10"
+                  placeholder="비밀번호를 입력하세요"
+                  autoComplete="off"
+                />
+                <button
                   type="button"
                   tabIndex={-1}
                   className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400"
@@ -119,16 +120,16 @@ const SignupPage = () => {
                 비밀번호 확인 <span className="text-red-500">*</span>
               </label>
               <div className="relative">
-              <input
-                type="password"
-                id="confirmPassword"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                className="w-full h-11 rounded-lg border border-gray-200 px-3 pr-10"
-                placeholder="비밀번호를 다시 입력하세요"
-                autoComplete="off"
-              />
-              <button
+                <input
+                  type="password"
+                  id="confirmPassword"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  className="w-full h-11 rounded-lg border border-gray-200 px-3 pr-10"
+                  placeholder="비밀번호를 다시 입력하세요"
+                  autoComplete="off"
+                />
+                <button
                   type="button"
                   tabIndex={-1}
                   className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400"
@@ -144,7 +145,7 @@ const SignupPage = () => {
             <button
               type="button"
               onClick={handleSignup}
-              className="w-full text-center h-11 rounded-lg font-bold text-white bg-green-500 hover:bg-green-600 mt-2"
+              className="w-full h-11 rounded-lg font-bold text-white bg-[#ff651b] hover:bg-[#ff651b] transition-colors text-base mt-2 text-center"
             >
               회원가입
             </button>
@@ -153,7 +154,10 @@ const SignupPage = () => {
           <div className="mt-8 text-center">
             <p className="text-sm text-gray-600">
               이미 계정이 있으신가요?{" "}
-              <a href="/login" className="text-green-500 hover:text-green-600 underline">
+              <a
+                href="/login"
+                className="text-[#ff651b] hover:text-[#ff651b] font-medium underline"
+              >
                 로그인
               </a>
             </p>
