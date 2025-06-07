@@ -1,5 +1,5 @@
 // src/hooks/useFestivalList.ts
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
 import {
   fetchFestivalInfo,
   fetchFestivalList,
@@ -9,19 +9,30 @@ import {
 } from "../apis/festival";
 import type { FestivalListItem } from "../types/festival";
 
-export function useFestivalList(params: GetFestivalListParams = {}) {
-  return useQuery<FestivalListItem[]>({
-    queryKey: ["festivals", params],
-    queryFn: () => fetchFestivalList(params),
-    staleTime: 1000 * 60, // 1분 (옵션)
+// 무한 스크롤용 리스트
+export function useInfiniteFestivalList(params: GetFestivalListParams = {}) {
+  return useInfiniteQuery<FestivalListItem[]>({
+    queryKey: ["festivalsInfinite", params],
+    queryFn: ({ pageParam = 1 }) =>
+      fetchFestivalList({ ...params, pageNo: pageParam }),
+    getNextPageParam: (lastPage, allPages) =>
+      lastPage.length === 16 ? allPages.length + 1 : undefined, // 16: numOfRows
+    initialPageParam: 1,
+    staleTime: 1000 * 60,
   });
 }
-export function useFestivalSearch(keyword?: string, lang = "kor") {
-  return useQuery<FestivalListItem[]>({
-    queryKey: ["festivalSearch", keyword, lang],
-    queryFn: () => fetchFestivalSearch(keyword!, lang),
-    enabled: !!keyword, // keyword 있을 때만 호출
-    staleTime: 1000 * 60, // 1분
+
+// 무한 스크롤용 검색
+export function useInfiniteFestivalSearch(keyword: string, lang = "kor") {
+  return useInfiniteQuery<FestivalListItem[]>({
+    queryKey: ["festivalSearchInfinite", keyword, lang],
+    queryFn: ({ pageParam = 1 }) =>
+      fetchFestivalSearch(keyword, lang, pageParam),
+    enabled: !!keyword,
+    getNextPageParam: (lastPage, allPages) =>
+      lastPage.length === 16 ? allPages.length + 1 : undefined,
+    initialPageParam: 1,
+    staleTime: 1000 * 60,
   });
 }
 

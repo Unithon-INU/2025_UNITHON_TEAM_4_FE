@@ -4,9 +4,9 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { PeriodSelectorBar } from "./components/PeriodSelcectorBar";
 import { FestivalGrid, Festival, DetailsMap } from "./components/FestivalGrid";
 import Navbar from "../../components/Navbar";
-import { useFestivalList } from "../../hooks/useFestivalList";
+import { useInfiniteFestivalList } from "../../hooks/useFestivalList";
+import { useBottomObserver } from "../../hooks/useBottomObserver";
 
-// 지역 코드 매핑
 const areaCodeMap: Record<string, string> = {
   "1": "서울", "2": "인천", "3": "대전", "4": "대구", "5": "광주", "6": "부산", "7": "울산", "8": "세종",
   "31": "경기도", "32": "강원도", "33": "충청북도", "34": "충청남도", "35": "경상북도",
@@ -14,16 +14,30 @@ const areaCodeMap: Record<string, string> = {
 };
 
 export default function FestivalPeriodPage() {
-  // API 실데이터 fetch
-  const { data: apiFestivals, isLoading, isError } = useFestivalList();
-
+  // 필터 상태
+  const [selectedStartDate, setSelectedStartDate] = useState<Date | null>(null);
+  const [selectedEndDate, setSelectedEndDate] = useState<Date | null>(null);
+  const [selectedRegion, setSelectedRegion] = useState("all");
   // 상세 fetch 결과 저장
   const [detailsMap, setDetailsMap] = useState<DetailsMap>({});
 
-  // 카드용 정제 데이터
+  // 무한스크롤 훅
+  const {
+    data: apiFestivals,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading,
+    isError,
+  } = useInfiniteFestivalList({
+    areaCode: selectedRegion !== "all" ? selectedRegion : undefined,
+    // startDate, endDate 등도 API 지원하면 params로 추가
+  });
+
+  // 카드용 데이터
   const allFestivalData: Festival[] = useMemo(() => {
-    if (!apiFestivals) return [];
-    return apiFestivals.map((item) => ({
+    if (!apiFestivals?.pages) return [];
+    return apiFestivals.pages.flat().map((item) => ({
       id: item.contentid,
       contentid: item.contentid,
       contenttypeid: item.contenttypeid,
@@ -32,7 +46,7 @@ export default function FestivalPeriodPage() {
         (areaCodeMap[item.areacode] || "미정") +
         (item.addr1 ? ` ${item.addr1}` : "") +
         (item.addr2 ? `, ${item.addr2}` : ""),
-      period: "기간 정보 없음", // fetch 전 임시
+      period: "기간 정보 없음",
       image: item.firstimage ?? "",
       image2: item.firstimage2 ?? "",
       keywords: item.areacode ? [areaCodeMap[item.areacode]] : [],
@@ -41,41 +55,20 @@ export default function FestivalPeriodPage() {
     }));
   }, [apiFestivals]);
 
-  // 필터 상태
+  // --- 기간/지역 필터 적용 ---
   const [filteredFestivals, setFilteredFestivals] = useState<Festival[]>([]);
-  const [selectedStartDate, setSelectedStartDate] = useState<Date | null>(null);
-  const [selectedEndDate, setSelectedEndDate] = useState<Date | null>(null);
-  const [selectedRegion, setSelectedRegion] = useState("all");
-
-  // 스크롤 이벤트
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false);
-  const headerRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
-    const handleScroll = () => {
-      const threshold = 1;
-      const shouldScroll = window.scrollY > threshold;
-      setIsScrolled(shouldScroll);
+    let filtered = allFestivalData.map((f) => ({
+      ...f,
+      period: detailsMap[f.id]?.period ?? f.period,
+      description: detailsMap[f.id]?.description ?? f.description,
+    }));
 
-      if (!shouldScroll) setIsExpanded(false);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // 기간/지역 필터
-  const handleSearch = () => {
-    let filtered = allFestivalData;
-
+    // 날짜 필터 (상세 API의 period 포맷이 "2024.07.15 ~ 2024.07.24" 가정)
     if (selectedStartDate && selectedEndDate) {
       filtered = filtered.filter((festival) => {
-        // 상세 fetch가 끝났으면 detailsMap.period 파싱해서 비교, 아니면 임시 날짜(추후 API 확장)
-        // period: "2024.07.15 ~ 2024.07.24" 형식 가정
-        const periodStr = detailsMap[festival.id]?.period ?? festival.period;
+        const periodStr = festival.period;
         const [start, end] = periodStr.split("~").map((d) => d.trim());
-        // 날짜 포매팅 함수 필요
         const toDate = (str: string) => {
           const parts = str.split(".");
           return parts.length === 3 ? new Date(`${parts[0]}-${parts[1]}-${parts[2]}`) : null;
@@ -83,31 +76,35 @@ export default function FestivalPeriodPage() {
         const festivalStart = toDate(start);
         const festivalEnd = toDate(end);
         if (!festivalStart || !festivalEnd) return false;
-        return (
-          festivalStart <= selectedEndDate! && festivalEnd >= selectedStartDate!
-        );
+        return festivalStart <= selectedEndDate && festivalEnd >= selectedStartDate;
       });
     }
 
     if (selectedRegion !== "all") {
       filtered = filtered.filter((festival) => festival.location.includes(selectedRegion));
     }
-
     setFilteredFestivals(filtered);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    setIsExpanded(false);
-  };
+  }, [allFestivalData, detailsMap, selectedStartDate, selectedEndDate, selectedRegion]);
 
-  // fetch 데이터 준비/변경 시, 필터 결과도 반영
+  // --- 무한스크롤 하단 감지
+  const bottomRef = useBottomObserver(() => {
+    if (hasNextPage && !isFetchingNextPage) fetchNextPage();
+  }, hasNextPage);
+
+  // 스크롤/헤더/팝오버
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const headerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    setFilteredFestivals(
-      allFestivalData.map((f) => ({
-        ...f,
-        period: detailsMap[f.id]?.period ?? f.period,
-        description: detailsMap[f.id]?.description ?? f.description,
-      }))
-    );
-  }, [allFestivalData, detailsMap]);
+    const handleScroll = () => {
+      const threshold = 1;
+      const shouldScroll = window.scrollY > threshold;
+      setIsScrolled(shouldScroll);
+      if (!shouldScroll) setIsExpanded(false);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // 로딩/에러 처리
   if (isLoading) {
@@ -121,6 +118,8 @@ export default function FestivalPeriodPage() {
     return (
       <div className="flex h-60 flex-col items-center justify-center border rounded-lg text-center">
         <p className="mb-4 text-rose-500">데이터 로드 실패</p>
+        <button className='w-auto h-auto text-gray-600'
+        onClick={() => window.location.reload()}><div className='text-gray-600'>돌아가기</div></button>
       </div>
     );
   }
@@ -167,7 +166,7 @@ export default function FestivalPeriodPage() {
             onRegionChange={setSelectedRegion}
             onExpandClick={() => setIsExpanded(true)}
             onCollapseClick={() => setIsExpanded(false)}
-            onSearch={handleSearch}
+            onSearch={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           />
         </div>
 
@@ -188,7 +187,16 @@ export default function FestivalPeriodPage() {
             )}
           </h2>
           {filteredFestivals.length > 0 ? (
-            <FestivalGrid festivals={filteredFestivals} onUpdateDetails={setDetailsMap} />
+            <>
+              <FestivalGrid festivals={filteredFestivals} onUpdateDetails={setDetailsMap} />
+              <div ref={bottomRef} style={{ height: 48 }} />
+              {isFetchingNextPage && (
+                <div className="text-center text-gray-400 text-sm py-4">추가 로딩중...</div>
+              )}
+              {!hasNextPage && (
+                <div className="text-center text-gray-400 text-sm py-4">마지막 축제입니다.</div>
+              )}
+            </>
           ) : (
             <div className="flex h-60 flex-col items-center justify-center rounded-lg border border-dashed text-center">
               <div className="mb-4 text-6xl">🎭</div>
