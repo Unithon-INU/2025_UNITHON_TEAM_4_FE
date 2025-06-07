@@ -1,4 +1,3 @@
-// src/pages/Festival/components/AppliedFilters.tsx
 "use client";
 
 import { MapPin, Calendar } from "lucide-react";
@@ -11,6 +10,7 @@ interface AppliedFiltersProps {
   selectedSeason: string;
   selectedKeywords: string[];
   onReset: () => void;
+  // (옵션: onRemoveKeyword, onRemoveRegion 등 추가로 지원 가능)
 }
 
 export function AppliedFilters({

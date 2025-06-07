@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
+// import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar/index";
 import { Tabs, TabsList, TabsTrigger } from "./components/Tabs";
 import { Button } from "../../components/ui/button";
@@ -9,50 +10,81 @@ import { FilterBar } from "./components/FilterBar";
 import { AppliedFilters } from "./components/AppliedFilters";
 import { FeaturedFestivalSlider } from "./components/FeaturedFestivalSlider";
 import { useFestivalList } from "../../hooks/useFestivalList";
-
-// 지역 코드 매핑 (고도화는 별도 상수화 추천)
+import { useFestivalSearch } from "../../hooks/useFestivalList";
+import { LoadingFestival } from "./LoadingFestival";
 const areaCodeMap: Record<string, string> = {
-  "1": "서울", "2": "인천", "3": "대전", "4": "대구", "5": "광주", "6": "부산", "7": "울산", "8": "세종",
-  "31": "경기도", "32": "강원도", "33": "충청북도", "34": "충청남도", "35": "경상북도",
-  "36": "경상남도", "37": "전라북도", "38": "전라남도", "39": "제주도",
+  "1": "서울",
+  "2": "인천",
+  "3": "대전",
+  "4": "대구",
+  "5": "광주",
+  "6": "부산",
+  "7": "울산",
+  "8": "세종",
+  "31": "경기도",
+  "32": "강원도",
+  "33": "충청북도",
+  "34": "충청남도",
+  "35": "경상북도",
+  "36": "경상남도",
+  "37": "전라북도",
+  "38": "전라남도",
+  "39": "제주도",
 };
 
 export default function FestivalPage() {
-  // 1. API 호출
-  const { data: apiFestivals, isLoading, isError } = useFestivalList();
-
-  // 2. 상세 fetch값(기간, 설명)을 id별로 저장하는 state
+  // 상태
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedKeywords, setSelectedKeywords] = useState<string[]>([]);
+  const [selectedRegion, setSelectedRegion] = useState("all");
+  const [selectedSeason, setSelectedSeason] = useState("all");
   const [detailsMap, setDetailsMap] = useState<DetailsMap>({});
+  const [keywordFilterMode, setKeywordFilterMode] = useState<"AND" | "OR">("OR");
 
-  // 3. 카드용 데이터로 정제 (최신순+추천플래그)
-  const festivalGridData = useMemo<Festival[]>(() => {
+  // API
+  const { data: listData, isLoading: listLoading, isError: listError } = useFestivalList();
+  const searchKeywordParam =
+    selectedKeywords.length > 0 ? selectedKeywords[0] : searchQuery.trim() || undefined;
+  const {
+    data: searchData,
+    isLoading: searchLoading,
+    isError: searchError,
+  } = useFestivalSearch(searchKeywordParam);
+
+  // 어떤 결과 쓸지 결정
+  const isSearching = searchQuery.trim().length > 0 || selectedKeywords.length > 0;
+  const apiFestivals = isSearching ? searchData : listData;
+  const isLoading = isSearching ? searchLoading : listLoading;
+  const isError = isSearching ? searchError : listError;
+
+  // 그리드 데이터
+  const festivalGridData: Festival[] = useMemo(() => {
     if (!apiFestivals) return [];
     const sorted = apiFestivals
       .slice()
       .sort((a, b) => Number(b.createdtime) - Number(a.createdtime));
     return sorted.map((item, idx) => ({
       id: item.contentid,
-      contentid: item.contentid,          // 상세 fetch용
-      contenttypeid: item.contenttypeid,  // 상세 fetch용
+      contentid: item.contentid,
+      contenttypeid: item.contenttypeid,
       name: item.title,
       location:
         (areaCodeMap[item.areacode] || "미정") +
         (item.addr1 ? ` ${item.addr1}` : "") +
         (item.addr2 ? `, ${item.addr2}` : ""),
-      period: "기간 정보 없음", // fetch 전 임시
+      period: "기간 정보 없음",
       image: item.firstimage ?? "",
       image2: item.firstimage2 ?? "",
       keywords: item.areacode ? [areaCodeMap[item.areacode]] : [],
       description: item.overview ?? "",
-      featured: idx < 5, // 최신 5개만 추천
+      featured: idx < 5,
     }));
   }, [apiFestivals]);
 
-  // 4. 추천(슬라이더)용: fetch된 상세값 반영
-  const featuredFestivals = useMemo<Festival[]>(() =>
-    festivalGridData
-      .filter((f) => f.featured)
-      .map((f) => ({
+  // 상세 fetch 반영
+  const allFestivalsWithDetails: Festival[] = useMemo(
+    () =>
+      festivalGridData.map((f) => ({
         ...f,
         period: detailsMap[f.id]?.period ?? f.period,
         description: detailsMap[f.id]?.description ?? f.description,
@@ -60,47 +92,31 @@ export default function FestivalPage() {
     [festivalGridData, detailsMap]
   );
 
-  // 5. 전체 카드(필터링), fetch된 상세값 반영
-  const allFestivalsWithDetails = useMemo<Festival[]>(() =>
-    festivalGridData.map((f) => ({
-      ...f,
-      period: detailsMap[f.id]?.period ?? f.period,
-      description: detailsMap[f.id]?.description ?? f.description,
-    })),
-    [festivalGridData, detailsMap]
-  );
-
-  // --- 필터 상태 (필요시 별도 hooks로 분리 가능) ---
-  const [filteredFestivals, setFilteredFestivals] = useState(allFestivalsWithDetails);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedRegion, setSelectedRegion] = useState("all");
-  const [selectedSeason, setSelectedSeason] = useState("all");
-  const [selectedKeywords, setSelectedKeywords] = useState<string[]>([]);
-
-  // fetch값 변경 시 초기화
-  useEffect(() => {
-    setFilteredFestivals(allFestivalsWithDetails);
-  }, [allFestivalsWithDetails]);
-
+  // 필터링
+  const [filteredFestivals, setFilteredFestivals] = useState<Festival[]>(allFestivalsWithDetails);
   useEffect(() => {
     let filtered = allFestivalsWithDetails;
-
-    if (searchQuery) {
-      filtered = filtered.filter(
-        (festival) =>
-          festival.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          festival.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          festival.description.toLowerCase().includes(searchQuery.toLowerCase())
-      );
+    // 키워드 AND/OR 필터
+    if (selectedKeywords.length > 0) {
+      filtered = filtered.filter((festival) => {
+        const text = [festival.name, festival.description, ...(festival.keywords ?? [])]
+          .join(" ")
+          .toLowerCase();
+        return keywordFilterMode === "AND"
+          ? selectedKeywords.every((k) => text.includes(k.toLowerCase()))
+          : selectedKeywords.some((k) => text.includes(k.toLowerCase()));
+      });
     }
+    // 지역/계절
     if (selectedRegion !== "all") {
-      filtered = filtered.filter((festival) =>
-        festival.location.toLowerCase().includes(selectedRegion)
-      );
+      filtered = filtered.filter((festival) => festival.location.includes(selectedRegion));
     }
     if (selectedSeason !== "all") {
       const seasonKeywords = {
-        spring: ["봄"], summer: ["여름"], autumn: ["가을"], winter: ["겨울"],
+        spring: ["봄"],
+        summer: ["여름"],
+        autumn: ["가을"],
+        winter: ["겨울"],
       };
       filtered = filtered.filter((festival) =>
         festival.keywords.some((keyword) =>
@@ -108,14 +124,16 @@ export default function FestivalPage() {
         )
       );
     }
-    if (selectedKeywords.length > 0) {
-      filtered = filtered.filter((festival) =>
-        selectedKeywords.some((keyword) => festival.keywords.includes(keyword))
-      );
-    }
     setFilteredFestivals(filtered);
-  }, [searchQuery, selectedRegion, selectedSeason, selectedKeywords, allFestivalsWithDetails]);
+  }, [
+    allFestivalsWithDetails,
+    selectedRegion,
+    selectedSeason,
+    selectedKeywords,
+    keywordFilterMode,
+  ]);
 
+  // 필터/검색 리셋
   const resetFilters = () => {
     setSearchQuery("");
     setSelectedRegion("all");
@@ -124,23 +142,50 @@ export default function FestivalPage() {
     setFilteredFestivals(allFestivalsWithDetails);
   };
 
-  // --- 렌더링 ---
+  // 상세 fetch map 연결
+  const handleUpdateDetails: React.Dispatch<React.SetStateAction<DetailsMap>> = setDetailsMap;
+
+  // "적용하기"에서만 키워드 반영
+  const handleApplyKeywords = (appliedKeywords: string[]) => {
+    setSelectedKeywords(appliedKeywords);
+    setSearchQuery("");
+  };
+
+  // 검색어 입력
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+    setSelectedKeywords([]);
+  };
+
+  // 검색 실패 alert (검색/키워드 상태 + 로딩 끝 + 결과 없음에만)
+  useEffect(() => {
+    if (isSearching && !isLoading && !isError && filteredFestivals.length === 0) {
+      alert("검색 결과가 없습니다. 다른 검색어/키워드를 시도해 보세요!");
+    }
+  }, [isLoading, isError, filteredFestivals.length, isSearching]);
+
+  // 추천 슬라이더 데이터
+  const featuredFestivals = allFestivalsWithDetails.filter((f) => f.featured);
+
+  // const navigate = useNavigate();
+  // --- 렌더 ---
   if (isLoading) {
-    return (
-      <div className="flex h-60 flex-col items-center justify-center border rounded-lg text-center">
-        <p className="mb-4 text-gray-500">로딩중...</p>
-      </div>
-    );
+    return <LoadingFestival />;
   }
   if (isError) {
-    return (
-      <div className="flex h-60 flex-col items-center justify-center border rounded-lg text-center">
-        <p className="mb-4 text-rose-500">데이터 로드 실패</p>
-        <Button variant="outline" onClick={resetFilters}>
-          다시 시도
-        </Button>
-      </div>
-    );
+    if (
+      window.confirm(
+        "검색 결과가 없습니다. 다른 검색어/키워드를 시도해 보세요!\n확인 버튼을 누르면 필터가 초기화됩니다."
+      )
+    ) {
+      // 방법 1: 필터만 초기화
+      // resetFilters();
+      // return null;
+
+      // 방법 2: /festival로 이동 (페이지 새로고침 느낌)
+      window.location.reload();
+    }
+    return null;
   }
 
   return (
@@ -153,23 +198,20 @@ export default function FestivalPage() {
             한국의 다양한 지역에서 열리는 특색 있는 축제들을 만나보세요
           </p>
         </div>
-        {/* 추천 슬라이더: fetch된 값 반영 */}
         <FeaturedFestivalSlider festivals={featuredFestivals} />
         <div className="relative mb-6">
           <FilterBar
             searchQuery={searchQuery}
-            onSearch={setSearchQuery}
+            onSearch={handleSearch}
             selectedRegion={selectedRegion}
             onRegionChange={setSelectedRegion}
             selectedSeason={selectedSeason}
             onSeasonChange={setSelectedSeason}
             selectedKeywords={selectedKeywords}
-            onToggleKeyword={(k) =>
-              setSelectedKeywords((prev) =>
-                prev.includes(k) ? prev.filter((i) => i !== k) : [...prev, k]
-              )
-            }
+            onApplyKeywords={handleApplyKeywords}
             onReset={resetFilters}
+            keywordFilterMode={keywordFilterMode}
+            onKeywordFilterModeChange={setKeywordFilterMode}
           />
         </div>
         <AppliedFilters
@@ -187,7 +229,7 @@ export default function FestivalPage() {
           </TabsList>
         </Tabs>
         {filteredFestivals.length > 0 ? (
-          <FestivalGrid festivals={filteredFestivals} onUpdateDetails={setDetailsMap} />
+          <FestivalGrid festivals={filteredFestivals} onUpdateDetails={handleUpdateDetails} />
         ) : (
           <div className="flex h-60 flex-col items-center justify-center border rounded-lg text-center">
             <p className="mb-4 text-gray-500">검색 결과가 없습니다</p>

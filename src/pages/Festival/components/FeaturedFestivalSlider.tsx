@@ -70,7 +70,7 @@ export function FeaturedFestivalSlider({ festivals }: FeaturedFestivalSliderProp
                 <div className="relative flex h-80 items-center overflow-hidden px-8 lg:h-96">
                   <div className="absolute inset-0">
                     <img
-                      src={festival.image2 || festival.image || "/placeholder.svg"}
+                      src={festival.image || "/placeholder.svg"}
                       alt={festival.name}
                       className="h-full w-full object-cover"
                       onError={(e) => {

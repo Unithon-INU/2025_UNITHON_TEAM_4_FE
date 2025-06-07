@@ -1,6 +1,12 @@
 // src/hooks/useFestivalList.ts
 import { useQuery } from "@tanstack/react-query";
-import { fetchFestivalInfo, fetchFestivalList, fetchFestivalPeriod, GetFestivalListParams } from "../apis/festival";
+import {
+  fetchFestivalInfo,
+  fetchFestivalList,
+  fetchFestivalPeriod,
+  fetchFestivalSearch,
+  GetFestivalListParams,
+} from "../apis/festival";
 import type { FestivalListItem } from "../types/festival";
 
 export function useFestivalList(params: GetFestivalListParams = {}) {
@@ -8,6 +14,14 @@ export function useFestivalList(params: GetFestivalListParams = {}) {
     queryKey: ["festivals", params],
     queryFn: () => fetchFestivalList(params),
     staleTime: 1000 * 60, // 1분 (옵션)
+  });
+}
+export function useFestivalSearch(keyword?: string, lang = "kor") {
+  return useQuery<FestivalListItem[]>({
+    queryKey: ["festivalSearch", keyword, lang],
+    queryFn: () => fetchFestivalSearch(keyword!, lang),
+    enabled: !!keyword, // keyword 있을 때만 호출
+    staleTime: 1000 * 60, // 1분
   });
 }
 
