@@ -40,7 +40,7 @@ export function AppliedFilters({
         </Badge>
       )}
       {selectedKeywords.map((keyword) => (
-        <Badge key={keyword} variant="secondary" className="flex items-center gap-1">
+        <Badge key={keyword} variant="outline" className="flex bg-[#ff651b]/90 items-center gap-1">
           {keyword}
         </Badge>
       ))}

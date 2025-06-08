@@ -16,7 +16,7 @@ export function useInfiniteFestivalList(params: GetFestivalListParams = {}) {
     queryFn: ({ pageParam = 1 }) =>
       fetchFestivalList({ ...params, pageNo: pageParam }),
     getNextPageParam: (lastPage, allPages) =>
-      lastPage.length === 16 ? allPages.length + 1 : undefined, // 16: numOfRows
+      lastPage.length === 12 ? allPages.length + 1 : undefined, // 16: numOfRows
     initialPageParam: 1,
     staleTime: 1000 * 60,
   });
@@ -30,7 +30,7 @@ export function useInfiniteFestivalSearch(keyword: string, lang = "kor") {
       fetchFestivalSearch(keyword, lang, pageParam),
     enabled: !!keyword,
     getNextPageParam: (lastPage, allPages) =>
-      lastPage.length === 16 ? allPages.length + 1 : undefined,
+      lastPage.length === 12 ? allPages.length + 1 : undefined,
     initialPageParam: 1,
     staleTime: 1000 * 60,
   });

@@ -110,7 +110,7 @@ export function FilterBar({
             <Filter className="h-4 w-4" />
             필터
             {hasFilter && (
-              <Badge className="ml-1 rounded-full bg-rose-500 px-1.5 py-0.5 text-xs text-white">
+              <Badge className="ml-1 rounded-full bg-[#ff651b] px-1.5 py-0.5 text-xs text-white">
                 필터 적용됨
               </Badge>
             )}
@@ -169,7 +169,7 @@ export function FilterBar({
                 {selectedKeywordsDraft.length > 0 && (
                   <>
                     <span className="font-bold text-xs text-gray-500 mr-1">검색 기준: </span>
-                    <Badge className="bg-rose-500 text-white">{selectedKeywordsDraft[0]}</Badge>
+                    <Badge className="bg-[#ff651b] text-white">{selectedKeywordsDraft[0]}</Badge>
                     {selectedKeywordsDraft.slice(1).map((k, idx) => (
                       <span key={k} className="flex items-center">
                         <span className="mx-1 text-xs font-bold text-gray-400">
@@ -193,8 +193,8 @@ export function FilterBar({
                     variant={selectedKeywordsDraft.includes(keyword) ? "default" : "outline"}
                     className={`cursor-pointer ${
                       selectedKeywordsDraft.includes(keyword)
-                        ? "bg-rose-500 hover:bg-rose-600"
-                        : "hover:bg-rose-100"
+                        ? "bg-[#ff651b] hover:bg-[#ff651b]"
+                        : "hover:bg-gray-300 text-gray-500"
                     }`}
                     onClick={() => handleBadgeClick(keyword)}
                   >
@@ -210,7 +210,7 @@ export function FilterBar({
               </Button>
               <Button
                 size="sm"
-                className="bg-rose-500 hover:bg-rose-600"
+                className="bg-[#ff651b] hover:bg-[#ff651b]/90 text-[#fffefb]"
                 onClick={handleApply}
                 disabled={selectedKeywordsDraft.length === 0}
               >

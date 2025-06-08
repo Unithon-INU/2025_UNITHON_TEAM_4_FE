@@ -180,7 +180,7 @@ export default function FestivalPeriodPage() {
           <h2 className="text-2xl font-bold text-gray-900 mb-6">
             {filteredFestivals.length > 0 ? (
               <>
-                <span className="text-rose-500">{filteredFestivals.length}개</span>의 축제를 찾았습니다
+                <span className="text-[#ff651b]">{filteredFestivals.length}개</span>의 축제를 찾았습니다
               </>
             ) : (
               "조건에 맞는 축제가 없습니다"

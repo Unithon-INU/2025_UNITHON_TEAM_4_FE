@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Heart, MapPin, Calendar } from "lucide-react";
 import { Button } from "../../../components/ui/button";
 import { Badge } from "../../../components/ui/Badge";
-
+import { motion } from "framer-motion";
 // 타입 선언
 export type Festival = {
   id: string;
@@ -18,6 +18,7 @@ export type Festival = {
   keywords: string[];
   description: string;
   featured?: boolean;
+  ended?: boolean; // 종료 여부
 };
 export type DetailsMap = {
   [id: string]: {
@@ -33,16 +34,16 @@ function formatDate(dateStr?: string) {
   return `${dateStr.slice(0, 4)}.${dateStr.slice(4, 6)}.${dateStr.slice(6, 8)}`;
 }
 
-// 종료여부 판단 함수
-function isFestivalEnded(eventenddate?: string): boolean {
-  if (!eventenddate || eventenddate.length !== 8) return false;
-  const today = new Date();
-  const y = today.getFullYear();
-  const m = String(today.getMonth() + 1).padStart(2, "0");
-  const d = String(today.getDate()).padStart(2, "0");
-  const todayStr = `${y}${m}${d}`; // "20240606"
-  return eventenddate < todayStr;
-}
+// // 종료여부 판단 함수
+// function isFestivalEnded(eventenddate?: string): boolean {
+//   if (!eventenddate || eventenddate.length !== 8) return false;
+//   const today = new Date();
+//   const y = today.getFullYear();
+//   const m = String(today.getMonth() + 1).padStart(2, "0");
+//   const d = String(today.getDate()).padStart(2, "0");
+//   const todayStr = `${y}${m}${d}`; // "20240606"
+//   return eventenddate < todayStr;
+// }
 
 interface FestivalGridProps {
   festivals: Festival[];
@@ -75,7 +76,7 @@ function FestivalCard({
       : festival.period || "기간 정보 없음";
 
   // 종료 여부 계산
-  const ended = isFestivalEnded(eventEnd);
+  // const ended = isFestivalEnded(eventEnd);
 
   // fetch된 값이 있으면 상위로 올려줌 (부모 state 업데이트)
   useCallback(() => {
@@ -118,13 +119,13 @@ function FestivalCard({
             className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
           />
           {/* 추천 뱃지 */}
-          {festival.featured && (
+          {festival.featured && !festival.ended &&(
             <div className="absolute left-3 top-3 z-10">
               <Badge className="bg-[#ff651b] text-white">추천 축제</Badge>
             </div>
           )}
           {/* 종료 뱃지 */}
-          {ended && (
+          {festival.ended && (
             <div className="absolute right-3 top-3 z-10">
               <Badge className="bg-gray-500 text-white">종료</Badge>
             </div>
@@ -179,7 +180,22 @@ function FestivalCard({
           setLiked((v) => !v);
         }}
       >
-        <Heart className={`h-4 w-4 ${liked ? "fill-current" : ""}`} />
+        <motion.span
+  initial={false}
+  animate={{
+    scale: liked ? [1, 2.3, 1] : 1,
+    rotate: liked ? [0, -10, 10, 0] : 0,
+  }}
+  transition={{ type: "spring", stiffness: 400, damping: 10, duration: 0.4 }}
+  whileTap={{ scale: 0.3 }}
+  style={{ display: "inline-block" }}
+>
+  <Heart
+    className="h-4 w-4"
+    fill={liked ? "#f43f5e" : "none"}
+    stroke={liked ? "#f43f5e" : "#334155"}
+  />
+</motion.span>
         <span className="sr-only">좋아요</span>
       </Button>
     </div>

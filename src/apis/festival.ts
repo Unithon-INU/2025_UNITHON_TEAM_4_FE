@@ -20,7 +20,7 @@ export interface GetFestivalListParams {
  * @returns Promise<FestivalListItem[]>
  */
 export async function fetchFestivalList(params: GetFestivalListParams = {}) {
-  const { lang = "kor", numOfRows = 16, pageNo = 1, eventStartDate = "", areaCode = "" } = params;
+  const { lang = "kor", numOfRows = 12, pageNo = 1, eventStartDate = "20240701", areaCode = "" } = params;
 
   // '/api/v1' → '/api'로 baseURL 오버라이드
   const res = await client.get<FestivalListResponse>("/festivals/list", {
@@ -42,7 +42,7 @@ export async function fetchFestivalSearch(keyword: string, lang = "kor", pageNo 
   const res = await client.get<FestivalListResponse>("/festivals/search", {
     baseURL: import.meta.env.VITE_UNITHON_SERVER_URL.replace(/\/v1$/, ""), // "http://localhost:8080/api"
 
-    params: { keyword, lang, pageNo, numOfRows: 16 }, // 페이지당 10개 축제
+    params: { keyword, lang, pageNo, numOfRows: 12 }, // 페이지당 10개 축제
   });
   // 검색 결과 item 배열만 반환
   return res.data.data.response.body.items.item;
@@ -53,7 +53,7 @@ export async function fetchFestivalInfo(contentId: string) {
   const res = await client.get<FestivalInfoResponse>("/festivals/info", {
     baseURL: import.meta.env.VITE_UNITHON_SERVER_URL.replace(/\/v1$/, ""), // "http://localhost:8080/api"
     params: {
-      lang: "kor", // 일본어로 고정
+      lang: "eng", // 일본어로 고정
       contentId,
     },
   });
@@ -66,7 +66,7 @@ export async function fetchFestivalPeriod(contentId: string, contentTypeId: stri
   const res = await client.get<FestivalDetailIntroResponse>("/festivals/detailIntro", {
     baseURL: import.meta.env.VITE_UNITHON_SERVER_URL.replace(/\/v1$/, ""), // "http://localhost:8080/api"
     params: {
-      lang: "kor", // 일본어로 고정
+      lang: "eng", // 일본어로 고정
       contentId,
       contentTypeId,
     },

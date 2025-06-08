@@ -49,11 +49,25 @@ const {
   isLoading,
   isError,
 } = isSearching ? searchResult : listResult;
-
+// 종료여부 판단 함수
+function isFestivalEnded(eventenddate?: string): boolean {
+  if (!eventenddate || eventenddate.length !== 8) return false;
+  const today = new Date();
+  const y = today.getFullYear();
+  const m = String(today.getMonth() + 1).padStart(2, "0");
+  const d = String(today.getDate()).padStart(2, "0");
+  const todayStr = `${y}${m}${d}`; // "20240606"
+  return eventenddate < todayStr;
+}
   // 데이터 누적(flat)
   const festivals: Festival[] = useMemo(() => {
     if (!data) return [];
-    return data.pages.flat().map((item, idx) => ({
+    return data.pages.flat().map((item, idx) => {
+      
+      const eventEnd = detailsMap?.[item.contentid]?.eventenddate;
+    const ended = isFestivalEnded(eventEnd);
+    return {
+
       id: item.contentid,
       contentid: item.contentid,
       contenttypeid: item.contenttypeid,
@@ -67,9 +81,10 @@ const {
       image2: item.firstimage2 ?? "",
       keywords: item.areacode ? [areaCodeMap[item.areacode]] : [],
       description: item.overview ?? "",
-      featured: idx < 5,
-    }));
-  }, [data]);
+      ended,
+      featured: idx < 5 && !ended
+    }});
+  }, [data, detailsMap]);
 
   // 상세 정보(detailsMap) 반영
   const festivalsWithDetails: Festival[] = useMemo(
