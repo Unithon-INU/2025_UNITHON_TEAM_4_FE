@@ -1,4 +1,4 @@
-import client from "./client";
+import client, { getApiUrl } from "./client";
 
 export interface LoginRequest {
   email: string;
@@ -12,13 +12,12 @@ export interface LoginResponse {
 
 // 로그인 API 함수
 const login = async (data: LoginRequest): Promise<LoginResponse> => {
-  const response = await client.post<LoginResponse>("auth/login", data);
+  const response = await client.post<LoginResponse>(getApiUrl("/auth/login"), data);
   const token = response.data.data;
-  //   const id = response.data.id;
 
   // 토큰을 로컬 스토리지에 저장
   localStorage.setItem("token", token);
-  //   localStorage.setItem("userId", id.toString());
+  // localStorage.setItem("userId", id.toString());
   return response.data;
 };
 
