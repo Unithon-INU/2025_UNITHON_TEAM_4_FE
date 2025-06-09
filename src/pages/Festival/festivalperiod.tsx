@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
 import { PeriodSelectorBar } from "./components/PeriodSelcectorBar";
 import { FestivalGrid, Festival, DetailsMap } from "./components/FestivalGrid";
 import Navbar from "../../components/Navbar";
@@ -13,15 +13,45 @@ const areaCodeMap: Record<string, string> = {
   "36": "경상남도", "37": "전라북도", "38": "전라남도", "39": "제주도",
 };
 
+// 날짜 YYYYMMDD 포맷 변환 함수
+function formatDateToYYYYMMDD(date: Date): string {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const d = String(date.getDate()).padStart(2, "0");
+  return `${y}${m}${d}`;
+}
+
 export default function FestivalPeriodPage() {
+  const regionToAreaCode = useMemo(
+  () =>
+    Object.entries(areaCodeMap).reduce((acc, [code, name]) => {
+      acc[name] = code;
+      return acc;
+    }, {} as Record<string, string>),
+  []
+);
   // 필터 상태
   const [selectedStartDate, setSelectedStartDate] = useState<Date | null>(null);
   const [selectedEndDate, setSelectedEndDate] = useState<Date | null>(null);
   const [selectedRegion, setSelectedRegion] = useState("all");
-  // 상세 fetch 결과 저장
   const [detailsMap, setDetailsMap] = useState<DetailsMap>({});
 
-  // 무한스크롤 훅
+  // 🔵 API 파라미터 관리 (onSearch 누를 때만 반영)
+  const [searchParams, setSearchParams] = useState({});
+
+  // "검색" 버튼 클릭 → API 파라미터 갱신
+  const handleSearch = () => {
+    setSearchParams({
+      areaCode: selectedRegion !== "all" && regionToAreaCode[selectedRegion]
+    ? regionToAreaCode[selectedRegion]
+    : undefined,
+      eventStartDate: selectedStartDate ? formatDateToYYYYMMDD(selectedStartDate) : undefined,
+      eventEndDate: selectedEndDate ? formatDateToYYYYMMDD(selectedEndDate) : undefined,
+    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+  
+  // 무한스크롤 API
   const {
     data: apiFestivals,
     fetchNextPage,
@@ -29,64 +59,38 @@ export default function FestivalPeriodPage() {
     isFetchingNextPage,
     isLoading,
     isError,
-  } = useInfiniteFestivalList({
-    areaCode: selectedRegion !== "all" ? selectedRegion : undefined,
-    // startDate, endDate 등도 API 지원하면 params로 추가
-  });
+  } = useInfiniteFestivalList(searchParams);
 
-  // 카드용 데이터
-  const allFestivalData: Festival[] = useMemo(() => {
-    if (!apiFestivals?.pages) return [];
-    return apiFestivals.pages.flat().map((item) => ({
-      id: item.contentid,
-      contentid: item.contentid,
-      contenttypeid: item.contenttypeid,
-      name: item.title,
-      location:
-        (areaCodeMap[item.areacode] || "미정") +
-        (item.addr1 ? ` ${item.addr1}` : "") +
-        (item.addr2 ? `, ${item.addr2}` : ""),
-      period: "기간 정보 없음",
-      image: item.firstimage ?? "",
-      image2: item.firstimage2 ?? "",
-      keywords: item.areacode ? [areaCodeMap[item.areacode]] : [],
-      description: item.overview ?? "",
-      featured: false,
-    }));
-  }, [apiFestivals]);
+  // 데이터 가공
+  const allFestivalData: Festival[] = apiFestivals?.pages
+  ? apiFestivals.pages.flatMap((page) =>
+      page.item.map((item) => ({
+        id: item.contentid,
+        contentid: item.contentid,
+        contenttypeid: item.contenttypeid,
+        name: item.title,
+        location:
+          (areaCodeMap[item.areacode] || "미정") +
+          (item.addr1 ? ` ${item.addr1}` : "") +
+          (item.addr2 ? `, ${item.addr2}` : ""),
+        period: "기간 정보 없음",
+        image: item.firstimage ?? "",
+        image2: item.firstimage2 ?? "",
+        keywords: item.areacode ? [areaCodeMap[item.areacode]] : [],
+        description: item.overview ?? "",
+        featured: false,
+      }))
+    )
+  : [];
 
-  // --- 기간/지역 필터 적용 ---
-  const [filteredFestivals, setFilteredFestivals] = useState<Festival[]>([]);
-  useEffect(() => {
-    let filtered = allFestivalData.map((f) => ({
-      ...f,
-      period: detailsMap[f.id]?.period ?? f.period,
-      description: detailsMap[f.id]?.description ?? f.description,
-    }));
+  // detailsMap 적용 (소개/기간 동기화)
+  const festivalsWithDetails: Festival[] = allFestivalData.map((f) => ({
+    ...f,
+    period: detailsMap[f.id]?.period ?? f.period,
+    description: detailsMap[f.id]?.description ?? f.description,
+  }));
 
-    // 날짜 필터 (상세 API의 period 포맷이 "2024.07.15 ~ 2024.07.24" 가정)
-    if (selectedStartDate && selectedEndDate) {
-      filtered = filtered.filter((festival) => {
-        const periodStr = festival.period;
-        const [start, end] = periodStr.split("~").map((d) => d.trim());
-        const toDate = (str: string) => {
-          const parts = str.split(".");
-          return parts.length === 3 ? new Date(`${parts[0]}-${parts[1]}-${parts[2]}`) : null;
-        };
-        const festivalStart = toDate(start);
-        const festivalEnd = toDate(end);
-        if (!festivalStart || !festivalEnd) return false;
-        return festivalStart <= selectedEndDate && festivalEnd >= selectedStartDate;
-      });
-    }
-
-    if (selectedRegion !== "all") {
-      filtered = filtered.filter((festival) => festival.location.includes(selectedRegion));
-    }
-    setFilteredFestivals(filtered);
-  }, [allFestivalData, detailsMap, selectedStartDate, selectedEndDate, selectedRegion]);
-
-  // --- 무한스크롤 하단 감지
+  // 무한스크롤 하단 감지
   const bottomRef = useBottomObserver(() => {
     if (hasNextPage && !isFetchingNextPage) fetchNextPage();
   }, hasNextPage);
@@ -95,6 +99,7 @@ export default function FestivalPeriodPage() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const headerRef = useRef<HTMLDivElement>(null);
+  // (헤더 애니메이션)
   useEffect(() => {
     const handleScroll = () => {
       const threshold = 1;
@@ -105,7 +110,11 @@ export default function FestivalPeriodPage() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
+  const totalCount = useMemo(() => {
+  if (!apiFestivals?.pages || apiFestivals.pages.length === 0) return 0;
+  // 무조건 첫 페이지의 totalCount를 쓴다 (동일 쿼리 파라미터라면 모든 페이지 totalCount 같음)
+  return apiFestivals.pages[0].totalCount;
+}, [apiFestivals]);
   // 로딩/에러 처리
   if (isLoading) {
     return (
@@ -166,7 +175,7 @@ export default function FestivalPeriodPage() {
             onRegionChange={setSelectedRegion}
             onExpandClick={() => setIsExpanded(true)}
             onCollapseClick={() => setIsExpanded(false)}
-            onSearch={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            onSearch={handleSearch} // **검색시 API 파라미터 갱신**
           />
         </div>
 
@@ -178,17 +187,17 @@ export default function FestivalPeriodPage() {
         {/* 결과 및 그리드 */}
         <main className="container py-12">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">
-            {filteredFestivals.length > 0 ? (
+            {totalCount > 0 ? (
               <>
-                <span className="text-[#ff651b]">{filteredFestivals.length}개</span>의 축제를 찾았습니다
+                <span className="text-[#ff651b]">{totalCount}개</span>의 축제를 찾았습니다
               </>
             ) : (
               "조건에 맞는 축제가 없습니다"
             )}
           </h2>
-          {filteredFestivals.length > 0 ? (
+          {totalCount > 0 ? (
             <>
-              <FestivalGrid festivals={filteredFestivals} onUpdateDetails={setDetailsMap} />
+              <FestivalGrid festivals={festivalsWithDetails} onUpdateDetails={setDetailsMap} />
               <div ref={bottomRef} style={{ height: 48 }} />
               {isFetchingNextPage && (
                 <div className="text-center text-gray-400 text-sm py-4">추가 로딩중...</div>

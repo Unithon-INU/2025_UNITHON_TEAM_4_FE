@@ -11,6 +11,7 @@ export interface GetFestivalListParams {
   numOfRows?: string | number;
   pageNo?: string | number;
   eventStartDate?: string;
+  eventEndDate?: string;
   areaCode?: string;
 }
 
@@ -20,7 +21,7 @@ export interface GetFestivalListParams {
  * @returns Promise<FestivalListItem[]>
  */
 export async function fetchFestivalList(params: GetFestivalListParams = {}) {
-  const { lang = "kor", numOfRows = 12, pageNo = 1, eventStartDate = "20240701", areaCode = "" } = params;
+  const { lang = "kor", numOfRows = 12, pageNo = 1, eventStartDate = "20240701", eventEndDate, areaCode = "" } = params;
 
   const res = await client.get<FestivalListResponse>(getApiUrl("/festivals/list"), {
     params: {
@@ -28,17 +29,20 @@ export async function fetchFestivalList(params: GetFestivalListParams = {}) {
       numOfRows,
       pageNo,
       eventStartDate,
+      eventEndDate,
       areaCode,
     },
   });
 
-  return res.data.data.response.body.items.item;
+  const item = res.data.data.response.body.items.item;
+  const totalCount = res.data.data.response.body.totalCount;
+  return { item, totalCount };
 }
 
 // 1. 축제 검색 (GET /api/festivals/search?keyword=키워드)
 export async function fetchFestivalSearch(keyword: string, lang = "kor", pageNo = 1) {
   const res = await client.get<FestivalListResponse>(getApiUrl("/festivals/search"), {
-    params: { keyword, lang, pageNo, numOfRows: 16 },
+    params: { keyword, lang, pageNo, numOfRows: 12 },
   });
   return res.data.data.response.body.items.item;
 }

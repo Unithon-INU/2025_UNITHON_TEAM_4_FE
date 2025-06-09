@@ -61,13 +61,26 @@ function isFestivalEnded(eventenddate?: string): boolean {
 }
   // 데이터 누적(flat)
   const festivals: Festival[] = useMemo(() => {
-    if (!data) return [];
-    return data.pages.flat().map((item, idx) => {
-      
-      const eventEnd = detailsMap?.[item.contentid]?.eventenddate;
+  if (!data) return [];
+  // 페이지별로 아이템 추출
+  const allItems = data.pages.flatMap((page) => {
+    if (Array.isArray(page)) return page; // 배열이면 그대로
+    if ("item" in page) return page.item; // 객체면 .item
+    return [];
+  });
+
+  // 이하 기존로직 동일
+  const notEndedItems = allItems.filter((item) => {
+    const eventEnd = detailsMap?.[item.contentid]?.eventenddate;
+    return !isFestivalEnded(eventEnd);
+  });
+
+  const featuredIds = notEndedItems.slice(0, 5).map((item) => item.contentid);
+
+  return allItems.map((item) => {
+    const eventEnd = detailsMap?.[item.contentid]?.eventenddate;
     const ended = isFestivalEnded(eventEnd);
     return {
-
       id: item.contentid,
       contentid: item.contentid,
       contenttypeid: item.contenttypeid,
@@ -82,9 +95,10 @@ function isFestivalEnded(eventenddate?: string): boolean {
       keywords: item.areacode ? [areaCodeMap[item.areacode]] : [],
       description: item.overview ?? "",
       ended,
-      featured: idx < 5 && !ended
-    }});
-  }, [data, detailsMap]);
+      featured: !ended && featuredIds.includes(item.contentid),
+    };
+  });
+}, [data, detailsMap]);
 
   // 상세 정보(detailsMap) 반영
   const festivalsWithDetails: Festival[] = useMemo(
