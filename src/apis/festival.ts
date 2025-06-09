@@ -21,7 +21,7 @@ export interface GetFestivalListParams {
  * @returns Promise<FestivalListItem[]>
  */
 export async function fetchFestivalList(params: GetFestivalListParams = {}) {
-  const { lang = "kor", numOfRows = 12, pageNo = 1, eventStartDate = "20240701", eventEndDate, areaCode = "" } = params;
+  const { lang = "kor", numOfRows = 12, pageNo = 1, eventStartDate = "20250601", eventEndDate, areaCode = "" } = params;
 
   const res = await client.get<FestivalListResponse>(getApiUrl("/festivals/list"), {
     params: {
