@@ -1,5 +1,4 @@
-// src/apis/signup.ts
-import client from "./client";
+import client, { getApiUrl } from "./client";
 
 export interface SignupRequest {
   name: string;
@@ -17,7 +16,7 @@ const signup = async ({ name, email, password }: SignupRequest): Promise<void> =
     role: "USER",
   };
 
-  await client.post("/auth/signup", fixedPayload);
+  await client.post(getApiUrl("/auth/signup"), fixedPayload);
 };
 
 export default signup;

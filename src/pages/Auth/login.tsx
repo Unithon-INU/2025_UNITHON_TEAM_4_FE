@@ -14,7 +14,7 @@ const LoginPage = () => {
       const response = await login({ email, password });
       console.log("로그인 성공:", response);
       alert("로그인 성공했습니다!"); // 로그인 요청
-      window.location.replace("/main"); // 🔁 여기서 페이지 이동!
+      window.location.replace("/"); // 🔁 여기서 페이지 이동!
     } catch (err) {
       setError("오류가 발생했습니다.");
       console.error("로그인 실패:", err);
