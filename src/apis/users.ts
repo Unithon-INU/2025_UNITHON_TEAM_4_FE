@@ -1,4 +1,4 @@
-import client from "./client";
+import client, { getApiUrl } from "./client";
 
 export interface Post {
   thumbnailUrl: string;
@@ -20,6 +20,6 @@ export interface UserProfileResponse {
 }
 
 export const fetchUserProfile = async (): Promise<UserProfileResponse> => {
-  const response = await client.get<UserProfileResponse>("/users");
+  const response = await client.get<UserProfileResponse>(getApiUrl("/users"));
   return response.data;
 };
