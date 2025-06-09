@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Navbar from "../../components/Navbar";
+import { Link } from "react-router-dom";
 import { Edit, MoreVertical, Trash2, User, MessageCircle, Settings2Icon } from "lucide-react";
 import { fetchUserProfile } from "../../apis/users"; // API 임포트 추가
 
@@ -86,7 +87,16 @@ export default function MyPage() {
   if (error) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
-        <p className="text-red-500 text-lg">{error}</p>
+        <div className="max-w-sm p-6 text-center">
+          <p className="text-gray-600 text-lg mb-4">프로필 정보를 불러올 수 없습니다.</p>
+          <p className="text-gray-400 text-sm mb-6">로그인 페이지로 이동하시겠습니까?</p>
+          <Link
+            to="/login"
+            className="block w-full border border-[#ff651b] text-[#ff651b] rounded-md px-4 py-2 text-center hover:bg-[#ff651b] hover:text-white transition-colors"
+          >
+            로그인
+          </Link>
+        </div>
       </div>
     );
   }
