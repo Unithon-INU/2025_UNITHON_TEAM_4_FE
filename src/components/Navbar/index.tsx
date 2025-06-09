@@ -7,7 +7,6 @@ import MenuIcon from "./components/MenuIcon";
 import UserIcon from "./components/UserIcon";
 
 const leftNavItems = [
-  { name: "온보딩", to: routePath.Onboarding },
   { name: "홈", to: routePath.Main },
   { name: "전국 축제", to: routePath.Festival },
   { name: "기간별 축제", to: routePath.FestivalPeriod },
