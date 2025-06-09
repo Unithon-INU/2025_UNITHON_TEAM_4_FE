@@ -1,53 +1,105 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "../../components/Navbar";
+import { Link } from "react-router-dom";
 import { Edit, MoreVertical, Trash2, User, MessageCircle, Settings2Icon } from "lucide-react";
+import { fetchUserProfile } from "../../apis/users"; // API 임포트 추가
 
-const NAVBAR_HEIGHT = 90; // 네비게이션 바 높이(px)
+const NAVBAR_HEIGHT = 90;
 
-// 샘플 데이터
-const userProfile = {
-  id: 1,
-  name: "festival_lover",
-  email: "festival_lover@example.com",
-  bio: "축제를 사랑하는 사람입니다.",
-  avatar: "/placeholder.svg?height=120&width=120",
-  joinDate: "2023-01-15",
-  postCount: 12,
-  likeCount: 42,
-  bookmarkCount: 16,
-};
+interface Post {
+  thumbnailUrl: string;
+  title: string;
+  updatedAt: string;
+}
 
-const samplePosts = [
-  ...Array.from({ length: 17 }).map((_, i) => ({
-    id: i + 1,
-    title: `진주 남강유등축제 방문...${i + 1}`,
-    content: "진주 남강유등축제에 다녀온 후기입니다.",
-    createdAt: "2023-10-15",
-    comments: 24,
-    category: "한국어",
-    author: "@festival_lover",
-    image: "/placeholder.svg?height=120&width=180",
-  })),
-];
+interface UserProfile {
+  name: string;
+  email: string;
+  profileImageUrl: string;
+  createdAt: string;
+  postCount: number;
+  posts: Post[];
+}
 
 export default function MyPage() {
-  const [posts, setPosts] = useState(samplePosts);
+  const [userProfile, setUserProfile] = useState<UserProfile>({
+    name: "",
+    email: "",
+    profileImageUrl: "",
+    createdAt: "",
+    postCount: 0,
+    posts: [],
+  });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [selectedPostId, setSelectedPostId] = useState<number | null>(null);
   const [dropdownOpenId, setDropdownOpenId] = useState<number | null>(null);
 
-  // 게시물 삭제
-  const handleDeletePost = (postId: number) => {
-    setPosts((prev) => prev.filter((post) => post.id !== postId));
+  // API 연동 부분
+  useEffect(() => {
+    const loadProfile = async () => {
+      try {
+        const response = await fetchUserProfile();
+        setUserProfile({
+          name: response.data.name,
+          email: response.data.email,
+          profileImageUrl: response.data.profileImageUrl,
+          createdAt: new Date(response.data.createdAt).toLocaleDateString(),
+          postCount: response.data.postCount,
+          posts: response.data.posts.map((post) => ({
+            ...post,
+            updatedAt: new Date(post.updatedAt).toLocaleDateString(),
+          })),
+        });
+      } catch (err) {
+        setError("프로필 정보 불러오기 실패");
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadProfile();
+  }, []);
+
+  const handleDeletePost = (postIndex: number) => {
+    setUserProfile((prev) => ({
+      ...prev,
+      posts: prev.posts.filter((_, idx) => idx !== postIndex),
+    }));
     setIsDeleteDialogOpen(false);
     setSelectedPostId(null);
   };
 
-  // 게시물 수정 (콘솔 출력)
   const handleEditPost = (postId: number) => {
     console.log(`게시물 ${postId} 수정`);
     setDropdownOpenId(null);
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#ff651b]"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="max-w-sm p-6 text-center">
+          <p className="text-gray-600 text-lg mb-4">프로필 정보를 불러올 수 없습니다.</p>
+          <p className="text-gray-400 text-sm mb-6">로그인 페이지로 이동하시겠습니까?</p>
+          <Link
+            to="/login"
+            className="block w-full border border-[#ff651b] text-[#ff651b] rounded-md px-4 py-2 text-center hover:bg-[#ff651b] hover:text-white transition-colors"
+          >
+            로그인
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white overflow-hidden">
@@ -63,14 +115,13 @@ export default function MyPage() {
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 w-full h-[calc(85vh-2rem)]">
             {/* 프로필 영역 */}
             <div className="lg:col-span-2 h-full">
-              <div className="bg-white rounded-lg  border border-border-[#fffefb] h-full flex items-center justify-center">
+              <div className="bg-white rounded-lg border border-border-[#fffefb] h-full flex items-center justify-center">
                 <div className="w-full max-w-sm p-8">
                   <div className="text-center space-y-6">
-                    {/* 프로필 이미지 */}
                     <div className="relative mx-auto w-32 h-32">
-                      {userProfile.avatar ? (
+                      {userProfile.profileImageUrl ? (
                         <img
-                          src={userProfile.avatar}
+                          src={userProfile.profileImageUrl}
                           alt={userProfile.name}
                           className="rounded-full w-32 h-32 object-cover border"
                         />
@@ -80,28 +131,21 @@ export default function MyPage() {
                         </div>
                       )}
                     </div>
-                    {/* 사용자 정보 */}
                     <div className="space-y-2">
                       <h2 className="text-2xl font-bold">{userProfile.name}</h2>
                       <p className="text-gray-500 text-sm">{userProfile.email}</p>
                     </div>
-                    {/* 통계 */}
                     <div className="flex justify-center gap-8">
                       <div className="text-center">
                         <p className="text-xl font-bold">{userProfile.postCount}</p>
                         <p className="text-xs text-gray-400">게시물</p>
                       </div>
                       <div className="text-center">
-                        <p className="text-xl font-bold">{userProfile.likeCount}</p>
-                        <p className="text-xs text-gray-400">좋아요</p>
-                      </div>
-                      <div className="text-center">
-                        <p className="text-xl font-bold">{userProfile.bookmarkCount}</p>
+                        <p className="text-xl font-bold">16</p>
                         <p className="text-xs text-gray-400">북마크</p>
                       </div>
                     </div>
-                    {/* 버튼들 */}
-                    <div className="space-y-3">
+                    <div className="space-y-3 flex flex-col items-center">
                       <button className="w-full border border-gray-300 rounded bg-white px-4 py-2 flex items-center justify-center hover:bg-gray-50">
                         <Edit className="w-4 h-4 mr-2 text-[#ff651b]" />
                         프로필 수정
@@ -111,9 +155,8 @@ export default function MyPage() {
                         계정 설정
                       </button>
                     </div>
-                    {/* 가입일 */}
                     <div className="pt-4 border-t border-[#ff651b]">
-                      <p className="text-xs text-gray-300">가입일: {userProfile.joinDate}</p>
+                      <p className="text-xs text-gray-300">가입일: {userProfile.createdAt}</p>
                     </div>
                   </div>
                 </div>
@@ -135,14 +178,14 @@ export default function MyPage() {
                 {/* 게시물 리스트: flex-1, h-full, overflow-y-auto */}
                 <div className="flex-1 h-full p-6 pt-0 ">
                   <div className="grid grid-cols-3 gap-4 ">
-                    {posts.map((post, idx) => (
+                    {userProfile.posts.map((post, index) => (
                       <div
-                        key={post.id + "-" + idx}
+                        key={index}
                         className="overflow-hidden rounded-lg bg-gray-100 aspect-square relative shadow-sm hover:shadow-md transition-all duration-300 mb-6 group cursor-pointer"
                       >
                         {/* 이미지 영역 */}
                         <img
-                          src={post.image}
+                          src={post.thumbnailUrl || "/placeholder.svg"}
                           alt={post.title}
                           className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
                         />
@@ -153,19 +196,19 @@ export default function MyPage() {
                             className="w-6 h-6 flex items-center justify-center bg-white rounded-full shadow hover:bg-gray-100"
                             onClick={(e) => {
                               e.stopPropagation();
-                              setDropdownOpenId(dropdownOpenId === post.id ? null : post.id);
+                              setDropdownOpenId(dropdownOpenId === index ? null : index);
                             }}
                           >
                             <MoreVertical className="w-4 h-4" />
                           </button>
                           {/* 드롭다운 메뉴 */}
-                          {dropdownOpenId === post.id && (
+                          {dropdownOpenId === index && (
                             <div className="absolute right-0 mt-2 w-28 bg-white border rounded shadow z-10">
                               <button
                                 className="flex items-center w-full px-3 py-2 text-sm hover:bg-gray-100"
                                 onClick={(e) => {
                                   e.stopPropagation();
-                                  handleEditPost(post.id);
+                                  handleEditPost(index);
                                 }}
                               >
                                 <Edit className="w-4 h-4 mr-2" />
@@ -175,7 +218,7 @@ export default function MyPage() {
                                 className="flex items-center w-full px-3 py-2 text-sm text-red-600 hover:bg-gray-100"
                                 onClick={(e) => {
                                   e.stopPropagation();
-                                  setSelectedPostId(post.id);
+                                  setSelectedPostId(index);
                                   setIsDeleteDialogOpen(true);
                                   setDropdownOpenId(null);
                                 }}
@@ -192,14 +235,14 @@ export default function MyPage() {
                           <div className="flex items-center justify-between text-xs mb-1 opacity-80">
                             <div className="flex items-center gap-1">
                               <MessageCircle className="w-3 h-3" />
-                              <span>{post.comments}</span>
+                              <span>13</span>
                             </div>
-                            <span>{post.createdAt}</span>
+                            <span>{post.updatedAt}</span>
                           </div>
                           <p className="text-sm font-medium truncate">{post.title}</p>
                           <div className="flex items-center justify-between mt-1 text-xs opacity-80">
-                            <span>{post.category}</span>
-                            <span>@{post.author}</span>
+                            <span>카테고리</span>
+                            <span>@{userProfile.name}</span>
                           </div>
                         </div>
                       </div>
