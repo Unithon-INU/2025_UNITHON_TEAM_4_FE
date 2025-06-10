@@ -279,6 +279,8 @@ export default function FestivalPage() {
         </div>
 
         {/* 탭 컴포넌트 */}
+        {!(searchQuery.trim().length > 0 || selectedKeywords.length > 0) && (
+
         <Tabs value={tab} onValueChange={setTab as (value: string) => void}>
           <TabsList>
             <TabsTrigger value="all">전체 축제</TabsTrigger>
@@ -287,6 +289,9 @@ export default function FestivalPage() {
             <TabsTrigger value="ongoing">진행 중인 축제</TabsTrigger>
           </TabsList>
         </Tabs>
+        )}
+
+        {/* 필터링된 축제 리스트 */}
         {filteredFestivals.length > 0 ? (
           <>
             <FestivalGrid festivals={filteredFestivals} onUpdateDetails={handleUpdateDetails} />

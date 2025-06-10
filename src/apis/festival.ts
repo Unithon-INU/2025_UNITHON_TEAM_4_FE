@@ -23,7 +23,7 @@ export interface GetFestivalListParams {
 export async function fetchFestivalList(params: GetFestivalListParams = {}) {
   const {
     lang = "kor",
-    numOfRows = 4,
+    numOfRows = 8,
     pageNo = 1,
     eventStartDate = "20250601",
     eventEndDate,
@@ -49,7 +49,7 @@ export async function fetchFestivalList(params: GetFestivalListParams = {}) {
 // 1. 축제 검색 (GET /api/festivals/search?keyword=키워드)
 export async function fetchFestivalSearch(keyword: string, lang = "kor", pageNo = 1) {
   const res = await client.get<FestivalListResponse>(getApiUrl("/festivals/search"), {
-    params: { keyword, lang, pageNo, numOfRows: 4 },
+    params: { keyword, lang, pageNo, numOfRows: 8 },
   });
   const item = res.data.data.response.body.items.item;
   const totalCount = res.data.data.response.body.totalCount;

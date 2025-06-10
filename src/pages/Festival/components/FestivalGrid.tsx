@@ -97,7 +97,7 @@ function FestivalCard({
       );
     }
   }, [infoLoading, periodLoading, formattedPeriod, overview, festival.id, eventEnd, onUpdateDetails])();
-
+ 
   return (
     <div
       className={`group relative overflow-hidden rounded-xl bg-[#fffefb] transition-all hover:shadow-lg ${
@@ -181,21 +181,21 @@ function FestivalCard({
         }}
       >
         <motion.span
-  initial={false}
-  animate={{
-    scale: liked ? [1, 2.3, 1] : 1,
-    rotate: liked ? [0, -10, 10, 0] : 0,
-  }}
-  transition={{ type: "spring", stiffness: 400, damping: 10, duration: 0.4 }}
-  whileTap={{ scale: 0.3 }}
-  style={{ display: "inline-block" }}
->
-  <Heart
-    className="h-4 w-4"
-    fill={liked ? "#f43f5e" : "none"}
-    stroke={liked ? "#f43f5e" : "#334155"}
-  />
-</motion.span>
+          initial={false}
+          animate={{
+            scale: liked ? [1, 1.3] : 1,
+            rotate: liked ? [0, 0] : 0,
+          }}
+          transition={{ type: "spring", stiffness: 400, damping: 10, duration: 0.2 }}
+          whileTap={{ scale: 0.3 }}
+          style={{ display: "inline-block" }}
+        >
+          <Heart
+            className="h-5 w-5"
+            fill={liked ? "#ff651b" : "none"}
+            stroke={liked ? "#ff651b" : "#334155"}
+          />
+        </motion.span>
         <span className="sr-only">좋아요</span>
       </Button>
     </div>
