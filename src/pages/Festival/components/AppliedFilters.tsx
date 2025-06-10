@@ -25,7 +25,7 @@ export function AppliedFilters({
   if (!hasAny) return null;
 
   return (
-    <div className="mb-4 flex flex-wrap items-center gap-2">
+    <div className="mb-4 w-auto flex flex-wrap items-center justify-end gap-2 ml-6">
       <span className="text-sm text-gray-500">적용된 필터:</span>
       {selectedRegion !== "all" && (
         <Badge variant="secondary" className="flex items-center gap-1">

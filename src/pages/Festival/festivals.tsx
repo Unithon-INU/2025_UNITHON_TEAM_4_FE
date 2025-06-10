@@ -10,15 +10,40 @@ import { AppliedFilters } from "./components/AppliedFilters";
 import { FeaturedFestivalSlider } from "./components/FeaturedFestivalSlider";
 import { useInfiniteFestivalList, useInfiniteFestivalSearch } from "../../hooks/useFestivalList";
 import { useBottomObserver } from "../../hooks/useBottomObserver";
-import {LoadingFestival} from "./LoadingFestival"; // 로딩 컴포넌트 (스켈레톤)
+import { LoadingFestival } from "./LoadingFestival"; // 로딩 컴포넌트 (스켈레톤)
+
 const areaCodeMap: Record<string, string> = {
-  "1": "서울", "2": "인천", "3": "대전", "4": "대구", "5": "광주", "6": "부산",
-  "7": "울산", "8": "세종", "31": "경기도", "32": "강원도", "33": "충청북도",
-  "34": "충청남도", "35": "경상북도", "36": "경상남도", "37": "전라북도", "38": "전라남도", "39": "제주도",
+  "1": "서울",
+  "2": "인천",
+  "3": "대전",
+  "4": "대구",
+  "5": "광주",
+  "6": "부산",
+  "7": "울산",
+  "8": "세종",
+  "31": "경기도",
+  "32": "강원도",
+  "33": "충청북도",
+  "34": "충청남도",
+  "35": "경상북도",
+  "36": "경상남도",
+  "37": "전라북도",
+  "38": "전라남도",
+  "39": "제주도",
 };
 
+// 오늘 날짜 yyyyMMdd
+function getTodayStr() {
+  const today = new Date();
+  const y = today.getFullYear();
+  const m = String(today.getMonth() + 1).padStart(2, "0");
+  const d = String(today.getDate()).padStart(2, "0");
+  return `${y}${m}${d}`;
+}
+
 export default function FestivalPage() {
-  // 상태
+  // 탭 상태
+  const [tab, setTab] = useState<"all" | "featured" | "upcoming" | "ongoing">("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedKeywords, setSelectedKeywords] = useState<string[]>([]);
   const [selectedRegion, setSelectedRegion] = useState("all");
@@ -26,79 +51,88 @@ export default function FestivalPage() {
   const [detailsMap, setDetailsMap] = useState<DetailsMap>({});
   const [keywordFilterMode, setKeywordFilterMode] = useState<"AND" | "OR">("OR");
 
-  // --- 필터 파라미터 (areaCode만 샘플, 필요에 따라 확장)
+  // 탭에 따라 API 파라미터 조정
+  const todayStr = getTodayStr();
+  let eventStartDate: string | undefined = undefined;
+  let eventEndDate: string | undefined = undefined;
+
+  if (tab === "all") {
+    eventStartDate = undefined; // 오늘 이후 시작
+  } else if (tab === "ongoing") {
+    eventStartDate = todayStr;
+    eventEndDate = todayStr; // 종료일이 오늘 이후(진행중)
+  }
+
   const filterParams = {
     areaCode: selectedRegion !== "all" ? selectedRegion : undefined,
+    eventStartDate,
+    eventEndDate,
   };
 
-  // --- 무한스크롤 핵심: 검색/리스트 구분
+  // --- 검색/리스트 구분
   const isSearching = searchQuery.trim().length > 0 || selectedKeywords.length > 0;
   const keyword = selectedKeywords[0] || searchQuery.trim() || "";
 
-  
-  // 훅을 무조건 둘 다 호출
-const searchResult = useInfiniteFestivalSearch(keyword);
-const listResult = useInfiniteFestivalList(filterParams);
+  // 훅 사용
+  const searchResult = useInfiniteFestivalSearch(keyword);
+  const listResult = useInfiniteFestivalList(filterParams);
 
-// 조건에 따라 사용할 값만 선택
-const {
-  data,
-  fetchNextPage,
-  hasNextPage,
-  isFetchingNextPage,
-  isLoading,
-  isError,
-} = isSearching ? searchResult : listResult;
-// 종료여부 판단 함수
-function isFestivalEnded(eventenddate?: string): boolean {
-  if (!eventenddate || eventenddate.length !== 8) return false;
-  const today = new Date();
-  const y = today.getFullYear();
-  const m = String(today.getMonth() + 1).padStart(2, "0");
-  const d = String(today.getDate()).padStart(2, "0");
-  const todayStr = `${y}${m}${d}`; // "20240606"
-  return eventenddate < todayStr;
-}
+  // 조건에 따라 사용할 값만 선택
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isError } = isSearching
+    ? searchResult
+    : listResult;
+
+  // 종료여부 판단 함수
+  function isFestivalEnded(eventenddate?: string): boolean {
+    if (!eventenddate || eventenddate.length !== 8) return false;
+    const today = new Date();
+    const y = today.getFullYear();
+    const m = String(today.getMonth() + 1).padStart(2, "0");
+    const d = String(today.getDate()).padStart(2, "0");
+    const todayStr = `${y}${m}${d}`;
+    return eventenddate < todayStr;
+  }
+
   // 데이터 누적(flat)
   const festivals: Festival[] = useMemo(() => {
-  if (!data) return [];
-  // 페이지별로 아이템 추출
-  const allItems = data.pages.flatMap((page) => {
-    if (Array.isArray(page)) return page; // 배열이면 그대로
-    if ("item" in page) return page.item; // 객체면 .item
-    return [];
-  });
+    if (!data) return [];
+    // 페이지별로 아이템 추출
+    const allItems = data.pages.flatMap((page) => {
+      if (Array.isArray(page)) return page;
+      if ("item" in page) return page.item;
+      return [];
+    });
 
-  // 이하 기존로직 동일
-  const notEndedItems = allItems.filter((item) => {
-    const eventEnd = detailsMap?.[item.contentid]?.eventenddate;
-    return !isFestivalEnded(eventEnd);
-  });
+    // 이하 기존로직 동일
+    const notEndedItems = allItems.filter((item) => {
+      const eventEnd = detailsMap?.[item.contentid]?.eventenddate;
+      return !isFestivalEnded(eventEnd);
+    });
 
-  const featuredIds = notEndedItems.slice(0, 5).map((item) => item.contentid);
+    const featuredIds = notEndedItems.slice(0, 5).map((item) => item.contentid);
 
-  return allItems.map((item) => {
-    const eventEnd = detailsMap?.[item.contentid]?.eventenddate;
-    const ended = isFestivalEnded(eventEnd);
-    return {
-      id: item.contentid,
-      contentid: item.contentid,
-      contenttypeid: item.contenttypeid,
-      name: item.title,
-      location:
-        (areaCodeMap[item.areacode] || "미정") +
-        (item.addr1 ? ` ${item.addr1}` : "") +
-        (item.addr2 ? `, ${item.addr2}` : ""),
-      period: "기간 정보 없음",
-      image: item.firstimage ?? "",
-      image2: item.firstimage2 ?? "",
-      keywords: item.areacode ? [areaCodeMap[item.areacode]] : [],
-      description: item.overview ?? "",
-      ended,
-      featured: !ended && featuredIds.includes(item.contentid),
-    };
-  });
-}, [data, detailsMap]);
+    return allItems.map((item) => {
+      const eventEnd = detailsMap?.[item.contentid]?.eventenddate;
+      const ended = isFestivalEnded(eventEnd);
+      return {
+        id: item.contentid,
+        contentid: item.contentid,
+        contenttypeid: item.contenttypeid,
+        name: item.title,
+        location:
+          (areaCodeMap[item.areacode] || "미정") +
+          (item.addr1 ? ` ${item.addr1}` : "") +
+          (item.addr2 ? `, ${item.addr2}` : ""),
+        period: "기간 정보 없음",
+        image: item.firstimage ?? "",
+        image2: item.firstimage2 ?? "",
+        keywords: item.areacode ? [areaCodeMap[item.areacode]] : [],
+        description: item.overview ?? "",
+        ended,
+        featured: !ended && featuredIds.includes(item.contentid),
+      };
+    });
+  }, [data, detailsMap]);
 
   // 상세 정보(detailsMap) 반영
   const festivalsWithDetails: Festival[] = useMemo(
@@ -129,7 +163,10 @@ function isFestivalEnded(eventenddate?: string): boolean {
     }
     if (selectedSeason !== "all") {
       const seasonKeywords = {
-        spring: ["봄"], summer: ["여름"], autumn: ["가을"], winter: ["겨울"],
+        spring: ["봄"],
+        summer: ["여름"],
+        autumn: ["가을"],
+        winter: ["겨울"],
       };
       filtered = filtered.filter((festival) =>
         festival.keywords.some((keyword) =>
@@ -137,8 +174,19 @@ function isFestivalEnded(eventenddate?: string): boolean {
         )
       );
     }
+    // 추천 탭: featured만
+    // if (tab === "featured") {
+    //   filtered = filtered.filter((f) => f.featured);
+    // }
     return filtered;
-  }, [festivalsWithDetails, selectedKeywords, selectedRegion, selectedSeason, keywordFilterMode]);
+  }, [
+    festivalsWithDetails,
+    selectedKeywords,
+    selectedRegion,
+    selectedSeason,
+    keywordFilterMode,
+    // tab,
+  ]);
 
   // --- 상세 fetch map 연결
   const handleUpdateDetails: React.Dispatch<React.SetStateAction<DetailsMap>> = setDetailsMap;
@@ -150,6 +198,7 @@ function isFestivalEnded(eventenddate?: string): boolean {
     setSelectedSeason("all");
     setSelectedKeywords([]);
     setDetailsMap({});
+    setTab("all");
     // 무한스크롤에선 festivals가 자동 초기화됨
   };
 
@@ -169,6 +218,15 @@ function isFestivalEnded(eventenddate?: string): boolean {
   const bottomRef = useBottomObserver(() => {
     if (hasNextPage && !isFetchingNextPage) fetchNextPage();
   }, hasNextPage);
+
+  // --- totalCount
+  const totalCount = useMemo(() => {
+    if (!data) return 0;
+    const firstPage = data.pages[0];
+    if (Array.isArray(firstPage)) return firstPage.length;
+    if ("totalCount" in firstPage) return firstPage.totalCount;
+    return 0;
+  }, [data]);
 
   // --- 에러/로딩 처리
   if (isLoading) return <LoadingFestival />;
@@ -191,12 +249,20 @@ function isFestivalEnded(eventenddate?: string): boolean {
       <main className="max-w-screen-xl mx-auto px-4 pt-28 pb-12">
         <div className="mb-8 text-center">
           <h1 className="text-3xl font-bold md:text-4xl text-[#1f2328]">전국 축제</h1>
-          <p className="text-[#1f2328]/70">
-            한국의 다양한 지역에서 열리는 특색 있는 축제들을 만나보세요
-          </p>
         </div>
         <FeaturedFestivalSlider festivals={featuredFestivals} />
-        <div className="relative mb-6">
+        <div className=" -mt-11 flex flex-row justify-between items-center">
+          <p className="ml-6  mb-4 font-semibold text-lg text-[#1f2328]/90">
+            '<span className="text-[#ff651b]">{totalCount}</span>'개의 축제가 있습니다
+          </p>
+          <AppliedFilters
+            selectedRegion={selectedRegion}
+            selectedSeason={selectedSeason}
+            selectedKeywords={selectedKeywords}
+            onReset={resetFilters}
+          />
+        </div>
+        <div className="relative mb-1">
           <FilterBar
             searchQuery={searchQuery}
             onSearch={handleSearch}
@@ -211,17 +277,13 @@ function isFestivalEnded(eventenddate?: string): boolean {
             onKeywordFilterModeChange={setKeywordFilterMode}
           />
         </div>
-        <AppliedFilters
-          selectedRegion={selectedRegion}
-          selectedSeason={selectedSeason}
-          selectedKeywords={selectedKeywords}
-          onReset={resetFilters}
-        />
-        <Tabs>
+
+        {/* 탭 컴포넌트 */}
+        <Tabs value={tab} onValueChange={setTab as (value: string) => void}>
           <TabsList>
             <TabsTrigger value="all">전체 축제</TabsTrigger>
-            <TabsTrigger value="featured">추천 축제</TabsTrigger>
-            <TabsTrigger value="upcoming">다가오는 축제</TabsTrigger>
+            {/* <TabsTrigger value="featured">추천 축제</TabsTrigger> */}
+            {/* <TabsTrigger value="upcoming">다가오는 축제</TabsTrigger> */}
             <TabsTrigger value="ongoing">진행 중인 축제</TabsTrigger>
           </TabsList>
         </Tabs>

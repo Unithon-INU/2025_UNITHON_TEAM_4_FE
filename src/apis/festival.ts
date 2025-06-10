@@ -21,7 +21,14 @@ export interface GetFestivalListParams {
  * @returns Promise<FestivalListItem[]>
  */
 export async function fetchFestivalList(params: GetFestivalListParams = {}) {
-  const { lang = "kor", numOfRows = 12, pageNo = 1, eventStartDate = "20250601", eventEndDate, areaCode = "" } = params;
+  const {
+    lang = "kor",
+    numOfRows = 4,
+    pageNo = 1,
+    eventStartDate = "20250601",
+    eventEndDate,
+    areaCode = "",
+  } = params;
 
   const res = await client.get<FestivalListResponse>(getApiUrl("/festivals/list"), {
     params: {
@@ -42,9 +49,11 @@ export async function fetchFestivalList(params: GetFestivalListParams = {}) {
 // 1. 축제 검색 (GET /api/festivals/search?keyword=키워드)
 export async function fetchFestivalSearch(keyword: string, lang = "kor", pageNo = 1) {
   const res = await client.get<FestivalListResponse>(getApiUrl("/festivals/search"), {
-    params: { keyword, lang, pageNo, numOfRows: 12 },
+    params: { keyword, lang, pageNo, numOfRows: 4 },
   });
-  return res.data.data.response.body.items.item;
+  const item = res.data.data.response.body.items.item;
+  const totalCount = res.data.data.response.body.totalCount;
+  return { item, totalCount };
 }
 
 // ########################## 축제list overview, period용 API ##########################

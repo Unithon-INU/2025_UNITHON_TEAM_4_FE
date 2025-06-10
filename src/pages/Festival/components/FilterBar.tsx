@@ -100,7 +100,7 @@ export function FilterBar({
   };
 
   return (
-    <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+    <div className="mb-3 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
       {/* 검색바 */}
       <SearchBar onSearch={onSearch} defaultValue={searchQuery} />
 
