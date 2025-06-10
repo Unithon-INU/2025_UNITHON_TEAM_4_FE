@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { UserPlus, Eye } from "lucide-react";
+import { UserPlus, Eye, EyeOff } from "lucide-react";
 import Navbar from "../../components/Navbar";
 import signup from "../../apis/signup";
 
@@ -11,6 +11,8 @@ const SignupPage = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleSignup = async () => {
     if (!email || !name || !password || !confirmPassword) {
@@ -47,7 +49,7 @@ const SignupPage = () => {
         <div className="max-w-md w-full bg-white border border-gray-200 rounded-2xl shadow p-8">
           <div className="text-center mb-8">
             <div className="flex justify-center mb-4">
-              <div className="w-16 h-16 bg-[#ff651b]/10 rounded-full flex items-center justify-center">
+              <div className="w-16 h-16  rounded-full flex items-center justify-center border border-gray-200">
                 <UserPlus className="h-8 w-8 text-[#ff651b]" />
               </div>
             </div>
@@ -108,9 +110,10 @@ const SignupPage = () => {
                   type="button"
                   tabIndex={-1}
                   className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400"
-                  aria-label="비밀번호 보기"
+                  aria-label={showPassword ? "비밀번호 숨기기" : "비밀번호 보기"}
+                  onClick={() => setShowPassword((prev) => !prev)}
                 >
-                  <Eye className="h-5 w-5" />
+                  {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                 </button>
               </div>
             </div>
@@ -133,9 +136,14 @@ const SignupPage = () => {
                   type="button"
                   tabIndex={-1}
                   className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400"
-                  aria-label="비밀번호 보기"
+                  aria-label={showConfirmPassword ? "비밀번호 숨기기" : "비밀번호 보기"}
+                  onClick={() => setShowConfirmPassword((prev) => !prev)}
                 >
-                  <Eye className="h-5 w-5" />
+                  {showConfirmPassword ? (
+                    <EyeOff className="h-5 w-5" />
+                  ) : (
+                    <Eye className="h-5 w-5" />
+                  )}
                 </button>
               </div>
             </div>

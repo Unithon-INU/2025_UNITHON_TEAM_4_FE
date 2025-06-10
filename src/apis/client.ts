@@ -45,6 +45,7 @@ client.interceptors.request.use(
 );
 
 // 응답 인터셉터 (401/리프레시 토큰 등)
+// 응답 인터셉터 (401/리프레시 토큰 등)
 client.interceptors.response.use(
   (res) => {
     if (res.data.refreshed) {
@@ -64,4 +65,5 @@ client.interceptors.response.use(
 
 // 내보낼 때, getApiUrl 함수도 함께 export!
 export { getApiUrl };
+
 export default client;

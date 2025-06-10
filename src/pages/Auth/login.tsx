@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { LogIn, Eye } from "lucide-react";
+import { LogIn, Eye, EyeOff } from "lucide-react";
+import { Link } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import login from "../../apis/login";
 
@@ -7,6 +8,7 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async () => {
     try {
@@ -31,7 +33,7 @@ const LoginPage = () => {
         <div className="text-center mb-8">
           <div className="flex justify-center mb-5">
             <div className="w-12 h-12 rounded-full flex items-center justify-center border border-gray-200 bg-white">
-              <LogIn className="h-7 w-7 text-gray-800" />
+              <LogIn className="h-7 w-7 text-[#ff651b]" />
             </div>
           </div>
           <h1 className="text-3xl font-extrabold mb-2 text-gray-900">로그인</h1>
@@ -51,7 +53,7 @@ const LoginPage = () => {
               name="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full h-11 rounded-lg border border-gray-200 px-3 text-base placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-green-200"
+              className="w-full h-11 rounded-lg border border-gray-200 px-3 text-base placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-700"
               placeholder="이메일 주소를 입력하세요"
               autoComplete="off"
             />
@@ -68,17 +70,18 @@ const LoginPage = () => {
                 name="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full h-11 rounded-lg border border-gray-200 px-3 pr-10 text-base placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-green-200"
+                className="w-full h-11 rounded-lg border border-gray-200 px-3 pr-10 text-base placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-700"
                 placeholder="비밀번호를 입력하세요"
                 autoComplete="off"
               />
               <button
                 type="button"
-                className="absolute top-1/2 -translate-y-1/2 right-3 flex items-center"
                 tabIndex={-1}
-                aria-label="비밀번호 보기"
+                className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400"
+                aria-label={showPassword ? "비밀번호 숨기기" : "비밀번호 보기"}
+                onClick={() => setShowPassword((prev) => !prev)}
               >
-                <Eye className="h-5 w-5 text-gray-400" />
+                {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
               </button>
             </div>
           </div>
@@ -114,9 +117,11 @@ const LoginPage = () => {
         <div className="mt-6 text-center">
           <p className="text-sm text-gray-500">
             아직 계정이 없으신가요?{" "}
-            <span className="text-[#ff651b] hover:underline font-medium cursor-pointer">
-              회원가입
-            </span>
+            <Link to="/signup">
+              <span className="text-[#ff651b] hover:underline font-medium cursor-pointer">
+                회원가입
+              </span>
+            </Link>
           </p>
         </div>
       </div>
