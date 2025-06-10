@@ -1,4 +1,3 @@
-// src/pages/Festival/components/AppliedFilters.tsx
 "use client";
 
 import { MapPin, Calendar } from "lucide-react";
@@ -11,6 +10,7 @@ interface AppliedFiltersProps {
   selectedSeason: string;
   selectedKeywords: string[];
   onReset: () => void;
+  // (옵션: onRemoveKeyword, onRemoveRegion 등 추가로 지원 가능)
 }
 
 export function AppliedFilters({
@@ -25,7 +25,7 @@ export function AppliedFilters({
   if (!hasAny) return null;
 
   return (
-    <div className="mb-4 flex flex-wrap items-center gap-2">
+    <div className="mb-4 w-auto flex flex-wrap items-center justify-end gap-2 ml-6">
       <span className="text-sm text-gray-500">적용된 필터:</span>
       {selectedRegion !== "all" && (
         <Badge variant="secondary" className="flex items-center gap-1">
@@ -40,7 +40,7 @@ export function AppliedFilters({
         </Badge>
       )}
       {selectedKeywords.map((keyword) => (
-        <Badge key={keyword} variant="secondary" className="flex items-center gap-1">
+        <Badge key={keyword} variant="outline" className="flex bg-[#ff651b]/90 items-center gap-1">
           {keyword}
         </Badge>
       ))}
