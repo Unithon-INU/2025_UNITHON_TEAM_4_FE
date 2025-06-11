@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState,  useEffect } from "react";
 import { useFestivalOverview, useFestivalPeriod } from "../../../hooks/useFestivalList";
 import { Link } from "react-router-dom";
 import { Heart, MapPin, Calendar } from "lucide-react";
@@ -79,7 +79,7 @@ function FestivalCard({
   // const ended = isFestivalEnded(eventEnd);
 
   // fetch된 값이 있으면 상위로 올려줌 (부모 state 업데이트)
-  useCallback(() => {
+  useEffect(() => {
     if (!infoLoading && !periodLoading && (overview || formattedPeriod)) {
       onUpdateDetails((prev) =>
         prev[festival.id]?.period === formattedPeriod &&
@@ -96,7 +96,7 @@ function FestivalCard({
             }
       );
     }
-  }, [infoLoading, periodLoading, formattedPeriod, overview, festival.id, eventEnd, onUpdateDetails])();
+  }, [infoLoading, periodLoading, formattedPeriod, overview, festival.id, eventEnd, onUpdateDetails]);
  
   return (
     <div
