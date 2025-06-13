@@ -106,7 +106,7 @@ function FestivalCard({
           : "ring-[1.7px] ring-gray-600 ring-offset-2"
       }`}
     >
-      <Link to={`/festivals/${festival.id}`} className="block">
+      <Link to={`/festival/${festival.contentid}/${festival.contenttypeid}`} className="block">
         <div className="relative aspect-[4/3] w-full overflow-hidden">
           <img
             src={festival.image || "/placeholder.svg"}

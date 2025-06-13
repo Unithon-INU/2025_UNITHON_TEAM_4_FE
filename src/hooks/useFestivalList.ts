@@ -6,8 +6,9 @@ import {
   fetchFestivalPeriod,
   fetchFestivalSearch,
   GetFestivalListParams,
+  fetchFestivalDetailInfo
 } from "../apis/festival";
-import type { FestivalListItem } from "../types/festival";
+import type { FestivalListItem, FestivalDetailInfoItem } from "../types/festival";
 
 // 무한 스크롤용 리스트
 export function useInfiniteFestivalList(params: GetFestivalListParams = {}) {
@@ -49,6 +50,16 @@ export function useFestivalPeriod(contentId?: string, contentTypeId?: string) {
   return useQuery({
     queryKey: ["festivalPeriod", contentId, contentTypeId],
     queryFn: () => fetchFestivalPeriod(contentId!, contentTypeId!),
+    enabled: !!contentId && !!contentTypeId,
+    staleTime: 1000 * 60,
+  });
+}
+
+// 행사 상세정보(행사내용, detailInfo)
+export function useFestivalDetailInfo(contentId?: string, contentTypeId?: string) {
+  return useQuery<FestivalDetailInfoItem[]>({
+    queryKey: ["festivalDetailInfo", contentId, contentTypeId],
+    queryFn: () => fetchFestivalDetailInfo(contentId!, contentTypeId!),
     enabled: !!contentId && !!contentTypeId,
     staleTime: 1000 * 60,
   });

@@ -3,6 +3,7 @@ import type {
   FestivalDetailIntroResponse,
   FestivalInfoResponse,
   FestivalListResponse,
+  FestivalDetailInfoResponse
 } from "../types/festival";
 
 // 파라미터 타입 정의
@@ -78,4 +79,16 @@ export async function fetchFestivalPeriod(contentId: string, contentTypeId: stri
     },
   });
   return res.data.data.response.body.items.item[0];
+}
+// 행사내용(detailInfo) fetch
+export async function fetchFestivalDetailInfo(contentId: string, contentTypeId: string) {
+  const res = await client.get<FestivalDetailInfoResponse>(getApiUrl("/festivals/detailInfo"), {
+    params: {
+      lang: "kor",
+      contentId,
+      contentTypeId,
+    },
+  });
+  // item이 배열로 옴
+  return res.data.data.response.body.items.item;
 }
