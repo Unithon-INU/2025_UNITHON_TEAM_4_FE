@@ -66,7 +66,7 @@ export function FeaturedFestivalSlider({ festivals }: FeaturedFestivalSliderProp
         >
           {festivals.map((festival) => (
             <div key={festival.id} className="w-full flex-shrink-0">
-              <Link to={`/festivals/${festival.id}`} className="block">
+              <Link to={`/festival/${festival.id}/${festival.contenttypeid}`} className="block">
                 <div className="relative flex h-80 items-center overflow-hidden px-8 lg:h-96">
                   <div className="absolute inset-0">
                     <img

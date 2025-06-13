@@ -6,9 +6,11 @@ import {
   fetchFestivalPeriod,
   fetchFestivalSearch,
   GetFestivalListParams,
-  fetchFestivalDetailInfo
+  fetchFestivalDetailInfo,
+  fetchLocationFood,
+  GetLocationFoodParams,
 } from "../apis/festival";
-import type { FestivalListItem, FestivalDetailInfoItem } from "../types/festival";
+import type { FestivalListItem, FestivalDetailInfoItem, LocationFoodItem } from "../types/festival";
 
 // 무한 스크롤용 리스트
 export function useInfiniteFestivalList(params: GetFestivalListParams = {}) {
@@ -35,7 +37,7 @@ export function useInfiniteFestivalSearch(keyword: string, lang = "kor") {
   });
 }
 
-// 소개(overview)
+// 소개(overview) /info
 export function useFestivalOverview(contentId?: string) {
   return useQuery({
     queryKey: ["festivalOverview", contentId],
@@ -45,7 +47,7 @@ export function useFestivalOverview(contentId?: string) {
   });
 }
 
-// 기간(시작,종료일)
+// 기간(시작,종료일) /detailIntro
 export function useFestivalPeriod(contentId?: string, contentTypeId?: string) {
   return useQuery({
     queryKey: ["festivalPeriod", contentId, contentTypeId],
@@ -61,6 +63,16 @@ export function useFestivalDetailInfo(contentId?: string, contentTypeId?: string
     queryKey: ["festivalDetailInfo", contentId, contentTypeId],
     queryFn: () => fetchFestivalDetailInfo(contentId!, contentTypeId!),
     enabled: !!contentId && !!contentTypeId,
+    staleTime: 1000 * 60,
+  });
+}
+
+// 근처 먹거리 음식점 hook
+export function useLocationFood(params: GetLocationFoodParams, enabled = true) {
+  return useQuery<LocationFoodItem[]>({
+    queryKey: ["locationFood", params],
+    queryFn: () => fetchLocationFood(params),
+    enabled: !!params.mapx && !!params.mapy && enabled, // 좌표 있으면만 fetch
     staleTime: 1000 * 60,
   });
 }

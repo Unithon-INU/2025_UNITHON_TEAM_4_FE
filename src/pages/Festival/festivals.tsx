@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { useSearchParams } from 'react-router-dom';
 import Navbar from "../../components/Navbar/index";
 import { Tabs, TabsList, TabsTrigger } from "./components/Tabs";
 import { Button } from "../../components/ui/button";
@@ -43,14 +44,21 @@ function getTodayStr() {
 
 export default function FestivalPage() {
   // 탭 상태
+    const [searchParams, setSearchParams] = useSearchParams();
+
   const [tab, setTab] = useState<"all" | "featured" | "upcoming" | "ongoing">("all");
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState(() => searchParams.get("search") ?? "");
   const [selectedKeywords, setSelectedKeywords] = useState<string[]>([]);
   const [selectedRegion, setSelectedRegion] = useState("all");
   const [selectedSeason, setSelectedSeason] = useState("all");
   const [detailsMap, setDetailsMap] = useState<DetailsMap>({});
   const [keywordFilterMode, setKeywordFilterMode] = useState<"AND" | "OR">("OR");
-
+  
+  
+  useEffect(() => {
+    setSearchQuery(searchParams.get("search") ?? "");
+  }, [searchParams]);
+  
   // 탭에 따라 API 파라미터 조정
   const todayStr = getTodayStr();
   let eventStartDate: string | undefined = undefined;
@@ -211,6 +219,7 @@ export default function FestivalPage() {
   // 검색어 입력
   const handleSearch = (query: string) => {
     setSearchQuery(query);
+    setSearchParams({ search: query });
     setSelectedKeywords([]);
   };
 

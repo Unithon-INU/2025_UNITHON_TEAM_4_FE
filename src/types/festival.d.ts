@@ -153,3 +153,45 @@ export interface FestivalDetailInfoResponse {
     };
   };
 }
+
+// 근처 먹거리(음식점) 응답
+export interface LocationFoodItem {
+  addr1: string;
+  addr2: string;
+  areacode: string;
+  contentid: string;
+  contenttypeid: string;
+  createdtime: string;
+  firstimage?: string;
+  firstimage2?: string;
+  mapx: string;
+  mapy: string;
+  modifiedtime: string;
+  tel?: string;
+  title: string;
+  zipcode?: string | null;
+  overview?: string | null;
+  dist?: string; // 거리(m)
+  item?: unknown | null; // 원본 응답 그대로
+}
+
+export interface LocationFoodResponse {
+  status: number;
+  message: string;
+  data: {
+    response: {
+      header: {
+        resultCode: string;
+        resultMsg: string;
+      };
+      body: {
+        items: {
+          item: LocationFoodItem[];
+        };
+        numOfRows: number;
+        pageNo: number;
+        totalCount: number;
+      };
+    };
+  };
+}

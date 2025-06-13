@@ -38,6 +38,17 @@ export default function Hero({ setCurrentSeason }: HeroProps) {
   const navigate = useNavigate()
   const searchRef = useRef<HTMLInputElement>(null)
 
+
+  const isInvalidQuery = (str: string) => {
+    const trimmed = str.trim();
+    // 1. 공백이 포함되어 있으면 무조건 불가능
+    if (trimmed.includes(" ")) return true;
+    // 2. 한글 자음/모음만 있을 때 불가능
+    const onlyConsonantOrVowel = /^[ㄱ-ㅎㅏ-ㅣ]+$/;
+    if (onlyConsonantOrVowel.test(trimmed)) return true;
+    // 3. 그 외(완성형 한글 등)는 가능
+    return false;
+  };
   useEffect(() => {
     const interval = setInterval(() => {
       setPrevSeason(currentSeason)
@@ -49,9 +60,13 @@ export default function Hero({ setCurrentSeason }: HeroProps) {
   }, [currentSeason, setCurrentSeason])
 
   const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
+    if (isInvalidQuery(searchQuery)) {
+      alert("한글 자음/모음만 입력하거나, 공백이 포함되었을 경우 검색이 불가합니다. 더 구체적으로 입력해 주세요.");
+      return;
+    }
     if (searchQuery.trim()) {
-      navigate(`/festivals?search=${encodeURIComponent(searchQuery)}`)
+      navigate(`/festival?search=${encodeURIComponent(searchQuery)}`)
     }
   }
 

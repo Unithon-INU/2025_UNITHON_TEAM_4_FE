@@ -27,7 +27,7 @@ export default function KeywordSection() {
   const navigate = useNavigate()
 
   const handleClick = (keyword: string) => {
-    navigate(`/festivals?keyword=${encodeURIComponent(keyword)}`)
+    navigate(`/festival?search=${encodeURIComponent(keyword)}`)
   }
 
   return (

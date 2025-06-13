@@ -3,7 +3,8 @@ import type {
   FestivalDetailIntroResponse,
   FestivalInfoResponse,
   FestivalListResponse,
-  FestivalDetailInfoResponse
+  FestivalDetailInfoResponse,
+  LocationFoodResponse
 } from "../types/festival";
 
 // 파라미터 타입 정의
@@ -90,5 +91,44 @@ export async function fetchFestivalDetailInfo(contentId: string, contentTypeId: 
     },
   });
   // item이 배열로 옴
+  return res.data.data.response.body.items.item;
+}
+
+// 파라미터 타입
+export interface GetLocationFoodParams {
+  lang?: string;
+  mapx: string;
+  mapy: string;
+  numOfRows?: string | number;
+  pageNo?: string | number;
+  radius?: string | number;
+}
+
+// 근처 먹거리 조회 (GET /api/festivals/locationFood)
+export async function fetchLocationFood(params: GetLocationFoodParams) {
+  const {
+    lang = "kor",
+    mapx,
+    mapy,
+    numOfRows = 4,
+    pageNo = 1,
+    radius = 10000,
+  } = params;
+
+  const res = await client.get<LocationFoodResponse>(
+    getApiUrl("/festivals/locationFood"),
+    {
+      params: {
+        lang,
+        MapX: mapx,
+        MapY: mapy,
+        NumOfRows: numOfRows,
+        PageNo: pageNo,
+        Radius: radius,
+      },
+    }
+  );
+
+  // 바로 배열만 리턴
   return res.data.data.response.body.items.item;
 }
