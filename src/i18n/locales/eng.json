@@ -1,0 +1,34 @@
+{
+  "main":{
+    "floatingKeywords": [
+      { "text": "CherryBlossom", "x": 10, "y": 20, "delay": 0, "color": "bg-pink-100 text-pink-700" },
+      { "text": "Fireworks", "x": 80, "y": 15, "delay": 1, "color": "bg-red-100 text-red-700" },
+      { "text": "Lantern", "x": 15, "y": 70, "delay": 2, "color": "bg-yellow-100 text-yellow-700" },
+      { "text": "Mud", "x": 85, "y": 60, "delay": 0.5, "color": "bg-amber-100 text-amber-700" },
+      { "text": "Hanji", "x": 25, "y": 45, "delay": 1.5, "color": "bg-blue-100 text-blue-700" },
+      { "text": "MaskDance", "x": 75, "y": 35, "delay": 2.5, "color": "bg-purple-100 text-purple-700" },
+      { "text": "MountainTrout", "x": 5, "y": 50, "delay": 3, "color": "bg-cyan-100 text-cyan-700" },
+      { "text": "Celadon", "x": 90, "y": 80, "delay": 1.8, "color": "bg-emerald-100 text-emerald-700" },
+      { "text": "Traditional", "x": 70, "y": 70, "delay": 2.8, "color": "bg-lime-100 text-lime-700" },
+      { "text": "Autumn", "x": 35, "y": 80, "delay": 3.3, "color": "bg-orange-100 text-orange-700" },
+      { "text": "Winter", "x": 90, "y": 30, "delay": 3.7, "color": "bg-slate-100 text-slate-700" }
+    ],
+    "headline1": "Discover Korea's",
+    "headline2": "vibrant festivals",
+    "desc": "Experience Korea's rich cultural festivals throughout all four seasons.",
+    "searchPlaceholder": "What festival are you looking for?",
+    "btnAll": "Browse all festivals",
+    "btnPeriod": "Search by period",
+    "alertInvalid": "Search is not allowed if only consonants/vowels or spaces are entered. Please enter more specifically."
+  },
+  "navbar": {
+    "home": "Home",
+    "festival": "All Festival",
+    "period": "By Period",
+    "community": "Community",
+    "mypage": "My Page",
+    "login": "Login",
+    "signup": "Sign Up",
+    "language": "Language"
+  }
+}

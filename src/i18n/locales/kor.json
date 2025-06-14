@@ -1,0 +1,35 @@
+{
+  "main": {
+    "floatingKeywords": [
+      { "text": "벚꽃축제", "x": 10, "y": 20, "delay": 0, "color": "bg-pink-100 text-pink-700" },
+      { "text": "불꽃축제", "x": 80, "y": 15, "delay": 1, "color": "bg-red-100 text-red-700" },
+      { "text": "등불축제", "x": 15, "y": 70, "delay": 2, "color": "bg-yellow-100 text-yellow-700" },
+      { "text": "머드축제", "x": 85, "y": 60, "delay": 0.5, "color": "bg-amber-100 text-amber-700" },
+      { "text": "한지축제", "x": 25, "y": 45, "delay": 1.5, "color": "bg-blue-100 text-blue-700" },
+      { "text": "탈춤축제", "x": 75, "y": 35, "delay": 2.5, "color": "bg-purple-100 text-purple-700" },
+      { "text": "산천어축제", "x": 5, "y": 50, "delay": 3, "color": "bg-cyan-100 text-cyan-700" },
+      { "text": "청자축제", "x": 90, "y": 80, "delay": 1.8, "color": "bg-emerald-100 text-emerald-700" },
+      { "text": "전통문화축제", "x": 70, "y": 70, "delay": 2.8, "color": "bg-lime-100 text-lime-700" },
+      { "text": "가을단풍축제", "x": 35, "y": 80, "delay": 3.3, "color": "bg-orange-100 text-orange-700" },
+      { "text": "겨울얼음축제", "x": 90, "y": 30, "delay": 3.7, "color": "bg-slate-100 text-slate-700" }
+    ],
+    "headline1": "한국의 다채로운 축제를",
+    "headline2": "발견하세요",
+    "desc": "사계절 내내 펼쳐지는 한국의 풍부한 문화 축제를 경험해보세요",
+    "searchPlaceholder": "어떤 축제를 찾고 계신가요?",
+    "btnAll": "전국축제 둘러보기",
+    "btnPeriod": "기간별로 찾기",
+    "alertInvalid": "한글 자음/모음만 입력하거나, 공백이 포함되었을 경우 검색이 불가합니다. 더 구체적으로 입력해 주세요."
+  }
+  ,
+  "navbar": {
+    "home": "홈",
+    "festival": "전국 축제",
+    "period": "기간별 축제",
+    "community": "커뮤니티",
+    "mypage": "마이페이지",
+    "login": "로그인",
+    "signup": "회원가입",
+    "language": "언어"
+  }
+}

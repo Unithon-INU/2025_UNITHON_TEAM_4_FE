@@ -6,21 +6,21 @@ import { Button } from "../../../components/ui/button"
 import { Badge } from "../../../components/ui/Badge"
 import { motion, AnimatePresence } from "framer-motion"
 import { seasonalFestivals } from "./seasonalFestivals"
+import { useTranslation } from 'react-i18next'
 
-
-const floatingKeywords = [
-  { text: "벚꽃축제", x: 10, y: 20, delay: 0, color: "bg-pink-100 text-pink-700" },
-  { text: "불꽃축제", x: 80, y: 15, delay: 1, color: "bg-red-100 text-red-700" },
-  { text: "등불축제", x: 15, y: 70, delay: 2, color: "bg-yellow-100 text-yellow-700" },
-  { text: "머드축제", x: 85, y: 60, delay: 0.5, color: "bg-amber-100 text-amber-700" },
-  { text: "한지축제", x: 25, y: 45, delay: 1.5, color: "bg-blue-100 text-blue-700" },
-  { text: "탈춤축제", x: 75, y: 35, delay: 2.5, color: "bg-purple-100 text-purple-700" },
-  { text: "산천어축제", x: 5, y: 50, delay: 3, color: "bg-cyan-100 text-cyan-700" },
-  { text: "청자축제", x: 90, y: 80, delay: 1.8, color: "bg-emerald-100 text-emerald-700" },
-  { text: "전통문화축제", x: 70, y: 70, delay: 2.8, color: "bg-lime-100 text-lime-700" },
-  { text: "가을단풍축제", x: 35, y: 80, delay: 3.3, color: "bg-orange-100 text-orange-700" },
-  { text: "겨울얼음축제", x: 90, y: 30, delay: 3.7, color: "bg-slate-100 text-slate-700" },
-]
+// const floatingKeywords = [
+//   { text: "벚꽃축제", x: 10, y: 20, delay: 0, color: "bg-pink-100 text-pink-700" },
+//   { text: "불꽃축제", x: 80, y: 15, delay: 1, color: "bg-red-100 text-red-700" },
+//   { text: "등불축제", x: 15, y: 70, delay: 2, color: "bg-yellow-100 text-yellow-700" },
+//   { text: "머드축제", x: 85, y: 60, delay: 0.5, color: "bg-amber-100 text-amber-700" },
+//   { text: "한지축제", x: 25, y: 45, delay: 1.5, color: "bg-blue-100 text-blue-700" },
+//   { text: "탈춤축제", x: 75, y: 35, delay: 2.5, color: "bg-purple-100 text-purple-700" },
+//   { text: "산천어축제", x: 5, y: 50, delay: 3, color: "bg-cyan-100 text-cyan-700" },
+//   { text: "청자축제", x: 90, y: 80, delay: 1.8, color: "bg-emerald-100 text-emerald-700" },
+//   { text: "전통문화축제", x: 70, y: 70, delay: 2.8, color: "bg-lime-100 text-lime-700" },
+//   { text: "가을단풍축제", x: 35, y: 80, delay: 3.3, color: "bg-orange-100 text-orange-700" },
+//   { text: "겨울얼음축제", x: 90, y: 30, delay: 3.7, color: "bg-slate-100 text-slate-700" },
+// ]
 
 
 
@@ -29,6 +29,7 @@ interface HeroProps {
 }
 
 export default function Hero({ setCurrentSeason }: HeroProps) {
+  const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState("")
   const [isSearchFocused, setIsSearchFocused] = useState(false)
   const [currentSeason, setCurrentSeasonProp] = useState(0) // 현재 계절을 나타내는 state
@@ -38,6 +39,14 @@ export default function Hero({ setCurrentSeason }: HeroProps) {
   const navigate = useNavigate()
   const searchRef = useRef<HTMLInputElement>(null)
 
+  // i18n에서 플로팅키워드 불러오기
+  const floatingKeywords = t("main.floatingKeywords", { returnObjects: true }) as {
+    text: string;
+    x: number;
+    y: number;
+    delay: number;
+    color: string;
+  }[];
 
   const isInvalidQuery = (str: string) => {
     const trimmed = str.trim();
@@ -62,7 +71,7 @@ export default function Hero({ setCurrentSeason }: HeroProps) {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (isInvalidQuery(searchQuery)) {
-      alert("한글 자음/모음만 입력하거나, 공백이 포함되었을 경우 검색이 불가합니다. 더 구체적으로 입력해 주세요.");
+      alert(t("main.alertInvalid")); // i18n으로 변경
       return;
     }
     if (searchQuery.trim()) {
@@ -161,13 +170,13 @@ export default function Hero({ setCurrentSeason }: HeroProps) {
 >
       <div className="relative z-10 w-full max-w-4xl px-4 text-center z-0">
         <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-4">
-          한국의 다채로운 축제를 <br />
+           {t("main.headline1")} <br />
           <span className={`${seasonalFestivals[currentSeason].accent} transition-colors duration-1000`}>
-            발견하세요
+            {t("main.headline2")}
           </span>
         </h1>
         <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto mb-8">
-          사계절 내내 펼쳐지는 한국의 풍부한 문화 축제를 경험해보세요
+          {t("main.desc")}
         </p>
 
         <form onSubmit={handleSearch} className="relative max-w-2xl mx-auto mb-8">
@@ -180,7 +189,7 @@ export default function Hero({ setCurrentSeason }: HeroProps) {
             <Input
               ref={searchRef}
               type="text"
-              placeholder="어떤 축제를 찾고 계신가요?"
+              placeholder={t("main.searchPlaceholder")}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onFocus={() => setIsSearchFocused(true)}
@@ -214,7 +223,7 @@ export default function Hero({ setCurrentSeason }: HeroProps) {
               onClick={() => navigate("/festival")}
             >
               <Sparkles className="mr-2 h-5 w-5" />
-              전국축제 둘러보기
+              {t("main.btnAll")}
             </Button></motion.div>
             <motion.div
               whileHover={{
@@ -229,7 +238,7 @@ export default function Hero({ setCurrentSeason }: HeroProps) {
               onClick={() => navigate("/festivalperiod")}
             >
               <CalendarDays className="mr-2 h-5 w-5" />
-              기간별로 찾기
+              {t("main.btnPeriod")}
             </Button>
             </motion.div>
           </div>

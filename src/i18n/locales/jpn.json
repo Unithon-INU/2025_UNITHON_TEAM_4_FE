@@ -1,0 +1,35 @@
+{
+  "main": {
+    "floatingKeywords": [
+      { "text": "桜祭り", "x": 10, "y": 20, "delay": 0, "color": "bg-pink-100 text-pink-700" },
+      { "text": "花火大会", "x": 80, "y": 15, "delay": 1, "color": "bg-red-100 text-red-700" },
+      { "text": "灯籠祭り", "x": 15, "y": 70, "delay": 2, "color": "bg-yellow-100 text-yellow-700" },
+      { "text": "泥祭り", "x": 85, "y": 60, "delay": 0.5, "color": "bg-amber-100 text-amber-700" },
+      { "text": "韓紙祭り", "x": 25, "y": 45, "delay": 1.5, "color": "bg-blue-100 text-blue-700" },
+      { "text": "仮面舞踊祭り", "x": 75, "y": 35, "delay": 2.5, "color": "bg-purple-100 text-purple-700" },
+      { "text": "ワカサギ祭り", "x": 5, "y": 50, "delay": 3, "color": "bg-cyan-100 text-cyan-700" },
+      { "text": "青磁祭り", "x": 90, "y": 80, "delay": 1.8, "color": "bg-emerald-100 text-emerald-700" },
+      { "text": "伝統文化祭り", "x": 70, "y": 70, "delay": 2.8, "color": "bg-lime-100 text-lime-700" },
+      { "text": "紅葉祭り", "x": 35, "y": 80, "delay": 3.3, "color": "bg-orange-100 text-orange-700" },
+      { "text": "冬の氷祭り", "x": 90, "y": 30, "delay": 3.7, "color": "bg-slate-100 text-slate-700" }
+    ],
+    "headline1": "韓国の多彩なフェスティバルを",
+    "headline2": "発見しよう",
+    "desc": "四季を通じて広がる韓国の豊かな文化フェスティバルを体験しましょう。",
+    "searchPlaceholder": "どんなフェスティバルをお探しですか？",
+    "btnAll": "全国フェスティバルを見る",
+    "btnPeriod": "期間で探す",
+    "alertInvalid": "子音・母音のみやスペースが含まれている場合は検索できません。もっと具体的に入力してください。"
+  },
+  "navbar": {
+    "home": "ホーム",
+    "festival": "全国フェスティバル",
+    "period": "期間別フェス",
+    "community": "コミュニティ",
+    "mypage": "マイページ",
+    "login": "ログイン",
+    "signup": "会員登録",
+    "language": "言語"
+  }
+}
+

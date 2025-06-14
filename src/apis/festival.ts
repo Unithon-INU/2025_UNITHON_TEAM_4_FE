@@ -24,7 +24,7 @@ export interface GetFestivalListParams {
  */
 export async function fetchFestivalList(params: GetFestivalListParams = {}) {
   const {
-    lang = "kor",
+    lang,
     numOfRows = 8,
     pageNo = 1,
     eventStartDate = "20250601",
@@ -49,7 +49,7 @@ export async function fetchFestivalList(params: GetFestivalListParams = {}) {
 }
 
 // 1. 축제 검색 (GET /api/festivals/search?keyword=키워드)
-export async function fetchFestivalSearch(keyword: string, lang = "kor", pageNo = 1) {
+export async function fetchFestivalSearch(keyword: string, lang: string, pageNo = 1) {
   const res = await client.get<FestivalListResponse>(getApiUrl("/festivals/search"), {
     params: { keyword, lang, pageNo, numOfRows: 8 },
   });
@@ -60,10 +60,10 @@ export async function fetchFestivalSearch(keyword: string, lang = "kor", pageNo 
 
 // ########################## 축제list overview, period용 API ##########################
 // 1. 개별 축제 overview(소개) fetch
-export async function fetchFestivalInfo(contentId: string) {
+export async function fetchFestivalInfo(contentId: string, lang: string) {
   const res = await client.get<FestivalInfoResponse>(getApiUrl("/festivals/info"), {
     params: {
-      lang: "kor",
+      lang,
       contentId,
     },
   });
@@ -71,10 +71,10 @@ export async function fetchFestivalInfo(contentId: string) {
 }
 
 // 2. 개별 축제 기간(시작일/종료일) fetch
-export async function fetchFestivalPeriod(contentId: string, contentTypeId: string) {
+export async function fetchFestivalPeriod(contentId: string, contentTypeId: string, lang: string) {
   const res = await client.get<FestivalDetailIntroResponse>(getApiUrl("/festivals/detailIntro"), {
     params: {
-      lang: "kor",
+      lang,
       contentId,
       contentTypeId,
     },
@@ -82,10 +82,10 @@ export async function fetchFestivalPeriod(contentId: string, contentTypeId: stri
   return res.data.data.response.body.items.item[0];
 }
 // 행사내용(detailInfo) fetch
-export async function fetchFestivalDetailInfo(contentId: string, contentTypeId: string) {
+export async function fetchFestivalDetailInfo(contentId: string, contentTypeId: string, lang: string) {
   const res = await client.get<FestivalDetailInfoResponse>(getApiUrl("/festivals/detailInfo"), {
     params: {
-      lang: "kor",
+      lang,
       contentId,
       contentTypeId,
     },
@@ -107,7 +107,7 @@ export interface GetLocationFoodParams {
 // 근처 먹거리 조회 (GET /api/festivals/locationFood)
 export async function fetchLocationFood(params: GetLocationFoodParams) {
   const {
-    lang = "kor",
+    lang,
     mapx,
     mapy,
     numOfRows = 4,

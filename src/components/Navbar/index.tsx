@@ -5,28 +5,43 @@ import GlobeIcon from "./components/GlobeIcon";
 import ChevronDownIcon from "./components/ChevronDownIcon";
 import MenuIcon from "./components/MenuIcon";
 import UserIcon from "./components/UserIcon";
+import { LANG_MAP, LANG_LABEL_MAP } from "../../constants/lang";
+import { useLangStore } from "../../libraries/stores/langStore";
+import { useTranslation } from "react-i18next";
+import i18n from "../../i18n";
 
+// 네비게이션 아이템 key는 kor.json/eng.json/... 파일의 key와 맞추기
 const leftNavItems = [
-  { name: "홈", to: routePath.Main },
-  { name: "전국 축제", to: routePath.Festival },
-  { name: "기간별 축제", to: routePath.FestivalPeriod },
-  { name: "커뮤니티", to: routePath.Community },
+  { name: "home", to: routePath.Main },
+  { name: "festival", to: routePath.Festival },
+  { name: "period", to: routePath.FestivalPeriod },
+  { name: "community", to: routePath.Community },
 ];
 
 const languages = [
   "한국어",
-  "중국어",
-  "일본어",
-  "영어",
-  "스페인어",
-  "독일어",
-  "프랑스어",
-  "러시아어",
+  "english",
+  "日本語",
+  // 필요시 추가
 ];
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
+
+  const { lang, setLang } = useLangStore();
+  const { t } = useTranslation();
+
+  // 언어 선택 핸들러
+  const handleLangSelect = (label: string) => {
+    const code = LANG_MAP[label];
+    setLang(code as "kor" | "eng" | "jpn");
+    i18n.changeLanguage(code);
+    setIsLangOpen(false);
+  };
+
+  // 현재 언어 라벨
+  const currentLangLabel = LANG_LABEL_MAP[lang] || "한국어";
 
   return (
     <nav className="fixed top-0 z-30 w-full h-[90px] bg-white border-b shadow-sm ">
@@ -40,7 +55,7 @@ export default function Navbar() {
                 to={item.to}
                 className="relative px-3 py-2 text-lg font-medium text-gray-700 transition-colors hover:text-[#ff651b] group"
               >
-                {item.name}
+                {t(`navbar.${item.name}`)}
                 <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-[#ff651b] transition-all duration-300 group-hover:w-full" />
               </Link>
             ))}
@@ -60,7 +75,7 @@ export default function Navbar() {
               <div className="fixed inset-0 z-50 bg-black/40">
                 <div className="fixed left-0 top-0 h-full w-80 bg-white shadow-lg p-6 flex flex-col">
                   <div className="flex items-center justify-between pb-4">
-                    <h2 className="text-lg font-semibold text-[#ff651b]">축제 메뉴</h2>
+                    <h2 className="text-lg font-semibold text-[#ff651b]">{t("navbar.menu") || "축제 메뉴"}</h2>
                     <button
                       onClick={() => setIsMobileMenuOpen(false)}
                       className="text-gray-500 hover:text-[#ff651b] text-2xl"
@@ -76,7 +91,7 @@ export default function Navbar() {
                         className="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-orange-50 hover:text-[#ff651b] rounded-md transition-colors"
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
-                        {item.name}
+                        {t(`navbar.${item.name}`)}
                       </Link>
                     ))}
                     <div className="border-t pt-4 space-y-4">
@@ -87,18 +102,18 @@ export default function Navbar() {
                           className="w-full flex items-center text-gray-700 hover:text-[#ff651b] px-3 py-2 rounded-md transition-colors"
                         >
                           <GlobeIcon className="mr-2 h-4 w-4" />
-                          언어 선택
+                          {currentLangLabel}
                           <ChevronDownIcon className="ml-auto h-4 w-4" />
                         </button>
                         {isLangOpen && (
                           <div className="absolute left-0 mt-2 w-40 bg-white shadow-lg rounded-lg z-20 border border-gray-100">
-                            {languages.map((lang) => (
+                            {languages.map((langLabel) => (
                               <div
-                                key={lang}
+                                key={langLabel}
                                 className="px-4 py-2 rounded cursor-pointer hover:bg-orange-50 hover:text-[#ff651b] transition-colors"
-                                onClick={() => setIsLangOpen(false)}
+                                onClick={() => handleLangSelect(langLabel)}
                               >
-                                {lang}
+                                {langLabel}
                               </div>
                             ))}
                           </div>
@@ -110,7 +125,7 @@ export default function Navbar() {
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
                         <UserIcon className="mr-2 h-4 w-4" />
-                        마이페이지
+                        {t("navbar.mypage")}
                       </Link>
                       <div className="space-y-2">
                         <Link
@@ -118,14 +133,14 @@ export default function Navbar() {
                           className="block w-full border border-[#ff651b] text-[#ff651b] rounded-md px-4 py-2 text-center hover:bg-[#ff651b] hover:text-white transition-colors"
                           onClick={() => setIsMobileMenuOpen(false)}
                         >
-                          로그인
+                          {t("navbar.login")}
                         </Link>
                         <Link
                           to={routePath.Signup}
                           className="block w-full bg-[#ff651b] hover:bg-[#e55a18] text-white rounded-md px-4 py-2 text-center transition-colors"
                           onClick={() => setIsMobileMenuOpen(false)}
                         >
-                          회원가입
+                          {t("navbar.signup")}
                         </Link>
                       </div>
                     </div>
@@ -145,18 +160,18 @@ export default function Navbar() {
                 type="button"
               >
                 <GlobeIcon className="mr-2 h-4 w-4" />
-                언어
+                {currentLangLabel}
                 <ChevronDownIcon className="ml-2 h-4 w-4" />
               </button>
               {isLangOpen && (
                 <div className="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-lg z-20 border border-gray-100">
-                  {languages.map((lang) => (
+                  {languages.map((langLabel) => (
                     <div
-                      key={lang}
+                      key={langLabel}
                       className="px-4 py-2 rounded cursor-pointer hover:bg-orange-50 hover:text-[#ff651b] transition-colors"
-                      onClick={() => setIsLangOpen(false)}
+                      onClick={() => handleLangSelect(langLabel)}
                     >
-                      {lang}
+                      {langLabel}
                     </div>
                   ))}
                 </div>
@@ -168,21 +183,21 @@ export default function Navbar() {
               className="flex items-center text-gray-700 hover:text-[#ff651b] hover:bg-orange-50 px-3 py-2 rounded-md transition-colors"
             >
               <UserIcon className="mr-2 h-4 w-4" />
-              마이페이지
+              {t("navbar.mypage")}
             </Link>
             {/* 로그인 */}
             <Link
               to={routePath.Login}
               className="border border-[#ff651b] text-[#ff651b] rounded-md px-4 py-2 hover:bg-[#ff651b] hover:text-white transition-colors"
             >
-              로그인
+              {t("navbar.login")}
             </Link>
             {/* 회원가입 */}
             <Link
               to={routePath.Signup}
               className="bg-[#ff651b] hover:bg-[#e55a18] text-white rounded-md px-4 py-2 shadow-md hover:shadow-lg transition-all duration-200"
             >
-              회원가입
+              {t("navbar.signup")}
             </Link>
           </div>
         </div>
