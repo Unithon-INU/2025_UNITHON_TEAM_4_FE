@@ -34,7 +34,7 @@ export default function SeasonSection({ currentSeason }: Props) {
               className={`group cursor-pointer transition-all duration-500 hover:shadow-xl hover:-translate-y-3 ${
                 index === currentSeason ? "ring-2 ring-[#ff651b] shadow-lg -translate-y-2" : ""
               }`}
-              onClick={() => navigate(`/festivals?season=${festival.id}`)}
+              onClick={() => navigate(`/festival?search=${festival.id}`)}
             >
               <div className="relative h-48 overflow-hidden rounded-t-lg">
                 <div className={`absolute inset-0 ${festival.color}`} />
