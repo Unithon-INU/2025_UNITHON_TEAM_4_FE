@@ -1,4 +1,14 @@
 {
+  "navbar": {
+    "home": "홈",
+    "festival": "전국 축제",
+    "period": "기간별 축제",
+    "community": "커뮤니티",
+    "mypage": "마이페이지",
+    "login": "로그인",
+    "signup": "회원가입",
+    "language": "언어"
+  },
   "main": {
     "floatingKeywords": [
       { "text": "벚꽃축제", "x": 10, "y": 20, "delay": 0, "color": "bg-pink-100 text-pink-700" },
@@ -22,14 +32,62 @@
     "alertInvalid": "한글 자음/모음만 입력하거나, 공백이 포함되었을 경우 검색이 불가합니다. 더 구체적으로 입력해 주세요."
   }
   ,
-  "navbar": {
-    "home": "홈",
-    "festival": "전국 축제",
-    "period": "기간별 축제",
+  "seasonal": [
+    {
+      "id": "spring",
+      "season": "봄",
+      "title": "봄꽃 축제",
+      "description": "벚꽃과 함께하는 화사한 봄 축제들",
+      "festivals": ["진해 군항제", "여의도 벚꽃축제", "경주 벚꽃축제"]
+    },
+    {
+      "id": "summer",
+      "season": "여름",
+      "title": "여름 물축제",
+      "description": "시원한 물과 함께하는 여름 축제들",
+      "festivals": ["보령 머드축제", "화천 토마토축제", "무주 반딧불축제"]
+    },
+    {
+      "id": "autumn",
+      "season": "가을",
+      "title": "가을 단풍축제",
+      "description": "아름다운 단풍과 함께하는 가을 축제들",
+      "festivals": ["진주 남강 유등축제", "부산 불꽃축제", "안동 탈춤페스티벌"]
+    },
+    {
+      "id": "winter",
+      "season": "겨울",
+      "title": "겨울 얼음축제",
+      "description": "하얀 눈과 함께하는 겨울 축제들",
+      "festivals": ["화천 산천어축제", "평창 송어축제", "태백 눈축제"]
+    }
+  ],
+  "seasonSection": {
+    "headline": "계절별 추천 축제",
+    "desc": "각 계절마다 특별한 매력을 가진 축제들을 만나보세요"
+  },
+  "keywordSection": {
+    "title": "키워드로 탐색하기",
+    "all": "모든 축제 보기 →",
+    "keywords": [
+      "봄", "여름", "가을", "겨울",
+      "전통", "체험", "공연", "음식",
+      "불꽃", "등불", "벚꽃", "야경",
+      "서울", "부산", "제주도", "강원도", "경상도", "전라도"
+    ]
+  },
+  "footerSection": {
+    "aboutTitle": "한국 축제 소개",
+    "aboutDesc": "연중 다양한 축제와 행사를 통해 한국의 활기찬 문화유산을 발견해보세요.",
+    "linksTitle": "빠른 링크",
+    "allFestivals": "전체 축제",
+    "periodFestivals": "기간별 축제",
     "community": "커뮤니티",
     "mypage": "마이페이지",
-    "login": "로그인",
-    "signup": "회원가입",
-    "language": "언어"
+    "subscribeTitle": "구독하기",
+    "subscribeDesc": "최신 축제 정보를 받아보세요.",
+    "emailPlaceholder": "이메일 주소",
+    "subscribeBtn": "구독",
+    "copyright": "&copy; 2024 한국 축제 가이드. All rights reserved."
   }
 }

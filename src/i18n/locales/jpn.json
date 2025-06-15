@@ -1,4 +1,14 @@
 {
+  "navbar": {
+    "home": "ホーム",
+    "festival": "全国フェスティバル",
+    "period": "期間別フェス",
+    "community": "コミュニティ",
+    "mypage": "マイページ",
+    "login": "ログイン",
+    "signup": "会員登録",
+    "language": "言語"
+  },
   "main": {
     "floatingKeywords": [
       { "text": "桜祭り", "x": 10, "y": 20, "delay": 0, "color": "bg-pink-100 text-pink-700" },
@@ -21,15 +31,64 @@
     "btnPeriod": "期間で探す",
     "alertInvalid": "子音・母音のみやスペースが含まれている場合は検索できません。もっと具体的に入力してください。"
   },
-  "navbar": {
-    "home": "ホーム",
-    "festival": "全国フェスティバル",
-    "period": "期間別フェス",
+  "seasonal": [
+    {
+      "id": "spring",
+      "season": "春",
+      "title": "春の花祭り",
+      "description": "桜と共に華やかな春の祭り",
+      "festivals": ["鎮海軍港祭", "汝矣島桜祭り", "慶州桜祭り"]
+    },
+    {
+      "id": "summer",
+      "season": "夏",
+      "title": "夏の水祭り",
+      "description": "涼しい水と共に楽しむ夏の祭り",
+      "festivals": ["保寧マッドフェスティバル", "華川トマト祭り", "茂朱ホタル祭り"]
+    },
+    {
+      "id": "autumn",
+      "season": "秋",
+      "title": "秋の紅葉祭り",
+      "description": "美しい紅葉と共に楽しむ秋の祭り",
+      "festivals": ["晋州南江流燈祭り", "釜山花火祭り", "安東国際仮面劇フェスティバル"]
+    },
+    {
+      "id": "winter",
+      "season": "冬",
+      "title": "冬の氷祭り",
+      "description": "白い雪と共に楽しむ冬の祭り",
+      "festivals": ["華川ヤマメ祭り", "平昌マス祭り", "太白雪祭り"]
+    }
+  ],
+  "seasonSection": {
+    "headline": "季節ごとのおすすめ祭り",
+    "desc": "それぞれの季節に特別な魅力を持つ祭りに出会いましょう"
+  },
+  "keywordSection": {
+    "title": "キーワードで探す",
+    "all": "すべての祭りを見る →",
+    "keywords": [
+      "春", "夏", "秋", "冬",
+      "伝統", "体験", "公演", "グルメ",
+      "花火", "提灯", "桜", "夜景",
+      "ソウル", "釜山", "済州島", "江原道", "慶尚道", "全羅道"
+    ]
+  },
+  "footerSection": {
+    "aboutTitle": "韓国の祭りについて",
+    "aboutDesc": "一年を通して開催される様々な祭りとイベントで、韓国の活気ある文化遺産を発見してください。",
+    "linksTitle": "クイックリンク",
+    "allFestivals": "全ての祭り",
+    "periodFestivals": "期間別祭り",
     "community": "コミュニティ",
     "mypage": "マイページ",
-    "login": "ログイン",
-    "signup": "会員登録",
-    "language": "言語"
+    "subscribeTitle": "購読する",
+    "subscribeDesc": "最新の祭り情報を受け取りましょう。",
+    "emailPlaceholder": "メールアドレス",
+    "subscribeBtn": "購読",
+    "copyright": "&copy; 2024 韓国祭りガイド. All rights reserved."
   }
+  
 }
 

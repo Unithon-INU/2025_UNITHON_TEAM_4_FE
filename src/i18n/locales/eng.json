@@ -1,4 +1,14 @@
 {
+  "navbar": {
+    "home": "Home",
+    "festival": "All Festival",
+    "period": "By Period",
+    "community": "Community",
+    "mypage": "My Page",
+    "login": "Login",
+    "signup": "Sign Up",
+    "language": "Language"
+  },
   "main":{
     "floatingKeywords": [
       { "text": "CherryBlossom", "x": 10, "y": 20, "delay": 0, "color": "bg-pink-100 text-pink-700" },
@@ -21,14 +31,62 @@
     "btnPeriod": "Search by period",
     "alertInvalid": "Search is not allowed if only consonants/vowels or spaces are entered. Please enter more specifically."
   },
-  "navbar": {
-    "home": "Home",
-    "festival": "All Festival",
-    "period": "By Period",
+  "seasonal": [
+    {
+      "id": "spring",
+      "season": "Spring",
+      "title": "Spring Blossom Festivals",
+      "description": "Vibrant spring festivals with cherry blossoms",
+      "festivals": ["Jinhae Gunhangje", "Yeouido Cherry Blossom", "Gyeongju Blossom Festival"]
+    },
+    {
+      "id": "summer",
+      "season": "Summer",
+      "title": "Summer Water Festivals",
+      "description": "Cool off with summer water festivals",
+      "festivals": ["Boryeong Mud Festival", "Hwacheon Tomato Festival", "Muju Firefly Festival"]
+    },
+    {
+      "id": "autumn",
+      "season": "Autumn",
+      "title": "Autumn Foliage Festivals",
+      "description": "Enjoy beautiful autumn foliage festivals",
+      "festivals": ["Jinju Lantern Festival", "Busan Fireworks Festival", "Andong Maskdance Festival"]
+    },
+    {
+      "id": "winter",
+      "season": "Winter",
+      "title": "Winter Ice Festivals",
+      "description": "White snow and winter ice festivals",
+      "festivals": ["Hwacheon Sancheoneo", "Pyeongchang Trout", "Taebaek Snow Festival"]
+    }
+  ],
+  "seasonSection": {
+    "headline": "Seasonal Festival Picks",
+    "desc": "Explore unique seasonal festivals throughout the year"
+  },
+  "keywordSection": {
+    "title": "Browse by Keyword",
+    "all": "See all festivals →",
+    "keywords": [
+      "Spring", "Summer", "Autumn", "Winter",
+      "Traditional", "Experience", "Performance", "Food",
+      "Fireworks", "Lantern", "Cherry Blossom", "Night View",
+      "Seoul", "Busan", "Jeju", "Gangwon", "Gyeongsang", "Jeolla"
+    ]
+  },
+  "footerSection": {
+    "aboutTitle": "About Korean Festivals",
+    "aboutDesc": "Discover Korea’s vibrant cultural heritage through various festivals and events all year round.",
+    "linksTitle": "Quick Links",
+    "allFestivals": "All Festivals",
+    "periodFestivals": "By Period",
     "community": "Community",
     "mypage": "My Page",
-    "login": "Login",
-    "signup": "Sign Up",
-    "language": "Language"
+    "subscribeTitle": "Subscribe",
+    "subscribeDesc": "Get the latest festival information.",
+    "emailPlaceholder": "Email address",
+    "subscribeBtn": "Subscribe",
+    "copyright": "&copy; 2024 Korea Festival Guide. All rights reserved."
   }
 }

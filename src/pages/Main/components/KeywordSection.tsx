@@ -1,30 +1,13 @@
 import { Badge } from "../../../components/ui/Badge"
 import { Button } from "../../../components/ui/button"
 import { useNavigate } from "react-router-dom"
-
-const keywords = [
-  "봄",
-  "여름",
-  "가을",
-  "겨울",
-  "전통",
-  "체험",
-  "공연",
-  "음식",
-  "불꽃",
-  "등불",
-  "벚꽃",
-  "야경",
-  "서울",
-  "부산",
-  "제주도",
-  "강원도",
-  "경상도",
-  "전라도",
-]
+import { useTranslation } from "react-i18next"
 
 export default function KeywordSection() {
   const navigate = useNavigate()
+  const { t } = useTranslation();
+
+  const keywords = t("keywordSection.keywords", { returnObjects: true }) as string[];
 
   const handleClick = (keyword: string) => {
     navigate(`/festival?search=${encodeURIComponent(keyword)}`)
@@ -34,13 +17,13 @@ export default function KeywordSection() {
     <section className="bg-[#fffefb] py-16">
       <div className="container mx-auto px-4">
         <div className="mb-8 flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-gray-900 md:text-3xl">키워드로 탐색하기</h2>
+          <h2 className="text-2xl font-bold text-gray-900 md:text-3xl">{t("keywordSection.title")}</h2>
           <Button
             variant="ghost"
             className="text-[#ff651b]/90 hover:text-[#ff651b] hover:scale-105 transition-transform duration-200"
             onClick={() => navigate("/festival")}
           >
-            모든 축제 보기 →
+            {t("keywordSection.all")}
           </Button>
         </div>
 

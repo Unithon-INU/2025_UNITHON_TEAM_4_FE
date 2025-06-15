@@ -5,7 +5,7 @@ import { Input } from "../../../components/ui/input"
 import { Button } from "../../../components/ui/button"
 import { Badge } from "../../../components/ui/Badge"
 import { motion, AnimatePresence } from "framer-motion"
-import { seasonalFestivals } from "./seasonalFestivals"
+import { styleMap } from "./seasonalFestivals"
 import { useTranslation } from 'react-i18next'
 
 // const floatingKeywords = [
@@ -61,7 +61,7 @@ export default function Hero({ setCurrentSeason }: HeroProps) {
   useEffect(() => {
     const interval = setInterval(() => {
       setPrevSeason(currentSeason)
-      const next = (currentSeason + 1) % seasonalFestivals.length
+      const next = (currentSeason + 1) % Object.keys(styleMap).length
       setCurrentSeason(next)           // 기존 local state
       setCurrentSeasonProp(next)
     }, 5000)
@@ -83,6 +83,7 @@ export default function Hero({ setCurrentSeason }: HeroProps) {
     setSearchQuery(word)
     searchRef.current?.focus()
   }
+  const seasonKeys = ["spring", "summer", "autumn", "winter"] as const;
 
   return (
     <motion.div
@@ -101,7 +102,7 @@ export default function Hero({ setCurrentSeason }: HeroProps) {
           animate={{ opacity: 0 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 1 }}
-          className={`absolute inset-0 ${seasonalFestivals[prevSeason].color}`}
+          className={`absolute inset-0 ${styleMap[seasonKeys[prevSeason]].color}`}
         />
       </AnimatePresence>
       <motion.div
@@ -110,7 +111,7 @@ export default function Hero({ setCurrentSeason }: HeroProps) {
         animate={{ opacity: 1 }}
         exit={{ opacity:0 }}
         transition={{ duration: 1 }}
-        className={`absolute inset-0 ${seasonalFestivals[currentSeason].color}`}
+        className={`absolute inset-0 ${styleMap[seasonKeys[currentSeason]].color}`}
       />
       {/* Fade-out 추가 */}
   <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-[#fffefb]" />
@@ -171,7 +172,7 @@ export default function Hero({ setCurrentSeason }: HeroProps) {
       <div className="relative z-10 w-full max-w-4xl px-4 text-center z-0">
         <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-4">
            {t("main.headline1")} <br />
-          <span className={`${seasonalFestivals[currentSeason].accent} transition-colors duration-1000`}>
+          <span className={`${styleMap[seasonKeys[currentSeason]].accent} transition-colors duration-1000`}>
             {t("main.headline2")}
           </span>
         </h1>
@@ -181,9 +182,9 @@ export default function Hero({ setCurrentSeason }: HeroProps) {
 
         <form onSubmit={handleSearch} className="relative max-w-2xl mx-auto mb-8">
           <motion.div
-            animate={isSearchFocused ? { scale: 1.02, boxShadow: seasonalFestivals[currentSeason].shadow } : {}}
-            className={`relative bg-white rounded-full ${seasonalFestivals[currentSeason].border} ${
-              isSearchFocused ? `${seasonalFestivals[currentSeason].border} ` : "border-gray-200 shadow" //input컴포넌트와 겹치긴하는데 일단냅둠 이런것들 나중에 둘중하나로 단일화
+            animate={isSearchFocused ? { scale: 1.02, boxShadow: styleMap[seasonKeys[currentSeason]].shadow } : {}}
+            className={`relative bg-white rounded-full ${styleMap[seasonKeys[currentSeason]].border} ${
+              isSearchFocused ? `${styleMap[seasonKeys[currentSeason]].border} ` : "border-gray-200 shadow" //input컴포넌트와 겹치긴하는데 일단냅둠 이런것들 나중에 둘중하나로 단일화
             }`}
           >
             <Input
@@ -202,7 +203,7 @@ export default function Hero({ setCurrentSeason }: HeroProps) {
             > */}
               <Button
               type="submit"
-              className={`absolute right-0 top-0 h-12 w-12 rounded-full ${seasonalFestivals[currentSeason].accent}`}
+              className={`absolute right-0 top-0 h-12 w-12 rounded-full ${styleMap[seasonKeys[currentSeason]].accent}`}
             >
               
               <Search className="h-5 w-5" />
@@ -219,7 +220,7 @@ export default function Hero({ setCurrentSeason }: HeroProps) {
             >
             <Button
               size="lg"
-              className={`  ${seasonalFestivals[currentSeason].border} ${seasonalFestivals[currentSeason].accent}  transition-colors duration-1000 rounded-full px-8`}
+              className={`  ${styleMap[seasonKeys[currentSeason]].border} ${styleMap[seasonKeys[currentSeason]].accent}  transition-colors duration-1000 rounded-full px-8`}
               onClick={() => navigate("/festival")}
             >
               <Sparkles className="mr-2 h-5 w-5" />
@@ -234,7 +235,7 @@ export default function Hero({ setCurrentSeason }: HeroProps) {
             <Button
               size="lg"
               variant="outline"
-              className={` ${seasonalFestivals[currentSeason].border}   ${seasonalFestivals[currentSeason].accent} transition-colors duration-1000 rounded-full px-8`}
+              className={` ${styleMap[seasonKeys[currentSeason]].border}   ${styleMap[seasonKeys[currentSeason]].accent} transition-colors duration-1000 rounded-full px-8`}
               onClick={() => navigate("/festivalperiod")}
             >
               <CalendarDays className="mr-2 h-5 w-5" />
