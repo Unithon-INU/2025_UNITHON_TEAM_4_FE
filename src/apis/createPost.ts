@@ -10,7 +10,7 @@ export interface CreatePostRequest {
 export interface CreatePostResponse {
   status: number;
   message: string;
-  data: any;
+  data: unknown;
 }
 
 export const createPost = async (data: CreatePostRequest): Promise<CreatePostResponse> => {
