@@ -4,12 +4,13 @@ import { Badge } from "../../../components/ui/Badge";
 import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import type { Festival } from "./FestivalGrid";
-
+import { useTranslation } from "react-i18next";
 interface FeaturedFestivalSliderProps {
   festivals: Festival[];
 }
 
 export function FeaturedFestivalSlider({ festivals }: FeaturedFestivalSliderProps) {
+  const { t } = useTranslation();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [progress, setProgress] = useState(0);
@@ -46,7 +47,7 @@ export function FeaturedFestivalSlider({ festivals }: FeaturedFestivalSliderProp
       <div className="mb-6 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Star className="h-5 w-5 text-[#ff651b]" />
-          <h2 className="text-2xl font-bold text-[#1f2328]">추천 축제</h2>
+          <h2 className="text-2xl font-bold text-[#1f2328]">{t("featuredFestival.featured")}</h2>
         </div>
         <div className="flex items-center gap-2">
           <Button variant="outline" size="icon" onClick={goToPrevious}>
@@ -86,22 +87,22 @@ export function FeaturedFestivalSlider({ festivals }: FeaturedFestivalSliderProp
                       <div className="max-w-2xl space-y-4 text-[#Fffefb]">
                         <div className="flex items-center gap-2">
                           <Badge className="bg-[#ff651b]/90 text-[#fffefb] hover:bg-[#ff651b] border-[#fffefb]/30">
-                            추천
+                            {t("featuredFestival.badgeFeatured")}
                           </Badge>
-                          <Badge
+                          {/* <Badge
                             variant="outline"
                             className="border-white/30 bg-white/10 text-[#fffefb]"
                           >
                             {festival.keywords[0]}
-                          </Badge>
+                          </Badge> */}
                         </div>
-                        <h3 className="text-3xl font-bold leading-tight lg:text-4xl">
+                        <h3 className="text-3xl font-bold leading-tight lg:text-4xl line-clamp-1 mb-1 pb-1">
                           {festival.name}
                         </h3>
                         <div className="flex flex-col space-y-2 text-[#Fffefb]/80">
                           <div className="flex items-center gap-2">
                             <MapPin className="h-4 w-4 text-[#ff651b]" />
-                            <span className="text-sm lg:text-base">{festival.location}</span>
+                            <span className="text-sm lg:text-base line-clamp-1">{festival.location}</span>
                           </div>
                           <div className="flex items-center gap-2">
                             <Calendar className="h-4 w-4 text-[#ff651b]" />
@@ -123,7 +124,7 @@ export function FeaturedFestivalSlider({ festivals }: FeaturedFestivalSliderProp
                           ))}
                         </div>
                         <Button variant="ghost" className="mt-4 bg-[#ff651b]/90 hover:bg-[#ff651b]">
-                          자세히 보기
+                          {t("featuredFestival.viewDetail")}
                         </Button>
                       </div>
                       <div className="hidden lg:block">
@@ -175,7 +176,7 @@ export function FeaturedFestivalSlider({ festivals }: FeaturedFestivalSliderProp
       </div>
       <div className="mt-4 text-center">
         <p className="text-sm text-gray-500">
-          {currentIndex + 1} / {festivals.length} 추천 축제
+          {currentIndex + 1} / {festivals.length} {t("featuredFestival.featured")}
         </p>
       </div>
     </section>

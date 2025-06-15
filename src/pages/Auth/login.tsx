@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 import { LogIn, Eye, EyeOff } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import login from "../../apis/login";
-
+import { useTranslation } from "react-i18next";
 const LoginPage = () => {
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -15,10 +16,10 @@ const LoginPage = () => {
       setError("");
       const response = await login({ email, password });
       console.log("로그인 성공:", response);
-      alert("로그인 성공했습니다!"); // 로그인 요청
+      alert(t("login.success")); // 로그인 요청
       window.location.replace("/"); // 🔁 여기서 페이지 이동!
     } catch (err) {
-      setError("로그인 실패하였습니다.");
+      setError(t("login.fail"));
       console.error("로그인 실패:", err);
     } //나중에 response status에 따라 에러 메시지 다르게 처리하기
   };
@@ -36,16 +37,16 @@ const LoginPage = () => {
               <LogIn className="h-7 w-7 text-[#ff651b]" />
             </div>
           </div>
-          <h1 className="text-3xl font-extrabold mb-2 text-gray-900">로그인</h1>
+          <h1 className="text-3xl font-extrabold mb-2 text-gray-900">{t("login.title")}</h1>
           <p className="text-gray-500 text-base">
-            계정에 로그인하여 축제 커뮤니티를 <br /> 이용해보세요
+            {t("login.desc1")} <br /> {t("login.desc2")}
           </p>
         </div>
 
         <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
           <div>
             <label htmlFor="email" className="block text-sm font-semibold text-gray-800 mb-1">
-              이메일
+              {t("login.email")}
             </label>
             <input
               type="email"
@@ -54,31 +55,31 @@ const LoginPage = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full h-11 rounded-lg border border-gray-200 px-3 text-base placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-700"
-              placeholder="이메일 주소를 입력하세요"
+              placeholder={t("login.emailPlaceholder")}
               autoComplete="off"
             />
           </div>
 
           <div>
             <label htmlFor="password" className="block text-sm font-semibold text-gray-800 mb-1">
-              비밀번호
+              {t("login.password")}
             </label>
             <div className="relative">
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 id="password"
                 name="password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e: { target: { value: SetStateAction<string>; }; }) => setPassword(e.target.value)}
                 className="w-full h-11 rounded-lg border border-gray-200 px-3 pr-10 text-base placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-700"
-                placeholder="비밀번호를 입력하세요"
+                placeholder={t("login.passwordPlaceholder")}
                 autoComplete="off"
               />
               <button
                 type="button"
                 tabIndex={-1}
                 className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400"
-                aria-label={showPassword ? "비밀번호 숨기기" : "비밀번호 보기"}
+                aria-label={showPassword ? t("login.hidePassword") : t("login.showPassword")}
                 onClick={() => setShowPassword((prev) => !prev)}
               >
                 {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
@@ -95,11 +96,11 @@ const LoginPage = () => {
                 className="h-4 w-4 border-gray-300 rounded"
               />
               <label htmlFor="remember-me" className="ml-2 text-gray-700">
-                로그인 상태 유지
+                {t("login.remember")}
               </label>
             </div>
             <a href="#" className="text-[#ff651b] hover:underline font-medium">
-              비밀번호를 잊으셨나요?
+              {t("login.forgotPassword")}
             </a>
           </div>
 
@@ -110,16 +111,16 @@ const LoginPage = () => {
             onClick={handleLogin}
             className="w-full h-11 rounded-lg font-bold text-white bg-[#ff651b] hover:bg-[#ff651b] transition-colors text-base mt-1 text-center"
           >
-            로그인
+            {t("login.loginBtn")}
           </button>
         </form>
 
         <div className="mt-6 text-center">
           <p className="text-sm text-gray-500">
-            아직 계정이 없으신가요?{" "}
+            {t("login.noAccount")}{" "}
             <Link to="/signup">
               <span className="text-[#ff651b] hover:underline font-medium cursor-pointer">
-                회원가입
+                {t("login.signup")}
               </span>
             </Link>
           </p>

@@ -7,7 +7,7 @@ interface LanguageFilterProps {
 
 export default function LanguageFilter({ selectedLanguage }: LanguageFilterProps) {
   const languages = [
-    { code: "all", name: "전체 언어" },
+    { code: "all", name: "all Language" },
     { code: "ko", name: "한국어" },
     { code: "en", name: "English" },
     { code: "ja", name: "日本語" },

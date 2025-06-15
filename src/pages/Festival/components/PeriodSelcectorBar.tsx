@@ -13,9 +13,11 @@ import {
   SelectValue,
 } from "../components/Select";
 import { Calendar } from "../components/Calendar";
-import { addMonths, format } from "date-fns";
-import { ko } from "date-fns/locale";
+import { addMonths, format, Locale } from "date-fns";
+import { ko, enUS, ja } from "date-fns/locale";
 import { motion } from "framer-motion";
+import { useTranslation } from 'react-i18next';
+
 // import { pre } from 'framer-motion/client';
 
 interface PeriodSelectorBarProps {
@@ -33,15 +35,20 @@ interface PeriodSelectorBarProps {
 }
 
 const regions = [
-  { value: "all", label: "전체 지역" },
-  { value: "서울", label: "서울" },
-  { value: "부산", label: "부산" },
-  { value: "경기", label: "경기도" },
-  { value: "강원", label: "강원도" },
-  { value: "충청", label: "충청도" },
-  { value: "전라", label: "전라도" },
-  { value: "경상", label: "경상도" },
-  { value: "제주", label: "제주도" },
+  { value: "all", labelKey: "all" },
+  { value: "서울", labelKey: "seoul" },
+  { value: "부산", labelKey: "busan" },
+  { value: "경기도", labelKey: "gyeonggi" },
+  { value: "강원도", labelKey: "gangwon" },
+  { value: "충청남도", labelKey: "chungnam" },
+  { value: "충청북도", labelKey: "chungbuk" },
+  { value: "경상남도", labelKey: "gyeongnam" },
+  { value: "경상북도", labelKey: "gyeongbuk" },
+  { value: "전라남도", labelKey: "jeonnam" },
+  { value: "전라북도", labelKey: "jeonbuk" },
+  { value: "전라도", labelKey: "jeolla" },
+  { value: "경상도", labelKey: "gyeongsang" },
+  { value: "제주도", labelKey: "jeju" },
 ];
 
 export function PeriodSelectorBar({
@@ -61,14 +68,28 @@ export function PeriodSelectorBar({
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [hoveredDate, setHoveredDate] = useState<Date | null>(null);
 
+  const { t, i18n } = useTranslation();
+
+  // 각 언어별 date-fns locale 지정
+  const localeMap: Record<string, Locale> = {
+    kor: ko,
+    eng: enUS,
+    jpn: ja,
+    // 필요시 추가
+  };
+  const lang = i18n.language || "kor";
+
+  const locale = localeMap[lang] || ko;
+  // 기본적으로 한국어로 설정, 필요시 다른 언어로 변경 가능
+  // const monthYearFormat = t("calendar.monthYearFormat");
   const formatDateRange = () => {
-    if (!selectedStartDate) return "날짜를 선택하세요";
-    if (!selectedEndDate) return format(selectedStartDate, "M월 d일", { locale: ko });
-    return `${format(selectedStartDate, "M월 d일", { locale: ko })} ~ ${format(
-      selectedEndDate,
-      "M월 d일",
-      { locale: ko }
-    )}`;
+    if (!selectedStartDate) return t("periodSelector.selectDate");
+    if (!selectedEndDate) return format(selectedStartDate, t("periodSelector.dateFormatOne"), { locale });
+    return (
+      format(selectedStartDate, t("periodSelector.dateFormatOne"), { locale }) +
+      t("periodSelector.tilde") +
+      format(selectedEndDate, t("periodSelector.dateFormatOne"), { locale })
+    );
   };
 
   const handleDateRangeChange = (range: { start: Date | null; end: Date | null }) => {
@@ -104,8 +125,8 @@ export function PeriodSelectorBar({
                   className="flex-1 min-w-[33.3%] h-full px-4 text-sm font-medium text-gray-700 flex items-center justify-center"
                 >
                   {selectedRegion === "all"
-                    ? "어디서?"
-                    : regions.find((r) => r.value === selectedRegion)?.label}
+                    ? t("periodSelector.where")
+                    : t(`periodSelector.regions.${regions.find((r) => r.value === selectedRegion)?.labelKey}`)}
                 </motion.div>
                 <div className="w-px h-5 bg-gray-200" />
                 <motion.div
@@ -114,7 +135,7 @@ export function PeriodSelectorBar({
                   transition={{ delay: 0.2 }} // ← 여기로 지연을 주는 것
                   className="flex-1 min-w-[33.3%] h-full px-4 text-sm font-medium text-gray-700 flex items-center justify-center"
                 >
-                  언제?
+                  {t("periodSelector.when")}
                 </motion.div>
                 <div className="w-px h-5 bg-gray-200" />
                 <motion.div
@@ -137,16 +158,16 @@ export function PeriodSelectorBar({
                       className="space-y-1 text-gray-600 mt-1"
                     >
                       <label className="text-xs font-semibold text-gray-900 uppercase tracking-wide px-3">
-                        어디서
+                        {t("periodSelector.where")}
                       </label>
                       <Select value={selectedRegion} onValueChange={onRegionChange} className="shadow-none">
                         <SelectTrigger className=" p-0 h-auto  -my-1">
-                          <SelectValue placeholder="지역을 선택하세요" />
+                          <SelectValue placeholder={t("periodSelector.selectRegion")} />
                         </SelectTrigger>
                         <SelectContent>
                           {regions.map((region) => (
                             <SelectItem key={region.value} value={region.value}>
-                              {region.label}
+                              {t(`periodSelector.regions.${region.labelKey}`)}
                             </SelectItem>
                           ))}
                         </SelectContent>
@@ -162,20 +183,20 @@ export function PeriodSelectorBar({
                       className="space-y-1"
                     >
                       <label className="text-xs font-semibold text-gray-900 uppercase tracking-wide">
-                        언제
+                        {t("periodSelector.when")}
                       </label>
                       <Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
-  <PopoverTrigger>
-    <div role="button" tabIndex={0} className="text-start w-full cursor-pointer">
-      <div
-        className={`text-sm ${
-          selectedStartDate ? "text-gray-900" : "text-gray-500"
-        }`}
-      >
-        {formatDateRange()}
-      </div>
-    </div>
-  </PopoverTrigger>
+                        <PopoverTrigger>
+                          <div role="button" tabIndex={0} className="text-start w-full cursor-pointer">
+                            <div
+                              className={`text-sm ${
+                                selectedStartDate ? "text-gray-900" : "text-gray-500"
+                              }`}
+                            >
+                              {formatDateRange()}
+                            </div>
+                          </div>
+                        </PopoverTrigger>
                         <PopoverContent
                           onClick={(e) => e.stopPropagation()}
                           className="absolute left-[43%]  transform -translate-x-1/2 w-[720px]  bg-[#fffefb] rounded-xl shadow-lg z-50"
@@ -191,7 +212,7 @@ export function PeriodSelectorBar({
                                   <ChevronLeft className="h-4 w-4" />
                                 </Button>
                                 <h3 className="font-semibold">
-                                  {format(currentMonth, "yyyy년 M월", { locale: ko })}
+                                  {format(currentMonth, "yyyy MMMM", { locale })}
                                 </h3>
                                 <div className="w-4" />
                               </div>
@@ -205,13 +226,14 @@ export function PeriodSelectorBar({
                                 setSelectedEnd={onEndDateChange}
                                 hoveredDate={hoveredDate}
                                 setHoveredDate={setHoveredDate}
+                                locale={locale}
                               />
                             </div>
                             <div className="p-4 w-1/2">
                               <div className="flex items-center justify-between mb-2">
                                 <div className="w-4" />
                                 <h3 className="font-semibold">
-                                  {format(addMonths(currentMonth, 1), "yyyy년 M월", { locale: ko })}
+                                  {format(addMonths(currentMonth, 1), "yyyy MMMM", { locale })}
                                 </h3>
                                 <Button
                                   variant="ghost"
@@ -231,6 +253,7 @@ export function PeriodSelectorBar({
                                 setSelectedEnd={onEndDateChange}
                                 hoveredDate={hoveredDate}
                                 setHoveredDate={setHoveredDate}
+                                locale={locale}
                               />
                             </div>
                           </div>
@@ -248,10 +271,10 @@ export function PeriodSelectorBar({
                     <div className="flex-1 px-6 py-3">
                       <div className="space-y-1">
                         <label className="text-xs font-semibold text-gray-900 uppercase tracking-wide">
-                          검색
+                          {t("periodSelector.selectDate")}
                         </label>
                         <div className="flex items-center gap-2 text-gray-600">
-                          <span className="text-sm">축제를 즐기세요!</span>
+                          <span className="text-sm">{t("periodSelector.enjoy")}</span>
                         </div>
                       </div>
                     </div>

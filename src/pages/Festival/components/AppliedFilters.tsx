@@ -4,7 +4,7 @@ import { MapPin, Calendar } from "lucide-react";
 import { Button } from "../../../components/ui/button";
 import { Badge } from "../../../components/ui/Badge";
 import { regions, seasons } from "../constants";
-
+import { useTranslation } from 'react-i18next';
 interface AppliedFiltersProps {
   selectedRegion: string;
   selectedSeason: string;
@@ -21,12 +21,12 @@ export function AppliedFilters({
 }: AppliedFiltersProps) {
   const hasAny =
     selectedRegion !== "all" || selectedSeason !== "all" || selectedKeywords.length > 0;
-
+  const { t } = useTranslation();
   if (!hasAny) return null;
 
   return (
     <div className="mb-4 w-auto flex flex-wrap items-center justify-end gap-2 ml-6">
-      <span className="text-sm text-gray-500">적용된 필터:</span>
+      <span className="text-sm text-gray-500">{t("festivalAppliedFilter.appliedFilters")}</span>
       {selectedRegion !== "all" && (
         <Badge variant="secondary" className="flex items-center gap-1">
           <MapPin className="h-3 w-3" />
@@ -45,7 +45,7 @@ export function AppliedFilters({
         </Badge>
       ))}
       <Button variant="ghost" size="sm" className="h-6 text-xs text-gray-500" onClick={onReset}>
-        필터 초기화
+        {t("festivalAppliedFilter.resetFilters")}
       </Button>
     </div>
   );

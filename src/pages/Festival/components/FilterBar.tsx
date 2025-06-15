@@ -13,8 +13,8 @@ import { Popover, PopoverContent, PopoverTrigger } from "../components/Popover";
 //   SelectValue,
 // } from "../components/Select";
 import { SearchBar } from "../components/SearchBar";
-import { keywords } from "../constants";
-
+// import { keywords } from "../constants";
+import { useTranslation } from 'react-i18next';
 // AND/OR 토글 버튼
 function KeywordModeToggle({
   mode,
@@ -23,9 +23,10 @@ function KeywordModeToggle({
   mode: "AND" | "OR";
   onChange: (m: "AND" | "OR") => void;
 }) {
+  const { t } = useTranslation();
   return (
     <div className="flex gap-2 items-center">
-      <span className="text-xs text-gray-400">키워드 모드</span>
+      <span className="text-xs text-gray-400">{t("festivalFilter.keywordMode")}</span>
       <Button
         size="sm"
         variant={mode === "OR" ? "default" : "outline"}
@@ -73,9 +74,11 @@ export function FilterBar({
   keywordFilterMode,
   onKeywordFilterModeChange,
 }: FilterBarProps) {
+  const { t } = useTranslation();
   // "적용 전" draft 상태 관리
   const [selectedKeywordsDraft, setSelectedKeywordsDraft] = useState<string[]>(selectedKeywords);
 
+  const keywords = t("festivalFilter.keywords", { returnObjects: true }) as string[];
   // 부모가 바뀌면 draft도 맞춰서 동기화
   useEffect(() => {
     setSelectedKeywordsDraft(selectedKeywords);
@@ -108,10 +111,10 @@ export function FilterBar({
         <PopoverTrigger>
           <Button variant="outline" className="gap-2">
             <Filter className="h-4 w-4" />
-            필터
+            {t("festivalFilter.filter")}
             {hasFilter && (
               <Badge className="ml-1 rounded-full bg-[#ff651b] px-1.5 py-0.5 text-xs text-white">
-                필터 적용됨
+                {t("festivalFilter.filterApplied")}
               </Badge>
             )}
           </Button>
@@ -153,22 +156,22 @@ export function FilterBar({
             {/* 키워드 + AND/OR 토글 */}
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <h4 className="font-medium">키워드</h4>
+                <h4 className="font-medium">{t("festivalFilter.keyword")}</h4>
                 <KeywordModeToggle mode={keywordFilterMode} onChange={onKeywordFilterModeChange} />
               </div>
               {/* --- AND/OR 가이드 --- */}
               <div className="flex gap-2 items-center mb-2">
                 <span className="text-xs text-gray-400">
                   {keywordFilterMode === "AND"
-                    ? "첫 번째 키워드 검색 + 나머지 키워드가 모두 포함된 축제 필터링"
-                    : "첫 번째 키워드 검색 + 나머지 키워드 중 하나라도 포함된 축제 필터링"}
+                    ? t("festivalFilter.guideAnd")
+                    : t("festivalFilter.guideOr")}
                 </span>
               </div>
               {/* --- 검색 기준 키워드 구역 --- */}
               <div className="flex flex-wrap items-center gap-1 mb-2 min-h-6">
                 {selectedKeywordsDraft.length > 0 && (
                   <>
-                    <span className="font-bold text-xs text-gray-500 mr-1">검색 기준: </span>
+                    <span className="font-bold text-xs text-gray-500 mr-1">{t("festivalFilter.searchBasis")} </span>
                     <Badge className="bg-[#ff651b] text-white">{selectedKeywordsDraft[0]}</Badge>
                     {selectedKeywordsDraft.slice(1).map((k, idx) => (
                       <span key={k} className="flex items-center">
@@ -206,7 +209,7 @@ export function FilterBar({
             {/* 버튼 */}
             <div className="flex justify-between pt-2">
               <Button variant="outline" size="sm" onClick={handleReset}>
-                초기화
+                {t("festivalFilter.reset")}
               </Button>
               <Button
                 size="sm"
@@ -214,7 +217,7 @@ export function FilterBar({
                 onClick={handleApply}
                 disabled={selectedKeywordsDraft.length === 0}
               >
-                적용하기
+                {t("festivalFilter.apply")}
               </Button>
             </div>
           </div>

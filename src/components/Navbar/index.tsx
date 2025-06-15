@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import routePath from "../../routes/routePath";
 import GlobeIcon from "./components/GlobeIcon";
 import ChevronDownIcon from "./components/ChevronDownIcon";
@@ -28,10 +28,19 @@ const languages = [
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태 관리
   const { lang, setLang } = useLangStore();
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  useEffect(() => {
+    setIsLoggedIn(!!localStorage.getItem("token"));
+  }, []);
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+    navigate("/", { replace: true });
+  };
   // 언어 선택 핸들러
   const handleLangSelect = (label: string) => {
     const code = LANG_MAP[label];
@@ -177,6 +186,8 @@ export default function Navbar() {
                 </div>
               )}
             </div>
+            {isLoggedIn ? (
+          <>
             {/* 마이페이지 */}
             <Link
               to={routePath.MyPage}
@@ -185,6 +196,16 @@ export default function Navbar() {
               <UserIcon className="mr-2 h-4 w-4" />
               {t("navbar.mypage")}
             </Link>
+            {/* 로그아웃 */}
+            <button
+              onClick={handleLogout}
+              className="bg-[#ff651b] hover:bg-[#e55a18] text-white rounded-md px-4 py-2 shadow-md hover:shadow-lg transition-all duration-200"
+            >
+              {t("navbar.logout")}
+            </button>
+          </>
+        ) : (
+          <>
             {/* 로그인 */}
             <Link
               to={routePath.Login}
@@ -199,6 +220,8 @@ export default function Navbar() {
             >
               {t("navbar.signup")}
             </Link>
+          </>
+        )}
           </div>
         </div>
       </div>

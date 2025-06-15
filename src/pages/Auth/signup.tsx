@@ -2,10 +2,12 @@ import { useState } from "react";
 import { UserPlus, Eye, EyeOff } from "lucide-react";
 import Navbar from "../../components/Navbar";
 import signup from "../../apis/signup";
+import { useTranslation } from "react-i18next";
 
 const NAVBAR_HEIGHT = 90;
 
 const SignupPage = () => {
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -16,22 +18,22 @@ const SignupPage = () => {
 
   const handleSignup = async () => {
     if (!email || !name || !password || !confirmPassword) {
-      setError("모든 필수 항목을 입력해주세요.");
+      setError(t("signup.required"));
       return;
     }
 
     if (password !== confirmPassword) {
-      setError("비밀번호가 일치하지 않습니다.");
+      setError(t("signup.pwMismatch"));
       return;
     }
 
     try {
       setError("");
       await signup({ name, email, password });
-      alert("회원가입이 완료되었습니다!");
+      alert(t("signup.success"));
       window.location.replace("/login");
     } catch (err) {
-      setError("회원가입 중 문제가 발생했습니다.");
+      setError(t("signup.fail"));
       console.error("회원가입 실패:", err);
     }
   };
@@ -53,18 +55,18 @@ const SignupPage = () => {
                 <UserPlus className="h-8 w-8 text-[#ff651b]" />
               </div>
             </div>
-            <h1 className="text-2xl font-bold text-gray-900">회원가입</h1>
+            <h1 className="text-2xl font-bold text-gray-900">{t("signup.title")}</h1>
             <p className="text-gray-600 mt-2">
-              축제 커뮤니티에 가입하고
+              {t("signup.desc1")}
               <br />
-              다양한 경험을 공유해보세요
+              {t("signup.desc2")}
             </p>
           </div>
 
           <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
             <div className="space-y-2">
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                이메일 <span className="text-red-500">*</span>
+                {t("signup.email")} <span className="text-red-500">*</span>
               </label>
               <input
                 type="email"
@@ -72,14 +74,14 @@ const SignupPage = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full h-11 rounded-lg border border-gray-200 px-3"
-                placeholder="이메일 주소를 입력하세요"
+                placeholder={t("signup.emailPlaceholder")}
                 autoComplete="off"
               />
             </div>
 
             <div className="space-y-2">
               <label htmlFor="nickname" className="block text-sm font-medium text-gray-700">
-                닉네임 <span className="text-red-500">*</span>
+                {t("signup.nickname")} <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
@@ -87,30 +89,30 @@ const SignupPage = () => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 className="w-full h-11 rounded-lg border border-gray-200 px-3"
-                placeholder="닉네임을 입력하세요"
+                placeholder={t("signup.nicknamePlaceholder")}
                 autoComplete="off"
               />
             </div>
 
             <div className="space-y-2">
               <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                비밀번호 <span className="text-red-500">*</span>
+                {t("signup.password")} <span className="text-red-500">*</span>
               </label>
               <div className="relative">
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   id="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full h-11 rounded-lg border border-gray-200 px-3 pr-10"
-                  placeholder="비밀번호를 입력하세요"
+                  placeholder={t("signup.passwordPlaceholder")}
                   autoComplete="off"
                 />
                 <button
                   type="button"
                   tabIndex={-1}
                   className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400"
-                  aria-label={showPassword ? "비밀번호 숨기기" : "비밀번호 보기"}
+                  aria-label={showPassword ? t("signup.hidePassword") : t("signup.showPassword")}
                   onClick={() => setShowPassword((prev) => !prev)}
                 >
                   {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
@@ -120,23 +122,23 @@ const SignupPage = () => {
 
             <div className="space-y-2">
               <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
-                비밀번호 확인 <span className="text-red-500">*</span>
+                {t("signup.passwordCheck")} <span className="text-red-500">*</span>
               </label>
               <div className="relative">
                 <input
-                  type="password"
+                  type={showConfirmPassword ? "text" : "password"}
                   id="confirmPassword"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   className="w-full h-11 rounded-lg border border-gray-200 px-3 pr-10"
-                  placeholder="비밀번호를 다시 입력하세요"
+                  placeholder={t("signup.passwordCheckPlaceholder")}
                   autoComplete="off"
                 />
                 <button
                   type="button"
                   tabIndex={-1}
                   className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400"
-                  aria-label={showConfirmPassword ? "비밀번호 숨기기" : "비밀번호 보기"}
+                  aria-label={showConfirmPassword ? t("signup.hidePassword") : t("signup.showPassword")}
                   onClick={() => setShowConfirmPassword((prev) => !prev)}
                 >
                   {showConfirmPassword ? (
@@ -155,18 +157,18 @@ const SignupPage = () => {
               onClick={handleSignup}
               className="w-full h-11 rounded-lg font-bold text-white bg-[#ff651b] hover:bg-[#ff651b] transition-colors text-base mt-2 text-center"
             >
-              회원가입
+              {t("signup.signupBtn")}
             </button>
           </form>
 
           <div className="mt-8 text-center">
             <p className="text-sm text-gray-600">
-              이미 계정이 있으신가요?{" "}
+              {t("signup.alreadyAccount")}{" "}
               <a
                 href="/login"
                 className="text-[#ff651b] hover:text-[#ff651b] font-medium underline"
               >
-                로그인
+                {t("signup.login")}
               </a>
             </p>
           </div>

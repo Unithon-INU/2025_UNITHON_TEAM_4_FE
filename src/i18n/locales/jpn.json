@@ -6,6 +6,7 @@
     "community": "コミュニティ",
     "mypage": "マイページ",
     "login": "ログイン",
+    "logout": "ログアウト",
     "signup": "会員登録",
     "language": "言語"
   },
@@ -88,7 +89,236 @@
     "emailPlaceholder": "メールアドレス",
     "subscribeBtn": "購読",
     "copyright": "&copy; 2024 韓国祭りガイド. All rights reserved."
+  },
+  "featuredFestival": {
+    "featured": "おすすめ祭り",
+    "badgeFeatured": "おすすめ",
+    "viewDetail": "詳細を見る",
+    "sliderIndex": "おすすめ祭り {{index}} / {{total}}"
+  },
+  "festival": {
+    "title": "全国の祭り",
+    "count": "'{{count}}'",
+    "result": "件の祭りがあります",
+    "loadError": "祭りのデータを読み込めませんでした。",
+    "backToList": "全リストに戻る",
+    "lastFestival": "最後の祭りです。",
+    "noResult": "検索結果がありません",
+    "resetAll": "全てのフィルターをリセット",
+    "allTab": "全ての祭り",
+    "ongoingTab": "開催中の祭り"
+  },
+  "festivalSearchBar": {
+    "placeholder": "祭り名で検索",
+    "invalid": "ハングル子音・母音、空白のみでは検索できません。より具体的に入力してください。"
+  },
+  "festivalFilter": {
+    "keywords": [
+      "春", "夏", "秋", "冬", "伝統", "体験", "公演", "グルメ",
+      "花火", "提灯", "桜", "夜景", "ソウル", "釜山", "済州島", "江原道"
+    ],
+    "filter": "フィルター",
+    "filterApplied": "フィルター適用済み",
+    "reset": "リセット",
+    "apply": "適用",
+    "keyword": "キーワード",
+    "keywordMode": "キーワードモード",
+    "and": "AND",
+    "or": "OR",
+    "guideAnd": "最初のキーワードに加えて、選択された他のすべてのキーワードを含む祭りをフィルタリングします。",
+    "guideOr": "最初のキーワードに加えて、選択された他のキーワードのいずれか一つでも含む祭りをフィルタリングします。",
+    "searchBasis": "検索基準:",
+    "region": "地域",
+    "season": "季節"
+  },
+  "festivalAppliedFilter": {
+    "appliedFilters": "適用中のフィルター:",
+    "resetFilters": "フィルターをリセット"
+  },
+  "festivalGrid": {
+    "noPeriod": "期間情報なし",
+    "noLocation": "地域情報なし",
+    "noDescription": "説明情報なし",
+    "loadingPeriod": "期間を読み込み中...",
+    "loadingDesc": "説明を読み込み中...",
+    "badgeFeatured": "おすすめ祭り",
+    "badgeEnded": "終了",
+    "like": "いいね"
+  },
+  "periodPage": {
+  "headline": "いつお出かけしますか？",
+  "desc": "ご希望の日程を選んで、その時期に開催される特別な祭りを見つけてみましょう。",
+  "count": "'{{count}}'",
+  "result": "件の祭りが見つかりました",
+  "noResult": "条件に合う祭りがありません。",
+  "noResult2": "検索結果がありません",
+  "tryOther": "別の条件で再検索してください。",
+  "loading": "読み込み中...",
+  "error": "データの取得に失敗しました",
+  "back": "戻る",
+  "moreLoading": "さらに読み込み中...",
+  "lastFestival": "最後の祭りです。"
+},
+"periodSelector": {
+  "where": "どこで",
+  "when": "いつ",
+  "search": "検索",
+  "enjoy": "お祭りを楽しもう！",
+  "selectDate": "日付を選択してください",
+  "selectRegion": "地域を選択してください",
+  "tilde": " ～ ",
+  "dateFormatOne": "M月d日",
+  "regions": {
+    "all": "全地域",
+    "seoul": "ソウル",
+    "busan": "プサン",
+    "gyeonggi": "キョンギ道",
+    "gangwon": "カンウォン道",
+    "chungnam": "チュンチョンナム道",
+    "chungbuk": "チュンチョンブク道",
+    "gyeongnam": "キョンサンナム道",
+    "gyeongbuk": "キョンサンブク道",
+    "jeonnam": "チョンナム道",
+    "jeonbuk": "チョンブク道",
+    "jeolla": "チョルラ道",
+    "gyeongsang": "キョンサン道",
+    "jeju": "チェジュ島"
+  },
+  "calendar": {
+    "monthYearFormat": "yyyy年 M月",
+    "weekdays": ["日", "月", "火", "水", "木", "金", "土"],
+    "today": "今日"
   }
   
-}
+},
+"festivalDetail": {
+  "noOverview": "紹介情報がありません",
+  "loading": "読み込み中...",
+  "ended": "終了",
+  "badgeFestival": "祭り",
+  "summaryTitle": "イベント概要",
+  "scenePhoto": "現場写真",
+  "introTitle": "イベント紹介",
+  "detailTitle": "イベント内容",
+  "collapse": "たたむ",
+  "showAll": "すべて表示",
+  "foodTitle": "近くのグルメおすすめ",
+  "foodLoading": "グルメ情報読み込み中...",
+  "foodNotFound": "近くのグルメ情報が見つかりません。",
+  "meter": "m 距離",
+  "backToList": "リストに戻る"
+},
+"community": {
+  "title": "コミュニティ",
+  "subtitle": "世界中のフェスティバルファンと体験を共有しましょう",
+  "searchPlaceholder": "投稿を検索...",
+  "writePost": "投稿を書く"
+},
+"commentSection": {
+  "title": "コメント {{count}}件",
+  "noComment": "まだコメントがありません。最初のコメントを書いてみましょう！",
+  "inputPlaceholder": "コメントを書いてください...",
+  "writeError": "コメントの投稿に失敗しました。",
+  "currentUserAlt": "現在のユーザー"
+},
+"createPostPage": {
+  "title": "投稿作成",
+  "desc": "祭りの体験を共有し、他の人と交流しましょう。",
+  "alertTitleContent": "タイトルと内容を入力してください。",
+  "success": "投稿が正常に作成されました！",
+  "error": "投稿の作成に失敗しました。",
+  "form": {
+    "title": "投稿タイトル",
+    "titlePlaceholder": "投稿タイトルを入力してください",
+    "images": "画像",
+    "imageUploadText": "画像をアップロードしてください",
+    "uploadedImages": "アップロード済み画像",
+    "uploadedImageAlt": "アップロード画像 {{index}}",
+    "addImageBtn": "画像を追加",
+    "content": "内容",
+    "contentPlaceholder": "お祭りの体験や感想を自由に書いてください...",
+    "cancel": "キャンセル",
+    "post": "投稿する",
+    "posting": "投稿中..."
+  },
+  "imageRequired": {
+    "title": "お知らせ",
+    "desc": "画像をアップロードしてください。",
+    "confirm": "確認"
+  }
+},
+"postDetail": {
+  "notFound": {
+    "title": "投稿が見つかりません",
+    "desc": "リクエストされた投稿は存在しないか、削除されました。"
+  },
+  "errorLoad": "投稿の読み込みに失敗しました:",
+  "imageAlt": "{{title}} 画像 {{index}}",
+  "prevImage": "前の画像",
+  "nextImage": "次の画像",
+  "imageIndicator": "画像{{index}}に移動",
+  "like": "いいね",
+  "comment": "コメント",
+  "bookmark": "ブックマーク"
+},
+"mypage": {
+  "loadError": "プロフィール情報を読み込めません。",
+  "goLoginQ": "ログインページに移動しますか？",
+  "post": "投稿",
+  "bookmark": "ブックマーク",
+  "editProfile": "プロフィール編集",
+  "accountSetting": "アカウント設定",
+  "signupDate": "登録日",
+  "myPosts": "自分の投稿",
+  "edit": "編集",
+  "delete": "削除",
+  "category": "カテゴリ",
+  "deletePostTitle": "投稿の削除",
+  "deletePostDesc": "本当にこの投稿を削除しますか？この操作は元に戻せません。",
+  "deleteFail": "投稿の削除に失敗しました。"
+},
+"common": {
+  "login": "ログイン",
+  "cancel": "キャンセル"
+},
+"login": {
+  "title": "ログイン",
+  "desc1": "アカウントにログインして祭りコミュニティを",
+  "desc2": "利用してみましょう",
+  "email": "メールアドレス",
+  "emailPlaceholder": "メールアドレスを入力してください",
+  "password": "パスワード",
+  "passwordPlaceholder": "パスワードを入力してください",
+  "showPassword": "パスワードを表示",
+  "hidePassword": "パスワードを隠す",
+  "remember": "ログイン状態を保持する",
+  "forgotPassword": "パスワードをお忘れですか？",
+  "loginBtn": "ログイン",
+  "noAccount": "まだアカウントをお持ちでないですか？",
+  "signup": "新規登録",
+  "success": "ログインに成功しました！",
+  "fail": "ログインに失敗しました。"
+},
+"signup": {
+  "title": "新規登録",
+  "desc1": "祭りコミュニティに参加して",
+  "desc2": "さまざまな経験を共有しましょう",
+  "email": "メールアドレス",
+  "emailPlaceholder": "メールアドレスを入力してください",
+  "nickname": "ニックネーム",
+  "nicknamePlaceholder": "ニックネームを入力してください",
+  "password": "パスワード",
+  "passwordPlaceholder": "パスワードを入力してください",
+  "passwordCheck": "パスワード確認",
+  "passwordCheckPlaceholder": "もう一度パスワードを入力してください",
+  "showPassword": "パスワードを表示",
+  "hidePassword": "パスワードを隠す",
+  "required": "すべての必須項目を入力してください。",
+  "pwMismatch": "パスワードが一致しません。",
+  "success": "新規登録が完了しました！",
+  "fail": "新規登録中に問題が発生しました。",
+  "signupBtn": "新規登録",
+  "alreadyAccount": "すでにアカウントをお持ちですか？",
+  "login": "ログイン"
+}}
 

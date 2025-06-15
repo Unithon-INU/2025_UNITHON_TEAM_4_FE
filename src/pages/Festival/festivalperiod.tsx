@@ -6,6 +6,7 @@ import { FestivalGrid, Festival, DetailsMap } from "./components/FestivalGrid";
 import Navbar from "../../components/Navbar";
 import { useInfiniteFestivalList } from "../../hooks/useFestivalList";
 import { useBottomObserver } from "../../hooks/useBottomObserver";
+import { useTranslation  } from 'react-i18next'; 
 
 const areaCodeMap: Record<string, string> = {
   "1": "서울", "2": "인천", "3": "대전", "4": "대구", "5": "광주", "6": "부산", "7": "울산", "8": "세종",
@@ -22,6 +23,7 @@ function formatDateToYYYYMMDD(date: Date): string {
 }
 
 export default function FestivalPeriodPage() {
+  const { t } = useTranslation();
   const regionToAreaCode = useMemo(
   () =>
     Object.entries(areaCodeMap).reduce((acc, [code, name]) => {
@@ -73,7 +75,7 @@ export default function FestivalPeriodPage() {
           (areaCodeMap[item.areacode] || "미정") +
           (item.addr1 ? ` ${item.addr1}` : "") +
           (item.addr2 ? `, ${item.addr2}` : ""),
-        period: "기간 정보 없음",
+        period: t("festivalGrid.noPeriod"), // 기본값은 "기간 없음"
         image: item.firstimage ?? "",
         image2: item.firstimage2 ?? "",
         keywords: item.areacode ? [areaCodeMap[item.areacode]] : [],
@@ -119,16 +121,16 @@ export default function FestivalPeriodPage() {
   if (isLoading) {
     return (
       <div className="flex h-60 flex-col items-center justify-center border rounded-lg text-center">
-        <p className="mb-4 text-gray-500">로딩중...</p>
+        <p className="mb-4 text-gray-500">{t("periodPage.loading")}</p>
       </div>
     );
   }
   if (isError) {
     return (
       <div className="flex h-60 flex-col items-center justify-center border rounded-lg text-center">
-        <p className="mb-4 text-rose-500">데이터 로드 실패</p>
+        <p className="mb-4 text-rose-500">{t("periodPage.error")}</p>
         <button className='w-auto h-auto text-gray-600'
-        onClick={() => window.location.reload()}><div className='text-gray-600'>돌아가기</div></button>
+        onClick={() => window.location.reload()}><div className='text-gray-600'>{t("periodPage.back")}</div></button>
       </div>
     );
   }
@@ -148,10 +150,10 @@ export default function FestivalPeriodPage() {
         >
           <div className="text-center container">
             <h1 className="text-3xl font-bold text-gray-900 md:text-4xl mb-4">
-              언제 떠나고 싶으신가요?
+              {t("periodPage.headline")}
             </h1>
             <p className="text-lg text-gray-600">
-              원하는 기간을 선택하고 그 시기에 열리는 특별한 축제들을 발견해보세요
+              {t("periodPage.desc")}
             </p>
           </div>
         </div>
@@ -189,10 +191,11 @@ export default function FestivalPeriodPage() {
           <h2 className="text-2xl font-bold text-gray-900 mb-6">
             {totalCount > 0 ? (
               <>
-                <span className="text-[#ff651b]">{totalCount}개</span>의 축제를 찾았습니다
+                <span className="text-[#ff651b]">{t("periodPage.count", { count: totalCount })}</span>
+                {t("periodPage.result")}
               </>
             ) : (
-              "조건에 맞는 축제가 없습니다"
+              t("periodPage.noResult")
             )}
           </h2>
           {totalCount > 0 ? (
@@ -200,17 +203,17 @@ export default function FestivalPeriodPage() {
               <FestivalGrid festivals={festivalsWithDetails} onUpdateDetails={setDetailsMap} />
               <div ref={bottomRef} style={{ height: 48 }} />
               {isFetchingNextPage && (
-                <div className="text-center text-gray-400 text-sm py-4">추가 로딩중...</div>
+                <div className="text-center text-gray-400 text-sm py-4">{t("periodPage.moreLoading")}</div>
               )}
               {!hasNextPage && (
-                <div className="text-center text-gray-400 text-sm py-4">마지막 축제입니다.</div>
+                <div className="text-center text-gray-400 text-sm py-4">{t("periodPage.lastFestival")}</div>
               )}
             </>
           ) : (
             <div className="flex h-60 flex-col items-center justify-center rounded-lg border border-dashed text-center">
               <div className="mb-4 text-6xl">🎭</div>
-              <p className="mb-2 text-lg font-medium text-gray-900">검색 결과 없음</p>
-              <p className="text-gray-600">다른 조건으로 다시 검색해보세요.</p>
+              <p className="mb-2 text-lg font-medium text-gray-900">{t("periodPage.noResult2")}</p>
+              <p className="text-gray-600">{t("periodPage.tryOther")}</p>
             </div>
           )}
         </main>

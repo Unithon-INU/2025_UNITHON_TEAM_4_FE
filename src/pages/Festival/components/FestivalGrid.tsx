@@ -5,6 +5,7 @@ import { Heart, MapPin, Calendar } from "lucide-react";
 import { Button } from "../../../components/ui/button";
 import { Badge } from "../../../components/ui/Badge";
 import { motion } from "framer-motion";
+import { useTranslation } from 'react-i18next';
 // 타입 선언
 export type Festival = {
   id: string;
@@ -59,7 +60,7 @@ function FestivalCard({
   onUpdateDetails: FestivalGridProps["onUpdateDetails"];
 }) {
   const [liked, setLiked] = useState(false);
-
+  const { t } = useTranslation();
   // 상세정보 패치
   const { data: infoData, isLoading: infoLoading } = useFestivalOverview(festival.contentid);
   const { data: periodData, isLoading: periodLoading } = useFestivalPeriod(
@@ -73,7 +74,7 @@ function FestivalCard({
   const formattedPeriod =
     eventStart && eventEnd
       ? `${formatDate(eventStart)} ~ ${formatDate(eventEnd)}`
-      : festival.period || "기간 정보 없음";
+      : festival.period || t("festivalGrid.noPeriod");
 
   // 종료 여부 계산
   // const ended = isFestivalEnded(eventEnd);
@@ -121,13 +122,13 @@ function FestivalCard({
           {/* 추천 뱃지 */}
           {festival.featured && !festival.ended &&(
             <div className="absolute left-3 top-3 z-10">
-              <Badge className="bg-[#ff651b] text-white">추천 축제</Badge>
+              <Badge className="bg-[#ff651b] text-white">{t("festivalGrid.badgeFeatured")}</Badge>
             </div>
           )}
           {/* 종료 뱃지 */}
           {festival.ended && (
             <div className="absolute right-3 top-3 z-10">
-              <Badge className="bg-gray-500 text-white">종료</Badge>
+              <Badge className="bg-gray-500 text-white">{t("festivalGrid.badgeEnded")}</Badge>
             </div>
           )}
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-60 transition-opacity group-hover:opacity-80" />
@@ -137,12 +138,12 @@ function FestivalCard({
           <div className="mb-3 flex flex-col space-y-1">
             <div className="flex items-center text-sm text-gray-600">
               <MapPin className="mr-1 h-[20px] w-[20px] text-[#ff651b]" />
-              {festival.location || "지역 정보 없음"}
+              {festival.location || t("festivalGrid.noLocation")}
             </div>
             <div className="flex items-center text-sm text-gray-600">
               <Calendar className="mr-1 h-4 w-4 text-[#ff651b]" />
               {periodLoading ? (
-                <span className="animate-pulse text-gray-400">기간 불러오는 중...</span>
+                <span className="animate-pulse text-gray-400">{t("festivalGrid.loadingPeriod")}</span>
               ) : (
                 formattedPeriod
               )}
@@ -150,22 +151,22 @@ function FestivalCard({
           </div>
           <p className="mb-4 line-clamp-2 text-sm text-gray-600">
             {infoLoading ? (
-              <span className="animate-pulse text-gray-400">소개 불러오는 중...</span>
+              <span className="animate-pulse text-gray-400">{t("festivalGrid.loadingDesc")}</span>
             ) : (
-              overview || "설명 정보 없음"
+              overview || t("festivalGrid.noDescription")
             )}
           </p>
           <div className="flex flex-wrap gap-1">
-            {(festival.keywords ?? []).slice(0, 3).map((keyword) => (
+            {/* {(festival.keywords ?? []).slice(0, 3).map((keyword) => (
               <Badge key={keyword} variant="outline" className="text-xs text-gray-700">
                 {keyword}
               </Badge>
-            ))}
-            {festival.keywords && festival.keywords.length > 3 && (
+            ))} */}
+            {/* {festival.keywords && festival.keywords.length > 3 && (
               <Badge variant="outline" className="text-xs text-gray-700">
                 +{festival.keywords.length - 3}
               </Badge>
-            )}
+            )} */}
           </div>
         </div>
       </Link>
@@ -196,7 +197,7 @@ function FestivalCard({
             stroke={liked ? "#ff651b" : "#334155"}
           />
         </motion.span>
-        <span className="sr-only">좋아요</span>
+        <span className="sr-only">{t("festivalGrid.like")}</span>
       </Button>
     </div>
   );

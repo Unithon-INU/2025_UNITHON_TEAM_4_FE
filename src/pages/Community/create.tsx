@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { X, Check, Upload, Plus, ChevronLeft, ChevronRight } from "lucide-react";
 import Navbar from "../../components/Navbar";
 import { createPost } from "../../apis/createPost";
+import { useTranslation } from 'react-i18next';
 
 export default function CreatePostPage() {
   const [title, setTitle] = useState("");
@@ -13,6 +14,8 @@ export default function CreatePostPage() {
   const [isImageRequiredModalOpen, setIsImageRequiredModalOpen] = useState(false); // 팝업 상태 추가
   const fileInputRef = useRef<HTMLInputElement>(null);
   const additionalFileInputRef = useRef<HTMLInputElement>(null);
+
+  const { t } = useTranslation();
 
   const NAVBAR_HEIGHT = 90;
 
@@ -88,7 +91,7 @@ export default function CreatePostPage() {
 
     // 제목 & 내용 검증
     if (!title.trim() || !content.trim()) {
-      alert("제목과 내용을 입력해주세요.");
+      alert(t("createPostPage.alertTitleContent"));
       return;
     }
 
@@ -99,11 +102,11 @@ export default function CreatePostPage() {
         content: content.trim(),
         images,
       });
-      alert("게시물이 성공적으로 작성되었습니다!");
+      alert(t("createPostPage.success"));
       window.location.href = "/community";
     } catch (error) {
       console.error("게시물 작성 실패:", error);
-      alert("게시물 작성에 실패했습니다.");
+      alert(t("createPostPage.error"));
     } finally {
       setIsSubmitting(false);
     }
@@ -129,19 +132,19 @@ export default function CreatePostPage() {
       >
         <div className="w-full max-w-2xl mx-auto mt-16">
           <div className="mb-8">
-            <h1 className="text-3xl font-bold mb-2">게시물 작성</h1>
-            <p className="text-gray-600">축제 경험을 공유하고 다른 사람들과 소통하세요</p>
+            <h1 className="text-3xl font-bold mb-2">{t("createPostPage.title")}</h1>
+            <p className="text-gray-600">{t("createPostPage.desc")}</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* 게시물 제목 */}
             <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700">
-                게시물 제목 <span className="text-red-500">*</span>
+                {t("createPostPage.form.title")} <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
-                placeholder="게시물 제목을 입력하세요"
+                placeholder={t("createPostPage.form.titlePlaceholder")}
                 className="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-[#ff651b] focus:border-[#ff651b]"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
@@ -152,7 +155,7 @@ export default function CreatePostPage() {
             {/* 이미지 업로드 */}
             <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700">
-                이미지 <span className="text-red-500">*</span>
+                {t("createPostPage.form.images")} <span className="text-red-500">*</span>
               </label>
 
               {imagePreviews.length > 0 ? (
@@ -161,7 +164,7 @@ export default function CreatePostPage() {
                   <div className="relative h-64 w-full flex items-center justify-center bg-gray-50 rounded">
                     <img
                       src={imagePreviews[currentImageIndex]}
-                      alt={`업로드 이미지 ${currentImageIndex + 1}`}
+                      alt={t("createPostPage.form.uploadedImageAlt", { index: currentImageIndex + 1 })}
                       className="object-contain w-full h-full"
                     />
 
@@ -208,7 +211,7 @@ export default function CreatePostPage() {
                   onClick={handleClick}
                 >
                   <Upload className="mx-auto h-12 w-12 text-gray-400" />
-                  <p className="mt-2 text-base text-black font-semibold">이미지를 업로드하세요</p>
+                  <p className="mt-2 text-base text-black font-semibold">{t("createPostPage.form.imageUploadText")}</p>
                 </div>
               )}
 
@@ -237,7 +240,7 @@ export default function CreatePostPage() {
             {images.length > 0 && (
               <div className="space-y-2">
                 <label className="block text-sm font-medium text-gray-700">
-                  업로드된 이미지 <span className="text-red-500">*</span>
+                   {t("createPostPage.form.uploadedImages")} <span className="text-red-500">*</span>
                 </label>
                 <div className="border border-gray-300 rounded-md p-4 bg-gray-50 flex flex-col items-end">
                   <div className="w-full space-y-2">
@@ -265,7 +268,7 @@ export default function CreatePostPage() {
                     className="mt-3 flex items-center justify-center gap-2 p-2 border border-solid border-[#ff651b] rounded text-[#ff651b] hover:bg-[#ff651b] hover:text-white transition-colors self-end"
                   >
                     <Plus className="h-4 w-4" />
-                    <span className="text-sm font-medium">이미지 추가하기</span>
+                    <span className="text-sm font-medium">{t("createPostPage.form.addImageBtn")}</span>
                   </button>
                 </div>
               </div>
@@ -274,11 +277,11 @@ export default function CreatePostPage() {
             {/* 게시물 내용 */}
             <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700">
-                내용 <span className="text-red-500">*</span>
+                {t("createPostPage.form.content")} <span className="text-red-500">*</span>
               </label>
               <textarea
                 rows={6}
-                placeholder="축제에 대한 경험과 느낌을 자유롭게 작성해주세요..."
+                placeholder={t("createPostPage.form.contentPlaceholder")}
                 className="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-[#ff651b] focus:border-[#ff651b]"
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
@@ -293,7 +296,7 @@ export default function CreatePostPage() {
                 className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors"
                 onClick={() => window.history.back()}
               >
-                취소
+                {t("createPostPage.form.cancel")}
               </button>
               <button
                 type="submit"
@@ -305,7 +308,7 @@ export default function CreatePostPage() {
                 ) : (
                   <Check className="h-5 w-5" />
                 )}
-                {isSubmitting ? "게시 중..." : "게시하기"}
+                {isSubmitting ? t("createPostPage.form.posting") : t("createPostPage.form.post")}
               </button>
             </div>
           </form>
@@ -317,15 +320,15 @@ export default function CreatePostPage() {
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50">
           <div className="bg-white rounded-lg p-6 w-full max-w-xs shadow-lg">
             <div className="mb-4">
-              <h2 className="text-lg font-semibold mb-1">알림</h2>
-              <p className="text-sm text-gray-500">이미지 업로드 해주세요.</p>
+              <h2 className="text-lg font-semibold mb-1">{t("createPostPage.imageRequired.title")}</h2>
+              <p className="text-sm text-gray-500">{t("createPostPage.imageRequired.desc")}</p>
             </div>
             <div className="flex justify-end">
               <button
                 className="px-4 py-2 rounded bg-gray-100 hover:bg-gray-200 text-gray-700"
                 onClick={() => setIsImageRequiredModalOpen(false)}
               >
-                확인
+                {t("createPostPage.imageRequired.confirm")}
               </button>
             </div>
           </div>

@@ -11,7 +11,7 @@ import {
 import Navbar from "../../components/Navbar";
 import { getPost } from "../../apis/post"; // 위에서 만든 API 함수 import
 import CommentSection from "./components/CommentSection"; // 댓글 섹션은 이후에 별도로 넣으신다고 하셨으니 일단 그대로
-
+import { useTranslation } from 'react-i18next';
 interface PostDetail {
   postId: number;
   likes: number;
@@ -38,6 +38,7 @@ interface PostDetail {
 }
 
 export default function PostDetailPage() {
+  const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
   const [post, setPost] = useState<PostDetail | null>(null);
   const [loading, setLoading] = useState(true);
@@ -51,7 +52,7 @@ export default function PostDetailPage() {
       const { data } = await getPost(Number(id));
       setPost(data);
     } catch (error) {
-      console.error("게시물 불러오기 실패:", error);
+      console.error(t("postDetail.errorLoad", { error }));
     } finally {
       setLoading(false);
     }
@@ -90,8 +91,8 @@ export default function PostDetailPage() {
       <div className="min-h-screen bg-white">
         <Navbar />
         <div className="container mx-auto px-4 py-8 text-center">
-          <h1 className="text-2xl font-bold text-gray-800">게시물을 찾을 수 없습니다</h1>
-          <p className="mt-4 text-gray-600">요청하신 게시물이 존재하지 않거나 삭제되었습니다.</p>
+          <h1 className="text-2xl font-bold text-gray-800">{t("postDetail.notFound.title")}</h1>
+          <p className="mt-4 text-gray-600">{t("postDetail.notFound.desc")}</p>
         </div>
       </div>
     );
@@ -127,7 +128,7 @@ export default function PostDetailPage() {
               <div className="w-[800px] h-[400px] md:h-[500px] relative flex items-center justify-center bg-gray-100">
                 <img
                   src={post.images[currentImageIndex]?.imageUrl || "/placeholder.svg"}
-                  alt={`${post.title} 이미지 ${currentImageIndex + 1}`}
+                  alt={t("postDetail.imageAlt", { title: post.title, index: currentImageIndex + 1 })}
                   className="object-contain w-full h-full"
                   style={{ maxHeight: "100%", maxWidth: "100%" }}
                 />
@@ -138,14 +139,14 @@ export default function PostDetailPage() {
                   <button
                     onClick={prevImage}
                     className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-70 rounded-full p-2 hover:bg-opacity-90 transition-all"
-                    aria-label="이전 이미지"
+                    aria-label={t("postDetail.prevImage")}
                   >
                     <ChevronLeft className="h-6 w-6 text-gray-800" />
                   </button>
                   <button
                     onClick={nextImage}
                     className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-70 rounded-full p-2 hover:bg-opacity-90 transition-all"
-                    aria-label="다음 이미지"
+                    aria-label={t("postDetail.nextImage")}
                   >
                     <ChevronRight className="h-6 w-6 text-gray-800" />
                   </button>
@@ -163,7 +164,7 @@ export default function PostDetailPage() {
                     className={`h-2 w-2 rounded-full ${
                       index === currentImageIndex ? "bg-[#ff651b]" : "bg-gray-300"
                     }`}
-                    aria-label={`이미지 ${index + 1}로 이동`}
+                    aria-label={t("postDetail.imageIndicator", { index: index + 1 })}
                   />
                 ))}
               </div>

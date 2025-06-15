@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Send } from "lucide-react";
 import { createComment } from "../../../apis/post"; // 추가된 API 함수 import
-
+import { useTranslation } from 'react-i18next';
 interface Comment {
   commentId: number;
   content: string;
@@ -18,6 +18,7 @@ interface CommentSectionProps {
   onCommentAdded: () => void; // 추가: 댓글 작성 후 상위 컴포넌트에서 데이터 갱신을 위한 콜백
 }
 export default function CommentSection({ postId, comments, onCommentAdded }: CommentSectionProps) {
+  const { t } = useTranslation();
   const [newComment, setNewComment] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -31,7 +32,7 @@ export default function CommentSection({ postId, comments, onCommentAdded }: Com
       setNewComment("");
       onCommentAdded(); // 추가: 상위 컴포넌트에서 데이터 갱신 요청
     } catch (error) {
-      alert("댓글 작성에 실패했습니다.");
+      alert(t("commentSection.writeError"));
       console.error("댓글 작성 오류:", error);
     } finally {
       setIsSubmitting(false);
@@ -43,10 +44,10 @@ export default function CommentSection({ postId, comments, onCommentAdded }: Com
 
   return (
     <div className="border-t border-[#ff651b] pt-6">
-      <h3 className="text-xl font-bold mb-6">댓글 {comments.length}개</h3>
+      <h3 className="text-xl font-bold mb-6">{t("commentSection.title", { count: comments.length })}</h3>
       {comments.length === 0 ? (
         <p className="text-center text-gray-500 py-4">
-          아직 댓글이 없습니다. 첫 댓글을 작성해보세요!
+          {t("commentSection.noComment")}
         </p>
       ) : (
         <div className="space-y-7 mb-8">
@@ -98,7 +99,7 @@ export default function CommentSection({ postId, comments, onCommentAdded }: Com
             <textarea
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
-              placeholder="댓글을 작성해주세요..."
+              placeholder={t("commentSection.inputPlaceholder")}
               className="w-full bg-[#fffefb] shadow-lg border border-gray-200 rounded-lg py-2 px-3 focus:outline-none"
               rows={1}
               maxLength={500}
