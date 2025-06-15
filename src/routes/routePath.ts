@@ -9,6 +9,7 @@ const RoutePath = {
   MyPage: "/mypage",
   CreatePostPage: "/create",
   PostPage: "/community/:id",
+  // PostModifyPage: "/postmodify/:id",
 };
 
 export default RoutePath;
