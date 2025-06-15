@@ -10,6 +10,7 @@ import SignupPage from "../pages/Auth/signup";
 import MyPage from "../pages/Mypage";
 import PostPage from "../pages/Community/post";
 import CreatePostPage from "../pages/Community/create";
+// import PostModifyPage from "../pages/Mypage/postModify";
 const routes: RouteObject[] = [
   { path: RoutePath.Main, element: <MainPage /> },
   // { path: RoutePath.Onboarding, element: <OnboardingPage /> },
@@ -21,6 +22,7 @@ const routes: RouteObject[] = [
   { path: RoutePath.MyPage, element: <MyPage /> },
   { path: RoutePath.PostPage, element: <PostPage /> },
   { path: RoutePath.CreatePostPage, element: <CreatePostPage /> },
+  // { path: RoutePath.PostModifyPage, element: <PostModifyPage /> },
 ];
 
 const Router = createBrowserRouter(routes);

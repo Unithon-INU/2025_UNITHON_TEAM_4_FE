@@ -17,9 +17,9 @@ const getApiUrl = (endpoint: string) => {
 const client = axios.create({
   // baseURL 사용 안 함!
   withCredentials: true,
-  headers: {
-    "Content-Type": "application/json",
-  },
+  // headers: {
+  //   "Content-Type": "application/json",
+  // },
 });
 
 // 요청 인터셉터 (토큰 자동 부착)
@@ -51,7 +51,6 @@ client.interceptors.response.use(
   (error) => {
     if (error.response?.status === 401) {
       localStorage.clear();
-      window.location.replace("/"); // 401 뜨면 메인페이지로 이동
     }
     return Promise.reject(error);
   }

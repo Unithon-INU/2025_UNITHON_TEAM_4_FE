@@ -1,6 +1,7 @@
 import client, { getApiUrl } from "./client";
 
 export interface Post {
+  postId: number;
   thumbnailUrl: string;
   title: string;
   updatedAt: string;

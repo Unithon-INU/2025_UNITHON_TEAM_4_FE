@@ -2,11 +2,14 @@ import { useState, useEffect } from "react";
 import Navbar from "../../components/Navbar";
 import { Link } from "react-router-dom";
 import { Edit, MoreVertical, Trash2, User, MessageCircle, Settings2Icon } from "lucide-react";
-import { fetchUserProfile } from "../../apis/users"; // API 임포트 추가
+import { fetchUserProfile } from "../../apis/users";
+import { useNavigate } from "react-router-dom";
+import { deletePost } from "../../apis/post";
 
 const NAVBAR_HEIGHT = 90;
 
 interface Post {
+  postId: number;
   thumbnailUrl: string;
   title: string;
   updatedAt: string;
@@ -35,8 +38,8 @@ export default function MyPage() {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [selectedPostId, setSelectedPostId] = useState<number | null>(null);
   const [dropdownOpenId, setDropdownOpenId] = useState<number | null>(null);
+  const navigate = useNavigate();
 
-  // API 연동 부분
   useEffect(() => {
     const loadProfile = async () => {
       try {
@@ -62,13 +65,19 @@ export default function MyPage() {
     loadProfile();
   }, []);
 
-  const handleDeletePost = (postIndex: number) => {
-    setUserProfile((prev) => ({
-      ...prev,
-      posts: prev.posts.filter((_, idx) => idx !== postIndex),
-    }));
-    setIsDeleteDialogOpen(false);
-    setSelectedPostId(null);
+  const handleDeletePost = async (postId: number) => {
+    try {
+      await deletePost(postId);
+      setUserProfile((prev) => ({
+        ...prev,
+        posts: prev.posts.filter((post) => post.postId !== postId), // postId로 삭제
+      }));
+      setIsDeleteDialogOpen(false);
+      setSelectedPostId(null);
+    } catch (error) {
+      console.error("게시물 삭제 실패:", error);
+      alert("게시물 삭제에 실패했습니다.");
+    }
   };
 
   const handleEditPost = (postId: number) => {
@@ -100,6 +109,9 @@ export default function MyPage() {
       </div>
     );
   }
+
+  // 최근 게시물이 위로 오도록 정렬
+  const sortedPosts = [...userProfile.posts].sort((a, b) => b.postId - a.postId);
 
   return (
     <div className="min-h-screen bg-white overflow-hidden">
@@ -164,10 +176,10 @@ export default function MyPage() {
             </div>
             {/* 게시물 영역 */}
             <div className="lg:col-span-3 overflow-y-auto h-full rounded-lg border border-border-[#fffefb]">
-              <div className="bg-white rounded-lg  h-full flex flex-col">
+              <div className="bg-white rounded-lg h-full flex flex-col">
                 <div className="p-6 flex items-center justify-between">
                   <div className="flex items-center gap-4">
-                    <div className="w-6 h-6 grid grid-cols-3 gap-0.5 ">
+                    <div className="w-6 h-6 grid grid-cols-3 gap-0.5">
                       {[...Array(9)].map((_, i) => (
                         <div key={i} className="w-1.5 h-1.5 bg-[#ff651b] rounded-sm" />
                       ))}
@@ -175,13 +187,14 @@ export default function MyPage() {
                     <span className="font-medium">내 게시물</span>
                   </div>
                 </div>
-                {/* 게시물 리스트: flex-1, h-full, overflow-y-auto */}
-                <div className="flex-1 h-full p-6 pt-0 ">
-                  <div className="grid grid-cols-3 gap-4 ">
-                    {userProfile.posts.map((post, index) => (
+                {/* 게시물 리스트 */}
+                <div className="flex-1 h-full p-6 pt-0">
+                  <div className="grid grid-cols-3 gap-4">
+                    {sortedPosts.map((post, index) => (
                       <div
-                        key={index}
+                        key={post.postId}
                         className="overflow-hidden rounded-lg bg-gray-100 aspect-square relative shadow-sm hover:shadow-md transition-all duration-300 mb-6 group cursor-pointer"
+                        onClick={() => navigate(`/community/${post.postId}`)}
                       >
                         {/* 이미지 영역 */}
                         <img
@@ -189,9 +202,11 @@ export default function MyPage() {
                           alt={post.title}
                           className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
                         />
-
                         {/* 더보기 메뉴 */}
-                        <div className="absolute top-2 right-2 z-20">
+                        <div
+                          className="absolute top-2 right-2 z-20"
+                          onClick={(e) => e.stopPropagation()}
+                        >
                           <button
                             className="w-6 h-6 flex items-center justify-center bg-white rounded-full shadow hover:bg-gray-100"
                             onClick={(e) => {
@@ -203,12 +218,15 @@ export default function MyPage() {
                           </button>
                           {/* 드롭다운 메뉴 */}
                           {dropdownOpenId === index && (
-                            <div className="absolute right-0 mt-2 w-28 bg-white border rounded shadow z-10">
+                            <div
+                              className="absolute right-0 mt-2 w-28 bg-white border rounded shadow z-10"
+                              onClick={(e) => e.stopPropagation()}
+                            >
                               <button
                                 className="flex items-center w-full px-3 py-2 text-sm hover:bg-gray-100"
                                 onClick={(e) => {
                                   e.stopPropagation();
-                                  handleEditPost(index);
+                                  handleEditPost(post.postId);
                                 }}
                               >
                                 <Edit className="w-4 h-4 mr-2" />
@@ -218,7 +236,7 @@ export default function MyPage() {
                                 className="flex items-center w-full px-3 py-2 text-sm text-red-600 hover:bg-gray-100"
                                 onClick={(e) => {
                                   e.stopPropagation();
-                                  setSelectedPostId(index);
+                                  setSelectedPostId(post.postId);
                                   setIsDeleteDialogOpen(true);
                                   setDropdownOpenId(null);
                                 }}
@@ -229,7 +247,6 @@ export default function MyPage() {
                             </div>
                           )}
                         </div>
-
                         {/* 하단 정보 오버레이 */}
                         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-3 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
                           <div className="flex items-center justify-between text-xs mb-1 opacity-80">
@@ -272,7 +289,7 @@ export default function MyPage() {
                 </button>
                 <button
                   className="px-4 py-2 rounded bg-red-500 hover:bg-red-600 text-white"
-                  onClick={() => selectedPostId && handleDeletePost(selectedPostId)}
+                  onClick={() => selectedPostId !== null && handleDeletePost(selectedPostId)}
                 >
                   삭제
                 </button>
