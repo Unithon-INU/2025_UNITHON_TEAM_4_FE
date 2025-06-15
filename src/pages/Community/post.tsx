@@ -4,68 +4,60 @@ import {
   ChevronLeft,
   ChevronRight,
   Calendar,
-  Globe,
   Heart,
   MessageCircle,
-  Share2,
   BookmarkPlus,
 } from "lucide-react";
 import Navbar from "../../components/Navbar";
-import CommentSection from "./components/CommentSection";
+import { getPost } from "../../apis/post"; // 위에서 만든 API 함수 import
+import CommentSection from "./components/CommentSection"; // 댓글 섹션은 이후에 별도로 넣으신다고 하셨으니 일단 그대로
 
-interface PostImage {
-  id: number;
-  url: string;
-}
-
-interface Post {
-  id: number;
+interface PostDetail {
+  postId: number;
+  likes: number;
   title: string;
   content: string;
-  author: string;
-  date: string;
-  language: string;
-  images: PostImage[];
-  likes: number;
-  comments: number;
-  region: string;
+  thumbnailUrl: string;
+  images: { imageUrl: string }[];
+  comments: {
+    commentId: number;
+    content: string;
+    writerId: number;
+    writerName: string;
+    writerProfileImageUrl: string;
+    createdAt: string;
+    updatedAt: string;
+  }[];
+  writer: {
+    id: number;
+    name: string;
+    profileImage: string;
+  };
+  createdAt: string;
+  updatedAt: string;
 }
 
 export default function PostDetailPage() {
   const { id } = useParams<{ id: string }>();
-  const [post, setPost] = useState<Post | null>(null);
+  const [post, setPost] = useState<PostDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
-  const [isShared, setIsShared] = useState(false);
-  const [isCommented, setIsCommented] = useState(false);
+
+  const fetchPost = async () => {
+    setLoading(true);
+    try {
+      const { data } = await getPost(Number(id));
+      setPost(data);
+    } catch (error) {
+      console.error("게시물 불러오기 실패:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    // 실제 구현에서는 API 호출로 데이터를 가져올 것입니다
-    const fetchPost = async () => {
-      setLoading(true);
-      setTimeout(() => {
-        const dummyPost: Post = {
-          id: Number(id),
-          title: "진주 남강유등축제",
-          content:
-            "진주 남강유등축제에 다녀왔습니다! 밤하늘을 수놓는 아름다운 등불들이 정말 환상적이었어요. 남강을 따라 설치된 다양한 모양의 등불들은 물 위에 비친 모습까지 더해져 더욱 아름다웠습니다.\n\n축제 기간 동안 진행되는 다양한 공연과 체험 프로그램도 즐길 수 있었어요. 특히 소원등을 만들어 띄우는 체험은 잊지 못할 추억이 되었습니다. 가족, 연인, 친구들과 함께 방문하기 좋은 축제입니다.\n\n주변에 맛있는 음식점도 많아서 축제를 즐기고 나서 맛있는 식사까지 할 수 있어요. 다음에 또 방문하고 싶은 축제였습니다!",
-          author: "festival_lover",
-          date: "2023-10-15",
-          language: "ko",
-          images: [
-            { id: 1, url: "/placeholder.svg?height=600&width=800" },
-            { id: 2, url: "/placeholder.svg?height=600&width=800" },
-            { id: 3, url: "/placeholder.svg?height=600&width=800" },
-          ],
-          likes: 128,
-          comments: 24,
-          region: "경상남도",
-        };
-        setPost(dummyPost);
-        setLoading(false);
-      }, 500);
-    };
     fetchPost();
   }, [id]);
 
@@ -81,8 +73,6 @@ export default function PostDetailPage() {
 
   const toggleLike = () => setIsLiked(!isLiked);
   const toggleBookmark = () => setIsBookmarked(!isBookmarked);
-  const toggleShare = () => setIsShared(!isShared);
-  const toggleComment = () => setIsCommented(!isCommented);
 
   if (loading) {
     return (
@@ -107,12 +97,11 @@ export default function PostDetailPage() {
     );
   }
 
-  const NAVBAR_HEIGHT = 90; // 네비게이션 바 높이(px)
+  const NAVBAR_HEIGHT = 90;
 
   return (
     <div className="min-h-screen bg-white overflow-hidden">
       <Navbar />
-
       <main
         className="flex justify-center items-center"
         style={{
@@ -127,42 +116,17 @@ export default function PostDetailPage() {
             <div className="flex items-center mt-3 text-gray-600">
               <div className="flex items-center">
                 <Calendar className="h-4 w-4 mr-1 text-[#ff651b]" />
-                <span className="text-sm">{post.date}</span>
+                <span className="text-sm">{new Date(post.createdAt).toLocaleDateString()}</span>
               </div>
-              <span className="mx-2">•</span>
-              <div className="flex items-center">
-                <Globe className="h-4 w-4 mr-1  text-[#ff651b]" />
-                <span className="text-sm">
-                  {post.language === "ko"
-                    ? "한국어"
-                    : post.language === "en"
-                    ? "English"
-                    : post.language === "ja"
-                    ? "日本語"
-                    : post.language === "zh"
-                    ? "中文"
-                    : post.language === "es"
-                    ? "Español"
-                    : post.language === "fr"
-                    ? "Français"
-                    : post.language === "de"
-                    ? "Deutsch"
-                    : post.language === "ru"
-                    ? "Русский"
-                    : post.language}
-                </span>
-              </div>
-              <span className="mx-2 text-[#ff651b]">•</span>
-              <span className="text-sm">{post.region}</span>
             </div>
           </div>
 
           {/* 이미지 슬라이더 */}
           <div className="relative mb-8 bg-gray-100 rounded-lg overflow-hidden">
             <div className="aspect-w-16 aspect-h-9 relative">
-              <div className="w-full h-[400px] md:h-[500px] relative flex items-center justify-center bg-gray-100">
+              <div className="w-[800px] h-[400px] md:h-[500px] relative flex items-center justify-center bg-gray-100">
                 <img
-                  src={post.images[currentImageIndex].url || "/placeholder.svg"}
+                  src={post.images[currentImageIndex]?.imageUrl || "/placeholder.svg"}
                   alt={`${post.title} 이미지 ${currentImageIndex + 1}`}
                   className="object-contain w-full h-full"
                   style={{ maxHeight: "100%", maxWidth: "100%" }}
@@ -211,13 +175,13 @@ export default function PostDetailPage() {
             <div className="flex items-center">
               <div className="w-10 h-10 rounded-full bg-gray-200 overflow-hidden relative flex items-center justify-center">
                 <img
-                  src="/placeholder.svg?height=40&width=40"
-                  alt={post.author}
+                  src={post.writer.profileImage || "/placeholder.svg"}
+                  alt={post.writer.name}
                   className="object-cover w-full h-full"
                 />
               </div>
               <div className="ml-3">
-                <p className="font-medium text-gray-900">@{post.author}</p>
+                <p className="font-medium text-gray-900">@{post.writer.name}</p>
               </div>
             </div>
             <div className="flex space-x-4">
@@ -230,22 +194,9 @@ export default function PostDetailPage() {
                 <Heart className={`h-5 w-5 ${isLiked ? "fill-current" : ""}`} />
                 <span className="ml-1 text-sm">{isLiked ? post.likes + 1 : post.likes}</span>
               </button>
-              <button
-                onClick={toggleComment}
-                className={`flex items-center ${
-                  isCommented ? "text-[#ff651b]" : "text-gray-500"
-                } hover:text-[#ff651b] transition-colors`}
-              >
+              <button className="flex items-center text-gray-500 hover:text-[#ff651b] transition-colors">
                 <MessageCircle className="h-5 w-5" />
-                <span className="ml-1 text-sm">{post.comments}</span>
-              </button>
-              <button
-                onClick={toggleShare}
-                className={`flex items-center ${
-                  isShared ? "text-[#ff651b]" : "text-gray-500"
-                } hover:text-[#ff651b] transition-colors`}
-              >
-                <Share2 className="h-5 w-5" />
+                <span className="ml-1 text-sm">{post.comments.length}</span>
               </button>
               <button
                 onClick={toggleBookmark}
@@ -270,7 +221,11 @@ export default function PostDetailPage() {
           </div>
 
           {/* 댓글 섹션 */}
-          <CommentSection postId={post.id} />
+          <CommentSection
+            postId={post.postId}
+            comments={post.comments}
+            onCommentAdded={fetchPost} // 추가: 댓글 작성 후 데이터 갱신
+          />
         </div>
       </main>
     </div>
