@@ -5,13 +5,18 @@ const BACKEND_BASE_URL = "http://15.164.50.164:8080/api/v1";
 
 // 환경에 따라 프록시 경로 다르게 만드는 함수
 const getApiUrl = (endpoint: string) => {
+  // 축제 API라면 v1을 제거
+  const isFestivalApi = endpoint.startsWith("/festivals");
+  const base = isFestivalApi
+    ? BACKEND_BASE_URL.replace(/\/v1$/, "") // v1 제거
+    : BACKEND_BASE_URL;
   // Vercel(prod) 환경이면 프록시 사용
   if (import.meta.env.MODE === "production") {
-    const target = `${BACKEND_BASE_URL}${endpoint}`;
+    const target = `${base}${endpoint}`;
     return `/api/proxy?url=${encodeURIComponent(target)}`;
   }
   // 개발환경은 Vite 프록시로 직접 접근
-  return `${BACKEND_BASE_URL}${endpoint}`;
+  return `${base}${endpoint}`;
 };
 
 const client = axios.create({
@@ -40,6 +45,7 @@ client.interceptors.request.use(
 );
 
 // 응답 인터셉터 (401/리프레시 토큰 등)
+// 응답 인터셉터 (401/리프레시 토큰 등)
 client.interceptors.response.use(
   (res) => {
     if (res.data.refreshed) {
@@ -58,4 +64,5 @@ client.interceptors.response.use(
 
 // 내보낼 때, getApiUrl 함수도 함께 export!
 export { getApiUrl };
+
 export default client;
