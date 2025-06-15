@@ -1,24 +1,12 @@
 {
   "version": 2,
-  "functions": {
-    "api/proxy.ts": {
-      "memory": 512,
-      "maxDuration": 10,
-      "runtime": "nodejs20.x",
-      "bodyParser": false
-    }
-  },
-  "rewrites": [
-    {
-      "source": "/api/proxy",
-      "destination": "/api/proxy.ts"
-    },
+  "routes": [
     {
       "handle": "filesystem"
     },
     {
-      "source": "/.*",
-      "destination": "/index.html"
+      "src": "/.*",
+      "dest": "/index.html"
     }
   ]
 }
