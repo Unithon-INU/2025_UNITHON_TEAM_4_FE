@@ -10,7 +10,9 @@ import {
   startOfWeek,
   endOfWeek,
   addDays,
+  Locale,
 } from "date-fns";
+import { useTranslation } from 'react-i18next';
 
 interface CalendarProps {
   month: Date;
@@ -22,6 +24,7 @@ interface CalendarProps {
   hoveredDate: Date | null;
   setHoveredDate: (date: Date | null) => void;
   onDateRangeChange: (range: { start: Date | null; end: Date | null }) => void;
+  locale?: Locale; // 선택적 locale prop
 }
 
 export function Calendar({
@@ -32,7 +35,23 @@ export function Calendar({
   setHoveredDate,
   setSelectedStart,
   setSelectedEnd,
+  locale,
 }: CalendarProps) {
+  const { i18n } = useTranslation();
+
+   // 언어별 요일 배열
+  const weekdaysMap: Record<string, string[]> = {
+    kor: ["일", "월", "화", "수", "목", "금", "토"],
+    eng: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+    jpn: ["日", "月", "火", "水", "木", "金", "土"],
+    // 기타 언어 추가
+  };
+  const lang = i18n.language || "kor";
+  const weekdays = weekdaysMap[lang] || weekdaysMap["kor"];
+
+  // 오늘 날짜
+  const today = new Date();
+
   const generateCalendar = () => {
     const start = startOfWeek(startOfMonth(month), { weekStartsOn: 0 });
     const end = endOfWeek(endOfMonth(month), { weekStartsOn: 0 });
@@ -69,10 +88,14 @@ export function Calendar({
       ((date > selectedStart && date <= hoveredDate) ||
         (date < selectedStart && date >= hoveredDate));
 
+    const isToday = isSameDay(date, today);
+
+
     const className = `
       ${styles.date_box}
       ${isSelectedStart || isSelectedEnd ? styles.selected : ""}
       ${isInRange || isHoveredRange ? styles.included : ""}
+      ${isToday ? styles.today : ""}
     `;
 
     const style = isSelectedStart
@@ -97,8 +120,13 @@ export function Calendar({
           style={style}
           onClick={() => handleDateClick(date)}
           onMouseEnter={() => setHoveredDate(date)}
+          aria-label={format(date, "yyyy-MM-dd", { locale })}
         >
-          {format(date, "d")}
+          <span
+            style={isToday ? { borderBottom: "2px solid #ff651b", fontWeight: 600 } : {}}
+          >
+            {format(date, "d", { locale })}
+          </span>
         </div>
       </td>
     );
@@ -119,8 +147,8 @@ export function Calendar({
         <table className="table">
           <thead>
             <tr className="yoil">
-              {["일", "월", "화", "수", "목", "금", "토"].map((day) => (
-                <th key={day}>{day}</th>
+              {weekdays.map((day, idx) => (
+                <th key={day + idx}>{day}</th>
               ))}
             </tr>
           </thead>

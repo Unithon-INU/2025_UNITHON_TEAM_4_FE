@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getPosts } from "../../../apis/posts";
-
+import { useTranslation } from 'react-i18next';
 export default function PostGrid() {
+  const { t } = useTranslation();
   const [posts, setPosts] = useState<
     {
       postId: number;
@@ -28,11 +29,11 @@ export default function PostGrid() {
         );
         setPosts(sortedPosts);
       } catch (error) {
-        console.error("게시물 불러오기 실패:", error);
+        console.error(t("postGrid.error"), error);
       }
     };
     fetchPosts();
-  }, []);
+  }, [t]);
 
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 gap-4 md:gap-6 w-full">

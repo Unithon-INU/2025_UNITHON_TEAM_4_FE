@@ -46,13 +46,13 @@ export interface CreateCommentRequest {
 export interface BaseResponse {
   status: number;
   message: string;
-  data: any;
+  data: unknown;
 }
 
 export interface DeletePostResponse {
   status: number;
   message: string;
-  data: any;
+  data: unknown;
 }
 
 export const createComment = async (postId: number, content: string): Promise<BaseResponse> => {

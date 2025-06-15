@@ -3,6 +3,7 @@ const RoutePath = {
   Onboarding: "/onboarding",
   Festival: "/festival",
   FestivalPeriod: "/festivalperiod",
+  FestivalDetail: "/festival/:contentid/:contenttypeid",
   Community: "/community",
   Login: "/login",
   Signup: "/signup",

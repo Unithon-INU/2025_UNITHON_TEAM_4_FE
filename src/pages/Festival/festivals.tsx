@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { useSearchParams } from 'react-router-dom';
 import Navbar from "../../components/Navbar/index";
 import { Tabs, TabsList, TabsTrigger } from "./components/Tabs";
 import { Button } from "../../components/ui/button";
@@ -11,6 +12,7 @@ import { FeaturedFestivalSlider } from "./components/FeaturedFestivalSlider";
 import { useInfiniteFestivalList, useInfiniteFestivalSearch } from "../../hooks/useFestivalList";
 import { useBottomObserver } from "../../hooks/useBottomObserver";
 import { LoadingFestival } from "./LoadingFestival"; // 로딩 컴포넌트 (스켈레톤)
+import { useTranslation } from "react-i18next";
 
 const areaCodeMap: Record<string, string> = {
   "1": "서울",
@@ -43,14 +45,21 @@ function getTodayStr() {
 
 export default function FestivalPage() {
   // 탭 상태
+    const [searchParams, setSearchParams] = useSearchParams();
+
   const [tab, setTab] = useState<"all" | "featured" | "upcoming" | "ongoing">("all");
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState(() => searchParams.get("search") ?? "");
   const [selectedKeywords, setSelectedKeywords] = useState<string[]>([]);
   const [selectedRegion, setSelectedRegion] = useState("all");
   const [selectedSeason, setSelectedSeason] = useState("all");
   const [detailsMap, setDetailsMap] = useState<DetailsMap>({});
   const [keywordFilterMode, setKeywordFilterMode] = useState<"AND" | "OR">("OR");
-
+  const { t } = useTranslation();
+  
+  useEffect(() => {
+    setSearchQuery(searchParams.get("search") ?? "");
+  }, [searchParams]);
+  
   // 탭에 따라 API 파라미터 조정
   const todayStr = getTodayStr();
   let eventStartDate: string | undefined = undefined;
@@ -211,6 +220,7 @@ export default function FestivalPage() {
   // 검색어 입력
   const handleSearch = (query: string) => {
     setSearchQuery(query);
+    setSearchParams({ search: query });
     setSelectedKeywords([]);
   };
 
@@ -233,9 +243,9 @@ export default function FestivalPage() {
   if (isError)
     return (
       <div className="flex h-60 flex-col items-center justify-center border rounded-lg text-center">
-        <p className="mb-4 text-rose-500">축제 데이터를 불러오지 못했습니다.</p>
+        <p className="mb-4 text-rose-500">{t("festival.loadError")}</p>
         <Button variant="outline" onClick={resetFilters}>
-          전체 목록으로 돌아가기
+          {t("festival.backToList")}
         </Button>
       </div>
     );
@@ -248,12 +258,13 @@ export default function FestivalPage() {
       <Navbar />
       <main className="max-w-screen-xl mx-auto px-4 pt-28 pb-12">
         <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold md:text-4xl text-[#1f2328]">전국 축제</h1>
+          <h1 className="text-3xl font-bold md:text-4xl text-[#1f2328]">{t("festival.title")}</h1>
         </div>
         <FeaturedFestivalSlider festivals={featuredFestivals} />
         <div className=" -mt-11 flex flex-row justify-between items-center">
-          <p className="ml-6  mb-4 font-semibold text-lg text-[#1f2328]/90">
-            '<span className="text-[#ff651b]">{totalCount}</span>'개의 축제가 있습니다
+          <p className="ml-6 mb-4 font-semibold text-lg text-[#1f2328]/90">
+            <span className="text-[#ff651b]">{t("festival.count", { count: totalCount })}</span>
+            {t("festival.result")}
           </p>
           <AppliedFilters
             selectedRegion={selectedRegion}
@@ -283,10 +294,10 @@ export default function FestivalPage() {
 
         <Tabs value={tab} onValueChange={setTab as (value: string) => void}>
           <TabsList>
-            <TabsTrigger value="all">전체 축제</TabsTrigger>
-            {/* <TabsTrigger value="featured">추천 축제</TabsTrigger> */}
-            {/* <TabsTrigger value="upcoming">다가오는 축제</TabsTrigger> */}
-            <TabsTrigger value="ongoing">진행 중인 축제</TabsTrigger>
+            <TabsTrigger value="all">{t("festival.allTab")}</TabsTrigger>
+            {/* <TabsTrigger value="featured">{t("festival.featuredTab")}</TabsTrigger> */}
+            {/* <TabsTrigger value="upcoming">{t("festival.upcomingTab")}</TabsTrigger> */}
+            <TabsTrigger value="ongoing">{t("festival.ongoingTab")}</TabsTrigger>
           </TabsList>
         </Tabs>
         )}
@@ -298,14 +309,14 @@ export default function FestivalPage() {
             <div ref={bottomRef} style={{ height: 48 }} />
             {isFetchingNextPage && <LoadingFestival />}
             {!hasNextPage && (
-              <div className="text-center text-gray-400 text-sm py-4">마지막 축제입니다.</div>
+              <div className="text-center text-gray-400 text-sm py-4">{t("festival.lastFestival")}</div>
             )}
           </>
         ) : (
           <div className="flex h-60 flex-col items-center justify-center border rounded-lg text-center">
-            <p className="mb-4 text-gray-500">검색 결과가 없습니다</p>
+            <p className="mb-4 text-gray-500">{t("festival.noResult")}</p>
             <Button variant="outline" onClick={resetFilters}>
-              모든 필터 초기화
+              {t("festival.resetAll")}
             </Button>
           </div>
         )}

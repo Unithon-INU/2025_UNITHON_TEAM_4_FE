@@ -1,0 +1,323 @@
+{
+  "navbar": {
+    "home": "Home",
+    "festival": "All Festival",
+    "period": "By Period",
+    "community": "Community",
+    "mypage": "My Page",
+    "login": "Login",
+    "logout": "Logout",
+    "signup": "Sign Up",
+    "language": "Language"
+  },
+  "main":{
+    "floatingKeywords": [
+      { "text": "CherryBlossom", "x": 10, "y": 20, "delay": 0, "color": "bg-pink-100 text-pink-700" },
+      { "text": "Fireworks", "x": 80, "y": 15, "delay": 1, "color": "bg-red-100 text-red-700" },
+      { "text": "Lantern", "x": 15, "y": 70, "delay": 2, "color": "bg-yellow-100 text-yellow-700" },
+      { "text": "Mud", "x": 85, "y": 60, "delay": 0.5, "color": "bg-amber-100 text-amber-700" },
+      { "text": "Hanji", "x": 25, "y": 45, "delay": 1.5, "color": "bg-blue-100 text-blue-700" },
+      { "text": "MaskDance", "x": 75, "y": 35, "delay": 2.5, "color": "bg-purple-100 text-purple-700" },
+      { "text": "MountainTrout", "x": 5, "y": 50, "delay": 3, "color": "bg-cyan-100 text-cyan-700" },
+      { "text": "Celadon", "x": 90, "y": 80, "delay": 1.8, "color": "bg-emerald-100 text-emerald-700" },
+      { "text": "Traditional", "x": 70, "y": 70, "delay": 2.8, "color": "bg-lime-100 text-lime-700" },
+      { "text": "Autumn", "x": 35, "y": 80, "delay": 3.3, "color": "bg-orange-100 text-orange-700" },
+      { "text": "Winter", "x": 90, "y": 30, "delay": 3.7, "color": "bg-slate-100 text-slate-700" }
+    ],
+    "headline1": "Discover Korea's",
+    "headline2": "vibrant festivals",
+    "desc": "Experience Korea's rich cultural festivals throughout all four seasons.",
+    "searchPlaceholder": "What festival are you looking for?",
+    "btnAll": "Browse all festivals",
+    "btnPeriod": "Search by period",
+    "alertInvalid": "Search is not allowed if only consonants/vowels or spaces are entered. Please enter more specifically."
+  },
+  "seasonal": [
+    {
+      "id": "spring",
+      "season": "Spring",
+      "title": "Spring Blossom Festivals",
+      "description": "Vibrant spring festivals with cherry blossoms",
+      "festivals": ["Jinhae Gunhangje", "Yeouido Cherry Blossom", "Gyeongju Blossom Festival"]
+    },
+    {
+      "id": "summer",
+      "season": "Summer",
+      "title": "Summer Water Festivals",
+      "description": "Cool off with summer water festivals",
+      "festivals": ["Boryeong Mud Festival", "Hwacheon Tomato Festival", "Muju Firefly Festival"]
+    },
+    {
+      "id": "autumn",
+      "season": "Autumn",
+      "title": "Autumn Foliage Festivals",
+      "description": "Enjoy beautiful autumn foliage festivals",
+      "festivals": ["Jinju Lantern Festival", "Busan Fireworks Festival", "Andong Maskdance Festival"]
+    },
+    {
+      "id": "winter",
+      "season": "Winter",
+      "title": "Winter Ice Festivals",
+      "description": "White snow and winter ice festivals",
+      "festivals": ["Hwacheon Sancheoneo", "Pyeongchang Trout", "Taebaek Snow Festival"]
+    }
+  ],
+  "seasonSection": {
+    "headline": "Seasonal Festival Picks",
+    "desc": "Explore unique seasonal festivals throughout the year"
+  },
+  "keywordSection": {
+    "title": "Browse by Keyword",
+    "all": "See all festivals →",
+    "keywords": [
+      "Spring", "Summer", "Autumn", "Winter",
+      "Traditional", "Experience", "Performance", "Food",
+      "Fireworks", "Lantern", "Cherry Blossom", "Night View",
+      "Seoul", "Busan", "Jeju", "Gangwon", "Gyeongsang", "Jeolla"
+    ]
+  },
+  "footerSection": {
+    "aboutTitle": "About Korean Festivals",
+    "aboutDesc": "Discover Korea’s vibrant cultural heritage through various festivals and events all year round.",
+    "linksTitle": "Quick Links",
+    "allFestivals": "All Festivals",
+    "periodFestivals": "By Period",
+    "community": "Community",
+    "mypage": "My Page",
+    "subscribeTitle": "Subscribe",
+    "subscribeDesc": "Get the latest festival information.",
+    "emailPlaceholder": "Email address",
+    "subscribeBtn": "Subscribe",
+    "copyright": "&copy; 2024 Korea Festival Guide. All rights reserved."
+  },
+  "featuredFestival": {
+    "featured": "Featured Festivals",
+    "badgeFeatured": "Featured",
+    "viewDetail": "View details",
+    "sliderIndex": "{{index}} / {{total}} featured festivals"
+  },
+  "festival": {
+    "title": "Festivals in Korea",
+    "count": "'{{count}}'",
+    "result": " festivals found",
+    "loadError": "Failed to load festival data.",
+    "backToList": "Back to all festivals",
+    "lastFestival": "This is the last festival.",
+    "noResult": "No results found",
+    "resetAll": "Reset all filters",
+    "allTab": "All Festivals",
+    "ongoingTab": "Ongoing Festivals"
+  },
+  "festivalSearchBar": {
+    "placeholder": "Search by festival name",
+    "invalid": "You can't search using only consonants, vowels, or spaces. Please enter a more specific query."
+  },
+  "festivalFilter": {
+    "keywords": [
+      "Spring", "Summer", "Autumn", "Winter", "Traditional", "Experience", "Performance", "Food",
+      "Fireworks", "Lantern", "Cherry Blossom", "Night View", "Seoul", "Busan", "Jeju", "Gangwon"
+    ],
+    "filter": "Filter",
+    "filterApplied": "Filter Applied",
+    "reset": "Reset",
+    "apply": "Apply",
+    "keyword": "Keyword",
+    "keywordMode": "Keyword Mode",
+    "and": "AND",
+    "or": "OR",
+    "guideAnd": "Search by the first keyword + filter festivals that include all additional keywords.",
+    "guideOr": "Search by the first keyword + filter festivals that include any of the additional keywords.",
+    "searchBasis": "Search Basis:",
+    "region": "Region",
+    "season": "Season"
+  },
+  "festivalAppliedFilter": {
+    "appliedFilters": "Applied Filters:",
+    "resetFilters": "Reset Filters"
+  },
+  "festivalGrid": {
+    "noPeriod": "No period information",
+    "noLocation": "No location information",
+    "noDescription": "No description information",
+    "loadingPeriod": "Loading period...",
+    "loadingDesc": "Loading overview...",
+    "badgeFeatured": "Featured",
+    "badgeEnded": "Ended",
+    "like": "Like"
+  },
+  "periodPage": {
+  "headline": "When do you want to travel?",
+  "desc": "Choose your desired period and discover special festivals held at that time.",
+  "count": "'{{count}}'",
+  "result": " festivals found",
+  "noResult": "No festivals match your criteria.",
+  "noResult2": "No search results",
+  "tryOther": "Try searching with different conditions.",
+  "loading": "Loading...",
+  "error": "Failed to load data",
+  "back": "Go back",
+  "moreLoading": "Loading more...",
+  "lastFestival": "This is the last festival."
+},
+"periodSelector": {
+  "where": "Where",
+  "when": "When",
+  "search": "Search",
+  "enjoy": "Enjoy festival",
+  "selectDate": "Select date",
+  "selectRegion": "Select a region",
+  "tilde": " ~ ",
+  "dateFormatOne": "MMM d",
+  "regions": {
+    "all": "All Regions",
+    "seoul": "Seoul",
+    "busan": "Busan",
+    "gyeonggi": "Gyeonggi-do",
+    "gangwon": "Gangwon-do",
+    "chungnam": "Chungcheongnam-do",
+    "chungbuk": "Chungcheongbuk-do",
+    "gyeongnam": "Gyeongsangnam-do",
+    "gyeongbuk": "Gyeongsangbuk-do",
+    "jeonnam": "Jeollanam-do",
+    "jeonbuk": "Jeollabuk-do",
+    "jeolla": "Jeolla-do",
+    "gyeongsang": "Gyeongsang-do",
+    "jeju": "Jeju Island"
+  },
+  "calendar": {
+    "monthYearFormat": "MMMM yyyy",
+    "weekdays": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+    "today": "Today"
+  }
+},
+"festivalDetail": {
+  "noOverview": "No overview available",
+  "loading": "Loading...",
+  "ended": "Ended",
+  "badgeFestival": "Festival",
+  "summaryTitle": "Overview",
+  "scenePhoto": "Scene Photo",
+  "introTitle": "Introduction",
+  "detailTitle": "Details",
+  "collapse": "Collapse",
+  "showAll": "Show All",
+  "foodTitle": "Nearby Food Recommendations",
+  "foodLoading": "Loading food info...",
+  "foodNotFound": "No nearby food info found.",
+  "meter": "m away",
+  "backToList": "Back to list"
+},
+"community": {
+  "title": "Community",
+  "subtitle": "Share your experiences with festival lovers around the world",
+  "searchPlaceholder": "Search posts...",
+  "writePost": "Write Post"
+},
+"commentSection": {
+  "title": "{{count}} Comments",
+  "noComment": "No comments yet. Be the first to comment!",
+  "inputPlaceholder": "Write a comment...",
+  "writeError": "Failed to add comment.",
+  "currentUserAlt": "Current user"
+},
+"createPostPage": {
+  "title": "Create Post",
+  "desc": "Share your festival experiences and connect with others.",
+  "alertTitleContent": "Please enter a title and content.",
+  "success": "Your post has been created successfully!",
+  "error": "Failed to create post.",
+  "form": {
+    "title": "Post Title",
+    "titlePlaceholder": "Enter post title",
+    "images": "Images",
+    "imageUploadText": "Upload images",
+    "uploadedImages": "Uploaded Images",
+    "uploadedImageAlt": "Uploaded image {{index}}",
+    "addImageBtn": "Add More Images",
+    "content": "Content",
+    "contentPlaceholder": "Feel free to write about your festival experience...",
+    "cancel": "Cancel",
+    "post": "Post",
+    "posting": "Posting..."
+  },
+  "imageRequired": {
+    "title": "Notice",
+    "desc": "Please upload at least one image.",
+    "confirm": "OK"
+  }
+},
+"postDetail": {
+  "notFound": {
+    "title": "Post Not Found",
+    "desc": "The requested post does not exist or has been deleted."
+  },
+  "errorLoad": "Failed to load post:",
+  "imageAlt": "{{title}} image {{index}}",
+  "prevImage": "Previous image",
+  "nextImage": "Next image",
+  "imageIndicator": "Go to image {{index}}",
+  "like": "Like",
+  "comment": "Comment",
+  "bookmark": "Bookmark"
+},
+"mypage": {
+  "loadError": "Failed to load profile information.",
+  "goLoginQ": "Go to the login page?",
+  "post": "Posts",
+  "bookmark": "Bookmarks",
+  "editProfile": "Edit Profile",
+  "accountSetting": "Account Settings",
+  "signupDate": "Joined",
+  "myPosts": "My Posts",
+  "edit": "Edit",
+  "delete": "Delete",
+  "category": "Category",
+  "deletePostTitle": "Delete Post",
+  "deletePostDesc": "Are you sure you want to delete this post? This action cannot be undone.",
+  "deleteFail": "Failed to delete post."
+},
+"common": {
+  "login": "Login",
+  "cancel": "Cancel"
+},
+"login": {
+  "title": "Login",
+  "desc1": "Log in to your account and join our festival community.",
+  "desc2": "Enjoy our service!",
+  "email": "Email",
+  "emailPlaceholder": "Enter your email address",
+  "password": "Password",
+  "passwordPlaceholder": "Enter your password",
+  "showPassword": "Show password",
+  "hidePassword": "Hide password",
+  "remember": "Keep me logged in",
+  "forgotPassword": "Forgot password?",
+  "loginBtn": "Login",
+  "noAccount": "Don't have an account?",
+  "signup": "Sign Up",
+  "success": "Login successful!",
+  "fail": "Login failed."
+},
+"signup": {
+  "title": "Sign Up",
+  "desc1": "Join our festival community",
+  "desc2": "and share your experiences.",
+  "email": "Email",
+  "emailPlaceholder": "Enter your email address",
+  "nickname": "Nickname",
+  "nicknamePlaceholder": "Enter your nickname",
+  "password": "Password",
+  "passwordPlaceholder": "Enter your password",
+  "passwordCheck": "Confirm Password",
+  "passwordCheckPlaceholder": "Re-enter your password",
+  "showPassword": "Show password",
+  "hidePassword": "Hide password",
+  "required": "Please fill in all required fields.",
+  "pwMismatch": "Passwords do not match.",
+  "success": "Sign up completed!",
+  "fail": "An error occurred during sign up.",
+  "signupBtn": "Sign Up",
+  "alreadyAccount": "Already have an account?",
+  "login": "Login"
+}
+}

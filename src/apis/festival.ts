@@ -3,6 +3,8 @@ import type {
   FestivalDetailIntroResponse,
   FestivalInfoResponse,
   FestivalListResponse,
+  FestivalDetailInfoResponse,
+  LocationFoodResponse
 } from "../types/festival";
 
 // 파라미터 타입 정의
@@ -22,7 +24,7 @@ export interface GetFestivalListParams {
  */
 export async function fetchFestivalList(params: GetFestivalListParams = {}) {
   const {
-    lang = "kor",
+    lang,
     numOfRows = 8,
     pageNo = 1,
     eventStartDate = "20250601",
@@ -47,7 +49,7 @@ export async function fetchFestivalList(params: GetFestivalListParams = {}) {
 }
 
 // 1. 축제 검색 (GET /api/festivals/search?keyword=키워드)
-export async function fetchFestivalSearch(keyword: string, lang = "kor", pageNo = 1) {
+export async function fetchFestivalSearch(keyword: string, lang: string, pageNo = 1) {
   const res = await client.get<FestivalListResponse>(getApiUrl("/festivals/search"), {
     params: { keyword, lang, pageNo, numOfRows: 8 },
   });
@@ -58,10 +60,10 @@ export async function fetchFestivalSearch(keyword: string, lang = "kor", pageNo 
 
 // ########################## 축제list overview, period용 API ##########################
 // 1. 개별 축제 overview(소개) fetch
-export async function fetchFestivalInfo(contentId: string) {
+export async function fetchFestivalInfo(contentId: string, lang: string) {
   const res = await client.get<FestivalInfoResponse>(getApiUrl("/festivals/info"), {
     params: {
-      lang: "kor",
+      lang,
       contentId,
     },
   });
@@ -69,13 +71,64 @@ export async function fetchFestivalInfo(contentId: string) {
 }
 
 // 2. 개별 축제 기간(시작일/종료일) fetch
-export async function fetchFestivalPeriod(contentId: string, contentTypeId: string) {
+export async function fetchFestivalPeriod(contentId: string, contentTypeId: string, lang: string) {
   const res = await client.get<FestivalDetailIntroResponse>(getApiUrl("/festivals/detailIntro"), {
     params: {
-      lang: "kor",
+      lang,
       contentId,
       contentTypeId,
     },
   });
   return res.data.data.response.body.items.item[0];
+}
+// 행사내용(detailInfo) fetch
+export async function fetchFestivalDetailInfo(contentId: string, contentTypeId: string, lang: string) {
+  const res = await client.get<FestivalDetailInfoResponse>(getApiUrl("/festivals/detailInfo"), {
+    params: {
+      lang,
+      contentId,
+      contentTypeId,
+    },
+  });
+  // item이 배열로 옴
+  return res.data.data.response.body.items.item;
+}
+
+// 파라미터 타입
+export interface GetLocationFoodParams {
+  lang?: string;
+  mapx: string;
+  mapy: string;
+  numOfRows?: string | number;
+  pageNo?: string | number;
+  radius?: string | number;
+}
+
+// 근처 먹거리 조회 (GET /api/festivals/locationFood)
+export async function fetchLocationFood(params: GetLocationFoodParams) {
+  const {
+    lang,
+    mapx,
+    mapy,
+    numOfRows = 4,
+    pageNo = 1,
+    radius = 10000,
+  } = params;
+
+  const res = await client.get<LocationFoodResponse>(
+    getApiUrl("/festivals/locationFood"),
+    {
+      params: {
+        lang,
+        MapX: mapx,
+        MapY: mapy,
+        NumOfRows: numOfRows,
+        PageNo: pageNo,
+        Radius: radius,
+      },
+    }
+  );
+
+  // 바로 배열만 리턴
+  return res.data.data.response.body.items.item;
 }

@@ -3,8 +3,11 @@ import Navbar from "../../components/Navbar";
 import LanguageFilter from "./components/LanguageFilter";
 import PostGrid from "./components/PostGrid";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function CommunityPage() {
+  const { t } = useTranslation();
+
   // 퍼블리싱용 하드코딩 값
   const searchQuery = "";
   const selectedLanguage = "all";
@@ -22,8 +25,8 @@ export default function CommunityPage() {
         }}
       >
         <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">커뮤니티</h1>
-          <p className="text-gray-600">전 세계 축제 애호가들과 경험을 공유하세요</p>
+          <h1 className="text-3xl font-bold mb-2">{t("community.title")}</h1>
+          <p className="text-gray-600">{t("community.subtitle")}</p>
         </div>
 
         {/* 검색/필터/버튼 영역 */}
@@ -34,7 +37,7 @@ export default function CommunityPage() {
             </div>
             <input
               type="text"
-              placeholder="게시물 검색..."
+              placeholder={t("community.searchPlaceholder")}
               className="pl-10 w-full rounded-full  py-2 px-4 focus:outline-none bg-[#fffefb] shadow-lg border border-gray-200"
               value={searchQuery}
               readOnly // 퍼블리싱: 입력 불가
@@ -48,7 +51,7 @@ export default function CommunityPage() {
             className="flex items-center gap-2 bg-[#ff651b]/90 hover:bg-[#ff651b] text-[#fffefb] px-6 py-2 rounded-md transition-all border"
           >
             <Plus className="h-5 w-5" />
-            <span>게시물 작성</span>
+            <span>{t("community.writePost")}</span>
           </Link>
         </div>
 

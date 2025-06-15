@@ -4,13 +4,14 @@
 import { useState } from "react";
 import { Search } from "lucide-react";
 import { Input } from "../../../components/ui/input";
-
+import { useTranslation } from 'react-i18next';
 interface SearchBarProps {
   onSearch: (query: string) => void;
   defaultValue?: string;
 }
 
 export function SearchBar({ onSearch, defaultValue = "" }: SearchBarProps) {
+  const { t } = useTranslation();
   const [query, setQuery] = useState(defaultValue);
 
   const isInvalidQuery = (str: string) => {
@@ -26,7 +27,7 @@ export function SearchBar({ onSearch, defaultValue = "" }: SearchBarProps) {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       if (isInvalidQuery(query)) {
-        alert("한글 자음/모음, 공백만으로는 검색이 불가합니다. 더 구체적으로 입력해 주세요.");
+        alert(t("festivalSearchBar.invalid"));
         return;
       }
       onSearch(query);
@@ -38,7 +39,7 @@ export function SearchBar({ onSearch, defaultValue = "" }: SearchBarProps) {
       <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
       <Input
         type="text"
-        placeholder="축제 이름, 지역, 설명 등 검색"
+        placeholder={t("festivalSearchBar.placeholder")}
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         onKeyDown={handleKeyDown}

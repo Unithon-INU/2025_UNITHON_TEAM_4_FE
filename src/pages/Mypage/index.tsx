@@ -5,7 +5,7 @@ import { Edit, MoreVertical, Trash2, User, MessageCircle, Settings2Icon } from "
 import { fetchUserProfile } from "../../apis/users";
 import { useNavigate } from "react-router-dom";
 import { deletePost } from "../../apis/post";
-
+import { useTranslation } from 'react-i18next';
 const NAVBAR_HEIGHT = 90;
 
 interface Post {
@@ -25,6 +25,7 @@ interface UserProfile {
 }
 
 export default function MyPage() {
+  const { t } = useTranslation();
   const [userProfile, setUserProfile] = useState<UserProfile>({
     name: "",
     email: "",
@@ -56,7 +57,7 @@ export default function MyPage() {
           })),
         });
       } catch (err) {
-        setError("프로필 정보 불러오기 실패");
+        setError(t("mypage.loadError"));
         console.error(err);
       } finally {
         setLoading(false);
@@ -75,8 +76,8 @@ export default function MyPage() {
       setIsDeleteDialogOpen(false);
       setSelectedPostId(null);
     } catch (error) {
-      console.error("게시물 삭제 실패:", error);
-      alert("게시물 삭제에 실패했습니다.");
+      console.error(t("mypage.deleteFail"), error);
+      alert(t("mypage.deleteFail"));
     }
   };
 
@@ -97,13 +98,13 @@ export default function MyPage() {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="max-w-sm p-6 text-center">
-          <p className="text-gray-600 text-lg mb-4">프로필 정보를 불러올 수 없습니다.</p>
-          <p className="text-gray-400 text-sm mb-6">로그인 페이지로 이동하시겠습니까?</p>
+          <p className="text-gray-600 text-lg mb-4">{t("mypage.loadError")}</p>
+          <p className="text-gray-400 text-sm mb-6">{t("mypage.goLoginQ")}</p>
           <Link
             to="/login"
             className="block w-full border border-[#ff651b] text-[#ff651b] rounded-md px-4 py-2 text-center hover:bg-[#ff651b] hover:text-white transition-colors"
           >
-            로그인
+            {t("common.login")}
           </Link>
         </div>
       </div>
@@ -150,25 +151,25 @@ export default function MyPage() {
                     <div className="flex justify-center gap-8">
                       <div className="text-center">
                         <p className="text-xl font-bold">{userProfile.postCount}</p>
-                        <p className="text-xs text-gray-400">게시물</p>
+                        <p className="text-xs text-gray-400">{t("mypage.post")}</p>
                       </div>
                       <div className="text-center">
                         <p className="text-xl font-bold">16</p>
-                        <p className="text-xs text-gray-400">북마크</p>
+                        <p className="text-xs text-gray-400">{t("mypage.bookmark")}</p>
                       </div>
                     </div>
                     <div className="space-y-3 flex flex-col items-center">
                       <button className="w-full border border-gray-300 rounded bg-white px-4 py-2 flex items-center justify-center hover:bg-gray-50">
                         <Edit className="w-4 h-4 mr-2 text-[#ff651b]" />
-                        프로필 수정
+                        {t("mypage.editProfile")}
                       </button>
                       <button className="w-full border border-gray-300 rounded bg-white px-4 py-2 flex items-center justify-center hover:bg-gray-50">
                         <Settings2Icon className="w-4 h-4 mr-2 text-[#ff651b]" />
-                        계정 설정
+                        {t("mypage.accountSetting")}
                       </button>
                     </div>
                     <div className="pt-4 border-t border-[#ff651b]">
-                      <p className="text-xs text-gray-300">가입일: {userProfile.createdAt}</p>
+                      <p className="text-xs text-gray-300">{t("mypage.signupDate")}: {userProfile.createdAt}</p>
                     </div>
                   </div>
                 </div>
@@ -184,7 +185,7 @@ export default function MyPage() {
                         <div key={i} className="w-1.5 h-1.5 bg-[#ff651b] rounded-sm" />
                       ))}
                     </div>
-                    <span className="font-medium">내 게시물</span>
+                    <span className="font-medium">{t("mypage.myPosts")}</span>
                   </div>
                 </div>
                 {/* 게시물 리스트 */}
@@ -230,7 +231,7 @@ export default function MyPage() {
                                 }}
                               >
                                 <Edit className="w-4 h-4 mr-2" />
-                                수정
+                                {t("mypage.edit")}
                               </button>
                               <button
                                 className="flex items-center w-full px-3 py-2 text-sm text-red-600 hover:bg-gray-100"
@@ -242,7 +243,7 @@ export default function MyPage() {
                                 }}
                               >
                                 <Trash2 className="w-4 h-4 mr-2" />
-                                삭제
+                                {t("mypage.delete")}
                               </button>
                             </div>
                           )}
@@ -258,7 +259,7 @@ export default function MyPage() {
                           </div>
                           <p className="text-sm font-medium truncate">{post.title}</p>
                           <div className="flex items-center justify-between mt-1 text-xs opacity-80">
-                            <span>카테고리</span>
+                            <span>{t("mypage.category")}</span>
                             <span>@{userProfile.name}</span>
                           </div>
                         </div>
@@ -275,9 +276,9 @@ export default function MyPage() {
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50">
             <div className="bg-white rounded-lg p-6 w-full max-w-xs shadow-lg">
               <div className="mb-4">
-                <h2 className="text-lg font-semibold mb-1">게시물 삭제</h2>
+                <h2 className="text-lg font-semibold mb-1">{t("mypage.deletePostTitle")}</h2>
                 <p className="text-sm text-gray-500">
-                  정말로 이 게시물을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.
+                  {t("mypage.deletePostDesc")}
                 </p>
               </div>
               <div className="flex justify-end gap-2">
@@ -285,13 +286,13 @@ export default function MyPage() {
                   className="px-4 py-2 rounded bg-gray-100 hover:bg-gray-200 text-gray-700"
                   onClick={() => setIsDeleteDialogOpen(false)}
                 >
-                  취소
+                  {t("common.cancel")}
                 </button>
                 <button
                   className="px-4 py-2 rounded bg-red-500 hover:bg-red-600 text-white"
                   onClick={() => selectedPostId !== null && handleDeletePost(selectedPostId)}
                 >
-                  삭제
+                  {t("mypage.delete")}
                 </button>
               </div>
             </div>
