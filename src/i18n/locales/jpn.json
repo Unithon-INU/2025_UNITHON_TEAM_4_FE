@@ -214,6 +214,16 @@
   "searchPlaceholder": "投稿を検索...",
   "writePost": "投稿を書く"
 },
+"postGrid": {
+  "noPosts": "投稿がありません。",
+  "noMorePosts": "これ以上の投稿はありません。",
+  "loading": "投稿を読み込み中...",
+  "error": "投稿の読み込みに失敗しました",
+  "viewMore": "もっと見る",
+  "viewLess": "もっと少なく見る",
+  "loadMore": "もっと読み込む",
+  "comment": "コメント"
+},
 "commentSection": {
   "title": "コメント {{count}}件",
   "noComment": "まだコメントがありません。最初のコメントを書いてみましょう！",

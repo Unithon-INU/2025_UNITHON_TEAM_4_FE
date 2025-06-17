@@ -213,6 +213,16 @@
   "searchPlaceholder": "Search posts...",
   "writePost": "Write Post"
 },
+"postGrid": {
+  "noPosts": "No posts available.",
+  "noMorePosts": "No more posts available.",
+  "loading": "Loading posts...",
+  "error": "Failed to load posts",
+  "viewMore": "View More",
+  "viewLess": "View Less",
+  "loadMore": "Load More",
+  "comment": "Comment"
+},
 "commentSection": {
   "title": "{{count}} Comments",
   "noComment": "No comments yet. Be the first to comment!",
