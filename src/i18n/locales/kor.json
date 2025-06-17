@@ -217,6 +217,7 @@
   },
   "postGrid": {
     "noPosts": "게시물이 없습니다.",
+    "noMorePosts": "더 이상 게시물이 없습니다.",
     "loading": "게시물 불러오는 중...",
     "error": "게시물 로드 실패",
     "viewMore": "더 보기",
