@@ -1,4 +1,5 @@
 {
+  "loginRequired": "로그인이 필요합니다. 로그인 후 이용해주세요.",
   "navbar": {
     "home": "홈",
     "festival": "전국 축제",
@@ -14,15 +15,57 @@
     "floatingKeywords": [
       { "text": "벚꽃축제", "x": 10, "y": 20, "delay": 0, "color": "bg-pink-100 text-pink-700" },
       { "text": "불꽃축제", "x": 80, "y": 15, "delay": 1, "color": "bg-red-100 text-red-700" },
-      { "text": "등불축제", "x": 15, "y": 70, "delay": 2, "color": "bg-yellow-100 text-yellow-700" },
-      { "text": "머드축제", "x": 85, "y": 60, "delay": 0.5, "color": "bg-amber-100 text-amber-700" },
+      {
+        "text": "등불축제",
+        "x": 15,
+        "y": 70,
+        "delay": 2,
+        "color": "bg-yellow-100 text-yellow-700"
+      },
+      {
+        "text": "머드축제",
+        "x": 85,
+        "y": 60,
+        "delay": 0.5,
+        "color": "bg-amber-100 text-amber-700"
+      },
       { "text": "한지축제", "x": 25, "y": 45, "delay": 1.5, "color": "bg-blue-100 text-blue-700" },
-      { "text": "탈춤축제", "x": 75, "y": 35, "delay": 2.5, "color": "bg-purple-100 text-purple-700" },
+      {
+        "text": "탈춤축제",
+        "x": 75,
+        "y": 35,
+        "delay": 2.5,
+        "color": "bg-purple-100 text-purple-700"
+      },
       { "text": "산천어축제", "x": 5, "y": 50, "delay": 3, "color": "bg-cyan-100 text-cyan-700" },
-      { "text": "청자축제", "x": 90, "y": 80, "delay": 1.8, "color": "bg-emerald-100 text-emerald-700" },
-      { "text": "전통문화축제", "x": 70, "y": 70, "delay": 2.8, "color": "bg-lime-100 text-lime-700" },
-      { "text": "가을단풍축제", "x": 35, "y": 80, "delay": 3.3, "color": "bg-orange-100 text-orange-700" },
-      { "text": "겨울얼음축제", "x": 90, "y": 30, "delay": 3.7, "color": "bg-slate-100 text-slate-700" }
+      {
+        "text": "청자축제",
+        "x": 90,
+        "y": 80,
+        "delay": 1.8,
+        "color": "bg-emerald-100 text-emerald-700"
+      },
+      {
+        "text": "전통문화축제",
+        "x": 70,
+        "y": 70,
+        "delay": 2.8,
+        "color": "bg-lime-100 text-lime-700"
+      },
+      {
+        "text": "가을단풍축제",
+        "x": 35,
+        "y": 80,
+        "delay": 3.3,
+        "color": "bg-orange-100 text-orange-700"
+      },
+      {
+        "text": "겨울얼음축제",
+        "x": 90,
+        "y": 30,
+        "delay": 3.7,
+        "color": "bg-slate-100 text-slate-700"
+      }
     ],
     "headline1": "한국의 다채로운 축제를",
     "headline2": "발견하세요",
@@ -31,8 +74,7 @@
     "btnAll": "전국축제 둘러보기",
     "btnPeriod": "기간별로 찾기",
     "alertInvalid": "한글 자음/모음만 입력하거나, 공백이 포함되었을 경우 검색이 불가합니다. 더 구체적으로 입력해 주세요."
-  }
-  ,
+  },
   "seasonal": [
     {
       "id": "spring",
@@ -71,10 +113,24 @@
     "title": "키워드로 탐색하기",
     "all": "모든 축제 보기 →",
     "keywords": [
-      "봄", "여름", "가을", "겨울",
-      "전통", "체험", "공연", "음식",
-      "불꽃", "등불", "벚꽃", "야경",
-      "서울", "부산", "제주도", "강원도", "경상도", "전라도"
+      "봄",
+      "여름",
+      "가을",
+      "겨울",
+      "전통",
+      "체험",
+      "공연",
+      "음식",
+      "불꽃",
+      "등불",
+      "벚꽃",
+      "야경",
+      "서울",
+      "부산",
+      "제주도",
+      "강원도",
+      "경상도",
+      "전라도"
     ]
   },
   "footerSection": {
@@ -115,10 +171,24 @@
   },
   "festivalFilter": {
     "keywords": [
-      "봄", "여름", "가을", "겨울", "전통", "체험", "공연", "음식",
-      "불꽃", "등불", "벚꽃", "야경", "서울", "부산", "제주도", "강원도"
-      ],
-    
+      "봄",
+      "여름",
+      "가을",
+      "겨울",
+      "전통",
+      "체험",
+      "공연",
+      "음식",
+      "불꽃",
+      "등불",
+      "벚꽃",
+      "야경",
+      "서울",
+      "부산",
+      "제주도",
+      "강원도"
+    ],
+
     "filter": "필터",
     "filterApplied": "필터 적용됨",
     "reset": "초기화",
@@ -162,36 +232,36 @@
     "lastFestival": "마지막 축제입니다."
   },
   "periodSelector": {
-  "where": "어디서",
-  "when": "언제",
-  "search": "검색",
-  "enjoy": "축제를 즐기세요!",
-  "selectDate": "날짜를 선택하세요",
-  "selectRegion": "지역을 선택하세요",
-  "tilde": " ~ ",
-  "dateFormatOne": "M월 d일",   
-  "regions": {
-    "all": "전체 지역",
-    "seoul": "서울",
-    "busan": "부산",
-    "gyeonggi": "경기도",
-    "gangwon": "강원도",
-    "chungnam": "충청남도",
-    "chungbuk": "충청북도",
-    "gyeongnam": "경상남도",
-    "gyeongbuk": "경상북도",
-    "jeonnam": "전라남도",
-    "jeonbuk": "전라북도",
-    "jeolla": "전라도",
-    "gyeongsang": "경상도",
-    "jeju": "제주도"
+    "where": "어디서",
+    "when": "언제",
+    "search": "검색",
+    "enjoy": "축제를 즐기세요!",
+    "selectDate": "날짜를 선택하세요",
+    "selectRegion": "지역을 선택하세요",
+    "tilde": " ~ ",
+    "dateFormatOne": "M월 d일",
+    "regions": {
+      "all": "전체 지역",
+      "seoul": "서울",
+      "busan": "부산",
+      "gyeonggi": "경기도",
+      "gangwon": "강원도",
+      "chungnam": "충청남도",
+      "chungbuk": "충청북도",
+      "gyeongnam": "경상남도",
+      "gyeongbuk": "경상북도",
+      "jeonnam": "전라남도",
+      "jeonbuk": "전라북도",
+      "jeolla": "전라도",
+      "gyeongsang": "경상도",
+      "jeju": "제주도"
+    },
+    "calendar": {
+      "monthYearFormat": "yyyy년M월",
+      "weekdays": ["일", "월", "화", "수", "목", "금", "토"],
+      "today": "오늘"
+    }
   },
-  "calendar": {
-    "monthYearFormat": "yyyy년M월",
-    "weekdays": ["일", "월", "화", "수", "목", "금", "토"],
-    "today": "오늘"
-  }
-},
   "festivalDetail": {
     "noOverview": "소개 정보 없음",
     "loading": "로딩중...",
@@ -226,109 +296,110 @@
     "comment": "댓글"
   },
   "commentSection": {
-  "title": "댓글 {{count}}개",
-  "noComment": "아직 댓글이 없습니다. 첫 댓글을 작성해보세요!",
-  "inputPlaceholder": "댓글을 작성해주세요...",
-  "writeError": "댓글 작성에 실패했습니다.",
-  "currentUserAlt": "현재 사용자"
-},
-"createPostPage": {
-  "title": "게시물 작성",
-  "desc": "축제 경험을 공유하고 다른 사람들과 소통하세요",
-  "alertTitleContent": "제목과 내용을 입력해주세요.",
-  "success": "게시물이 성공적으로 작성되었습니다!",
-  "error": "게시물 작성에 실패했습니다.",
-  "form": {
-    "title": "게시물 제목",
-    "titlePlaceholder": "게시물 제목을 입력하세요",
-    "images": "이미지",
-    "imageUploadText": "이미지를 업로드하세요",
-    "uploadedImages": "업로드된 이미지",
-    "uploadedImageAlt": "업로드 이미지 {{index}}",
-    "addImageBtn": "이미지 추가하기",
-    "content": "내용",
-    "contentPlaceholder": "축제에 대한 경험과 느낌을 자유롭게 작성해주세요...",
-    "cancel": "취소",
-    "post": "게시하기",
-    "posting": "게시 중..."
+    "title": "댓글 {{count}}개",
+    "noComment": "아직 댓글이 없습니다. 첫 댓글을 작성해보세요!",
+    "inputPlaceholder": "댓글을 작성해주세요...",
+    "writeError": "댓글 작성에 실패했습니다.",
+    "currentUserAlt": "현재 사용자"
   },
-  "imageRequired": {
-    "title": "알림",
-    "desc": "이미지 업로드 해주세요.",
-    "confirm": "확인"
+  "createPostPage": {
+    "title": "게시물 작성",
+    "desc": "축제 경험을 공유하고 다른 사람들과 소통하세요",
+    "alertTitleContent": "제목과 내용을 입력해주세요.",
+    "success": "게시물이 성공적으로 작성되었습니다!",
+    "error": "게시물 작성에 실패했습니다.",
+    "form": {
+      "title": "게시물 제목",
+      "titlePlaceholder": "게시물 제목을 입력하세요",
+      "images": "이미지",
+      "imageUploadText": "이미지를 업로드하세요",
+      "uploadedImages": "업로드된 이미지",
+      "uploadedImageAlt": "업로드 이미지 {{index}}",
+      "addImageBtn": "이미지 추가하기",
+      "content": "내용",
+      "contentPlaceholder": "축제에 대한 경험과 느낌을 자유롭게 작성해주세요...",
+      "cancel": "취소",
+      "post": "게시하기",
+      "posting": "게시 중..."
+    },
+    "imageRequired": {
+      "title": "알림",
+      "desc": "이미지 업로드 해주세요.",
+      "confirm": "확인"
+    }
+  },
+  "postDetail": {
+    "notFound": {
+      "title": "게시물을 찾을 수 없습니다",
+      "desc": "요청하신 게시물이 존재하지 않거나 삭제되었습니다."
+    },
+    "errorLoad": "게시물 불러오기 실패:",
+    "imageAlt": "{{title}} 이미지 {{index}}",
+    "prevImage": "이전 이미지",
+    "nextImage": "다음 이미지",
+    "imageIndicator": "이미지 {{index}}로 이동",
+    "like": "좋아요",
+    "comment": "댓글",
+    "bookmark": "북마크"
+  },
+  "mypage": {
+    "loadError": "프로필 정보를 불러올 수 없습니다.",
+    "goLoginQ": "로그인 페이지로 이동하시겠습니까?",
+    "post": "게시물",
+    "bookmark": "북마크",
+    "editProfile": "프로필 수정",
+    "accountSetting": "계정 설정",
+    "signupDate": "가입일",
+    "myPosts": "내 게시물",
+    "edit": "수정",
+    "delete": "삭제",
+    "category": "카테고리",
+    "deletePostTitle": "게시물 삭제",
+    "deletePostDesc": "정말로 이 게시물을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.",
+    "deleteFail": "게시물 삭제에 실패했습니다."
+  },
+  "common": {
+    "login": "로그인",
+    "cancel": "취소"
+  },
+  "login": {
+    "title": "로그인",
+    "desc1": "계정에 로그인하여 축제 커뮤니티를",
+    "desc2": "이용해보세요",
+    "email": "이메일",
+    "emailPlaceholder": "이메일 주소를 입력하세요",
+    "password": "비밀번호",
+    "passwordPlaceholder": "비밀번호를 입력하세요",
+    "showPassword": "비밀번호 보기",
+    "hidePassword": "비밀번호 숨기기",
+    "remember": "로그인 상태 유지",
+    "forgotPassword": "비밀번호를 잊으셨나요?",
+    "loginBtn": "로그인",
+    "noAccount": "아직 계정이 없으신가요?",
+    "signup": "회원가입",
+    "success": "로그인 성공했습니다!",
+    "fail": "로그인 실패하였습니다."
+  },
+  "signup": {
+    "title": "회원가입",
+    "desc1": "축제 커뮤니티에 가입하고",
+    "desc2": "다양한 경험을 공유해보세요",
+    "email": "이메일",
+    "emailPlaceholder": "이메일 주소를 입력하세요",
+    "nickname": "닉네임",
+    "nicknamePlaceholder": "닉네임을 입력하세요",
+    "password": "비밀번호",
+    "passwordPlaceholder": "비밀번호를 입력하세요",
+    "passwordCheck": "비밀번호 확인",
+    "passwordCheckPlaceholder": "비밀번호를 다시 입력하세요",
+    "showPassword": "비밀번호 보기",
+    "hidePassword": "비밀번호 숨기기",
+    "required": "모든 필수 항목을 입력해주세요.",
+    "pwMismatch": "비밀번호가 일치하지 않습니다.",
+    "success": "회원가입이 완료되었습니다!",
+    "fail": "회원가입 중 문제가 발생했습니다.",
+    "signupBtn": "회원가입",
+    "alreadyAccount": "이미 계정이 있으신가요?",
+    "login": "로그인"
   }
-},
-"postDetail": {
-  "notFound": {
-    "title": "게시물을 찾을 수 없습니다",
-    "desc": "요청하신 게시물이 존재하지 않거나 삭제되었습니다."
-  },
-  "errorLoad": "게시물 불러오기 실패:",
-  "imageAlt": "{{title}} 이미지 {{index}}",
-  "prevImage": "이전 이미지",
-  "nextImage": "다음 이미지",
-  "imageIndicator": "이미지 {{index}}로 이동",
-  "like": "좋아요",
-  "comment": "댓글",
-  "bookmark": "북마크"
-},
-"mypage": {
-  "loadError": "프로필 정보를 불러올 수 없습니다.",
-  "goLoginQ": "로그인 페이지로 이동하시겠습니까?",
-  "post": "게시물",
-  "bookmark": "북마크",
-  "editProfile": "프로필 수정",
-  "accountSetting": "계정 설정",
-  "signupDate": "가입일",
-  "myPosts": "내 게시물",
-  "edit": "수정",
-  "delete": "삭제",
-  "category": "카테고리",
-  "deletePostTitle": "게시물 삭제",
-  "deletePostDesc": "정말로 이 게시물을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.",
-  "deleteFail": "게시물 삭제에 실패했습니다."
-},
-"common": {
-  "login": "로그인",
-  "cancel": "취소"
-},
-"login": {
-  "title": "로그인",
-  "desc1": "계정에 로그인하여 축제 커뮤니티를",
-  "desc2": "이용해보세요",
-  "email": "이메일",
-  "emailPlaceholder": "이메일 주소를 입력하세요",
-  "password": "비밀번호",
-  "passwordPlaceholder": "비밀번호를 입력하세요",
-  "showPassword": "비밀번호 보기",
-  "hidePassword": "비밀번호 숨기기",
-  "remember": "로그인 상태 유지",
-  "forgotPassword": "비밀번호를 잊으셨나요?",
-  "loginBtn": "로그인",
-  "noAccount": "아직 계정이 없으신가요?",
-  "signup": "회원가입",
-  "success": "로그인 성공했습니다!",
-  "fail": "로그인 실패하였습니다."
-},
-"signup": {
-  "title": "회원가입",
-  "desc1": "축제 커뮤니티에 가입하고",
-  "desc2": "다양한 경험을 공유해보세요",
-  "email": "이메일",
-  "emailPlaceholder": "이메일 주소를 입력하세요",
-  "nickname": "닉네임",
-  "nicknamePlaceholder": "닉네임을 입력하세요",
-  "password": "비밀번호",
-  "passwordPlaceholder": "비밀번호를 입력하세요",
-  "passwordCheck": "비밀번호 확인",
-  "passwordCheckPlaceholder": "비밀번호를 다시 입력하세요",
-  "showPassword": "비밀번호 보기",
-  "hidePassword": "비밀번호 숨기기",
-  "required": "모든 필수 항목을 입력해주세요.",
-  "pwMismatch": "비밀번호가 일치하지 않습니다.",
-  "success": "회원가입이 완료되었습니다!",
-  "fail": "회원가입 중 문제가 발생했습니다.",
-  "signupBtn": "회원가입",
-  "alreadyAccount": "이미 계정이 있으신가요?",
-  "login": "로그인"
-}}
+}
