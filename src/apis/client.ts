@@ -1,4 +1,5 @@
 import axios, { InternalAxiosRequestConfig } from "axios";
+import i18next from "i18next";
 
 // 실제 백엔드 서버 주소 (포트 포함! 실제 서버에 맞게 수정)
 const BACKEND_BASE_URL = "http://15.164.50.164:8080/api/v1";
@@ -55,8 +56,14 @@ client.interceptors.response.use(
     return res;
   },
   (error) => {
-    if (error.response?.status === 401) {
+    // 로그인 필요: /login으로 이동
+    if (
+      error.response?.status === 401 ||
+      (error.response?.status === 403 && window.location.pathname !== "/login")
+    ) {
+      alert(i18next.t("loginRequired")); // i18n 메시지로 alert
       localStorage.clear();
+      window.location.replace("/login");
     }
     return Promise.reject(error);
   }

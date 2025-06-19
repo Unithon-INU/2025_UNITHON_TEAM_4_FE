@@ -1,4 +1,5 @@
 {
+  "loginRequired": "Login is required to access this page.",
   "navbar": {
     "home": "Home",
     "festival": "All Festival",
@@ -10,18 +11,54 @@
     "signup": "Sign Up",
     "language": "Language"
   },
-  "main":{
+  "main": {
     "floatingKeywords": [
-      { "text": "CherryBlossom", "x": 10, "y": 20, "delay": 0, "color": "bg-pink-100 text-pink-700" },
+      {
+        "text": "CherryBlossom",
+        "x": 10,
+        "y": 20,
+        "delay": 0,
+        "color": "bg-pink-100 text-pink-700"
+      },
       { "text": "Fireworks", "x": 80, "y": 15, "delay": 1, "color": "bg-red-100 text-red-700" },
       { "text": "Lantern", "x": 15, "y": 70, "delay": 2, "color": "bg-yellow-100 text-yellow-700" },
       { "text": "Mud", "x": 85, "y": 60, "delay": 0.5, "color": "bg-amber-100 text-amber-700" },
       { "text": "Hanji", "x": 25, "y": 45, "delay": 1.5, "color": "bg-blue-100 text-blue-700" },
-      { "text": "MaskDance", "x": 75, "y": 35, "delay": 2.5, "color": "bg-purple-100 text-purple-700" },
-      { "text": "MountainTrout", "x": 5, "y": 50, "delay": 3, "color": "bg-cyan-100 text-cyan-700" },
-      { "text": "Celadon", "x": 90, "y": 80, "delay": 1.8, "color": "bg-emerald-100 text-emerald-700" },
-      { "text": "Traditional", "x": 70, "y": 70, "delay": 2.8, "color": "bg-lime-100 text-lime-700" },
-      { "text": "Autumn", "x": 35, "y": 80, "delay": 3.3, "color": "bg-orange-100 text-orange-700" },
+      {
+        "text": "MaskDance",
+        "x": 75,
+        "y": 35,
+        "delay": 2.5,
+        "color": "bg-purple-100 text-purple-700"
+      },
+      {
+        "text": "MountainTrout",
+        "x": 5,
+        "y": 50,
+        "delay": 3,
+        "color": "bg-cyan-100 text-cyan-700"
+      },
+      {
+        "text": "Celadon",
+        "x": 90,
+        "y": 80,
+        "delay": 1.8,
+        "color": "bg-emerald-100 text-emerald-700"
+      },
+      {
+        "text": "Traditional",
+        "x": 70,
+        "y": 70,
+        "delay": 2.8,
+        "color": "bg-lime-100 text-lime-700"
+      },
+      {
+        "text": "Autumn",
+        "x": 35,
+        "y": 80,
+        "delay": 3.3,
+        "color": "bg-orange-100 text-orange-700"
+      },
       { "text": "Winter", "x": 90, "y": 30, "delay": 3.7, "color": "bg-slate-100 text-slate-700" }
     ],
     "headline1": "Discover Korea's",
@@ -52,7 +89,11 @@
       "season": "Autumn",
       "title": "Autumn Foliage Festivals",
       "description": "Enjoy beautiful autumn foliage festivals",
-      "festivals": ["Jinju Lantern Festival", "Busan Fireworks Festival", "Andong Maskdance Festival"]
+      "festivals": [
+        "Jinju Lantern Festival",
+        "Busan Fireworks Festival",
+        "Andong Maskdance Festival"
+      ]
     },
     {
       "id": "winter",
@@ -70,10 +111,24 @@
     "title": "Browse by Keyword",
     "all": "See all festivals →",
     "keywords": [
-      "Spring", "Summer", "Autumn", "Winter",
-      "Traditional", "Experience", "Performance", "Food",
-      "Fireworks", "Lantern", "Cherry Blossom", "Night View",
-      "Seoul", "Busan", "Jeju", "Gangwon", "Gyeongsang", "Jeolla"
+      "Spring",
+      "Summer",
+      "Autumn",
+      "Winter",
+      "Traditional",
+      "Experience",
+      "Performance",
+      "Food",
+      "Fireworks",
+      "Lantern",
+      "Cherry Blossom",
+      "Night View",
+      "Seoul",
+      "Busan",
+      "Jeju",
+      "Gangwon",
+      "Gyeongsang",
+      "Jeolla"
     ]
   },
   "footerSection": {
@@ -114,8 +169,22 @@
   },
   "festivalFilter": {
     "keywords": [
-      "Spring", "Summer", "Autumn", "Winter", "Traditional", "Experience", "Performance", "Food",
-      "Fireworks", "Lantern", "Cherry Blossom", "Night View", "Seoul", "Busan", "Jeju", "Gangwon"
+      "Spring",
+      "Summer",
+      "Autumn",
+      "Winter",
+      "Traditional",
+      "Experience",
+      "Performance",
+      "Food",
+      "Fireworks",
+      "Lantern",
+      "Cherry Blossom",
+      "Night View",
+      "Seoul",
+      "Busan",
+      "Jeju",
+      "Gangwon"
     ],
     "filter": "Filter",
     "filterApplied": "Filter Applied",
@@ -146,188 +215,188 @@
     "like": "Like"
   },
   "periodPage": {
-  "headline": "When do you want to travel?",
-  "desc": "Choose your desired period and discover special festivals held at that time.",
-  "count": "'{{count}}'",
-  "result": " festivals found",
-  "noResult": "No festivals match your criteria.",
-  "noResult2": "No search results",
-  "tryOther": "Try searching with different conditions.",
-  "loading": "Loading...",
-  "error": "Failed to load data",
-  "back": "Go back",
-  "moreLoading": "Loading more...",
-  "lastFestival": "This is the last festival."
-},
-"periodSelector": {
-  "where": "Where",
-  "when": "When",
-  "search": "Search",
-  "enjoy": "Enjoy festival",
-  "selectDate": "Select date",
-  "selectRegion": "Select a region",
-  "tilde": " ~ ",
-  "dateFormatOne": "MMM d",
-  "regions": {
-    "all": "All Regions",
-    "seoul": "Seoul",
-    "busan": "Busan",
-    "gyeonggi": "Gyeonggi-do",
-    "gangwon": "Gangwon-do",
-    "chungnam": "Chungcheongnam-do",
-    "chungbuk": "Chungcheongbuk-do",
-    "gyeongnam": "Gyeongsangnam-do",
-    "gyeongbuk": "Gyeongsangbuk-do",
-    "jeonnam": "Jeollanam-do",
-    "jeonbuk": "Jeollabuk-do",
-    "jeolla": "Jeolla-do",
-    "gyeongsang": "Gyeongsang-do",
-    "jeju": "Jeju Island"
+    "headline": "When do you want to travel?",
+    "desc": "Choose your desired period and discover special festivals held at that time.",
+    "count": "'{{count}}'",
+    "result": " festivals found",
+    "noResult": "No festivals match your criteria.",
+    "noResult2": "No search results",
+    "tryOther": "Try searching with different conditions.",
+    "loading": "Loading...",
+    "error": "Failed to load data",
+    "back": "Go back",
+    "moreLoading": "Loading more...",
+    "lastFestival": "This is the last festival."
   },
-  "calendar": {
-    "monthYearFormat": "MMMM yyyy",
-    "weekdays": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-    "today": "Today"
+  "periodSelector": {
+    "where": "Where",
+    "when": "When",
+    "search": "Search",
+    "enjoy": "Enjoy festival",
+    "selectDate": "Select date",
+    "selectRegion": "Select a region",
+    "tilde": " ~ ",
+    "dateFormatOne": "MMM d",
+    "regions": {
+      "all": "All Regions",
+      "seoul": "Seoul",
+      "busan": "Busan",
+      "gyeonggi": "Gyeonggi-do",
+      "gangwon": "Gangwon-do",
+      "chungnam": "Chungcheongnam-do",
+      "chungbuk": "Chungcheongbuk-do",
+      "gyeongnam": "Gyeongsangnam-do",
+      "gyeongbuk": "Gyeongsangbuk-do",
+      "jeonnam": "Jeollanam-do",
+      "jeonbuk": "Jeollabuk-do",
+      "jeolla": "Jeolla-do",
+      "gyeongsang": "Gyeongsang-do",
+      "jeju": "Jeju Island"
+    },
+    "calendar": {
+      "monthYearFormat": "MMMM yyyy",
+      "weekdays": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+      "today": "Today"
+    }
+  },
+  "festivalDetail": {
+    "noOverview": "No overview available",
+    "loading": "Loading...",
+    "ended": "Ended",
+    "badgeFestival": "Festival",
+    "summaryTitle": "Overview",
+    "scenePhoto": "Scene Photo",
+    "introTitle": "Introduction",
+    "detailTitle": "Details",
+    "collapse": "Collapse",
+    "showAll": "Show All",
+    "foodTitle": "Nearby Food Recommendations",
+    "foodLoading": "Loading food info...",
+    "foodNotFound": "No nearby food info found.",
+    "meter": "m away",
+    "backToList": "Back to list"
+  },
+  "community": {
+    "title": "Community",
+    "subtitle": "Share your experiences with festival lovers around the world",
+    "searchPlaceholder": "Search posts...",
+    "writePost": "Write Post"
+  },
+  "postGrid": {
+    "noPosts": "No posts available.",
+    "noMorePosts": "No more posts available.",
+    "loading": "Loading posts...",
+    "error": "Failed to load posts",
+    "viewMore": "View More",
+    "viewLess": "View Less",
+    "loadMore": "Load More",
+    "comment": "Comment"
+  },
+  "commentSection": {
+    "title": "{{count}} Comments",
+    "noComment": "No comments yet. Be the first to comment!",
+    "inputPlaceholder": "Write a comment...",
+    "writeError": "Failed to add comment.",
+    "currentUserAlt": "Current user"
+  },
+  "createPostPage": {
+    "title": "Create Post",
+    "desc": "Share your festival experiences and connect with others.",
+    "alertTitleContent": "Please enter a title and content.",
+    "success": "Your post has been created successfully!",
+    "error": "Failed to create post.",
+    "form": {
+      "title": "Post Title",
+      "titlePlaceholder": "Enter post title",
+      "images": "Images",
+      "imageUploadText": "Upload images",
+      "uploadedImages": "Uploaded Images",
+      "uploadedImageAlt": "Uploaded image {{index}}",
+      "addImageBtn": "Add More Images",
+      "content": "Content",
+      "contentPlaceholder": "Feel free to write about your festival experience...",
+      "cancel": "Cancel",
+      "post": "Post",
+      "posting": "Posting..."
+    },
+    "imageRequired": {
+      "title": "Notice",
+      "desc": "Please upload at least one image.",
+      "confirm": "OK"
+    }
+  },
+  "postDetail": {
+    "notFound": {
+      "title": "Post Not Found",
+      "desc": "The requested post does not exist or has been deleted."
+    },
+    "errorLoad": "Failed to load post:",
+    "imageAlt": "{{title}} image {{index}}",
+    "prevImage": "Previous image",
+    "nextImage": "Next image",
+    "imageIndicator": "Go to image {{index}}",
+    "like": "Like",
+    "comment": "Comment",
+    "bookmark": "Bookmark"
+  },
+  "mypage": {
+    "loadError": "Failed to load profile information.",
+    "goLoginQ": "Go to the login page?",
+    "post": "Posts",
+    "bookmark": "Bookmarks",
+    "editProfile": "Edit Profile",
+    "accountSetting": "Account Settings",
+    "signupDate": "Joined",
+    "myPosts": "My Posts",
+    "edit": "Edit",
+    "delete": "Delete",
+    "category": "Category",
+    "deletePostTitle": "Delete Post",
+    "deletePostDesc": "Are you sure you want to delete this post? This action cannot be undone.",
+    "deleteFail": "Failed to delete post."
+  },
+  "common": {
+    "login": "Login",
+    "cancel": "Cancel"
+  },
+  "login": {
+    "title": "Login",
+    "desc1": "Log in to your account and join our festival community.",
+    "desc2": "Enjoy our service!",
+    "email": "Email",
+    "emailPlaceholder": "Enter your email address",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "remember": "Keep me logged in",
+    "forgotPassword": "Forgot password?",
+    "loginBtn": "Login",
+    "noAccount": "Don't have an account?",
+    "signup": "Sign Up",
+    "success": "Login successful!",
+    "fail": "Login failed."
+  },
+  "signup": {
+    "title": "Sign Up",
+    "desc1": "Join our festival community",
+    "desc2": "and share your experiences.",
+    "email": "Email",
+    "emailPlaceholder": "Enter your email address",
+    "nickname": "Nickname",
+    "nicknamePlaceholder": "Enter your nickname",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "passwordCheck": "Confirm Password",
+    "passwordCheckPlaceholder": "Re-enter your password",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "required": "Please fill in all required fields.",
+    "pwMismatch": "Passwords do not match.",
+    "success": "Sign up completed!",
+    "fail": "An error occurred during sign up.",
+    "signupBtn": "Sign Up",
+    "alreadyAccount": "Already have an account?",
+    "login": "Login"
   }
-},
-"festivalDetail": {
-  "noOverview": "No overview available",
-  "loading": "Loading...",
-  "ended": "Ended",
-  "badgeFestival": "Festival",
-  "summaryTitle": "Overview",
-  "scenePhoto": "Scene Photo",
-  "introTitle": "Introduction",
-  "detailTitle": "Details",
-  "collapse": "Collapse",
-  "showAll": "Show All",
-  "foodTitle": "Nearby Food Recommendations",
-  "foodLoading": "Loading food info...",
-  "foodNotFound": "No nearby food info found.",
-  "meter": "m away",
-  "backToList": "Back to list"
-},
-"community": {
-  "title": "Community",
-  "subtitle": "Share your experiences with festival lovers around the world",
-  "searchPlaceholder": "Search posts...",
-  "writePost": "Write Post"
-},
-"postGrid": {
-  "noPosts": "No posts available.",
-  "noMorePosts": "No more posts available.",
-  "loading": "Loading posts...",
-  "error": "Failed to load posts",
-  "viewMore": "View More",
-  "viewLess": "View Less",
-  "loadMore": "Load More",
-  "comment": "Comment"
-},
-"commentSection": {
-  "title": "{{count}} Comments",
-  "noComment": "No comments yet. Be the first to comment!",
-  "inputPlaceholder": "Write a comment...",
-  "writeError": "Failed to add comment.",
-  "currentUserAlt": "Current user"
-},
-"createPostPage": {
-  "title": "Create Post",
-  "desc": "Share your festival experiences and connect with others.",
-  "alertTitleContent": "Please enter a title and content.",
-  "success": "Your post has been created successfully!",
-  "error": "Failed to create post.",
-  "form": {
-    "title": "Post Title",
-    "titlePlaceholder": "Enter post title",
-    "images": "Images",
-    "imageUploadText": "Upload images",
-    "uploadedImages": "Uploaded Images",
-    "uploadedImageAlt": "Uploaded image {{index}}",
-    "addImageBtn": "Add More Images",
-    "content": "Content",
-    "contentPlaceholder": "Feel free to write about your festival experience...",
-    "cancel": "Cancel",
-    "post": "Post",
-    "posting": "Posting..."
-  },
-  "imageRequired": {
-    "title": "Notice",
-    "desc": "Please upload at least one image.",
-    "confirm": "OK"
-  }
-},
-"postDetail": {
-  "notFound": {
-    "title": "Post Not Found",
-    "desc": "The requested post does not exist or has been deleted."
-  },
-  "errorLoad": "Failed to load post:",
-  "imageAlt": "{{title}} image {{index}}",
-  "prevImage": "Previous image",
-  "nextImage": "Next image",
-  "imageIndicator": "Go to image {{index}}",
-  "like": "Like",
-  "comment": "Comment",
-  "bookmark": "Bookmark"
-},
-"mypage": {
-  "loadError": "Failed to load profile information.",
-  "goLoginQ": "Go to the login page?",
-  "post": "Posts",
-  "bookmark": "Bookmarks",
-  "editProfile": "Edit Profile",
-  "accountSetting": "Account Settings",
-  "signupDate": "Joined",
-  "myPosts": "My Posts",
-  "edit": "Edit",
-  "delete": "Delete",
-  "category": "Category",
-  "deletePostTitle": "Delete Post",
-  "deletePostDesc": "Are you sure you want to delete this post? This action cannot be undone.",
-  "deleteFail": "Failed to delete post."
-},
-"common": {
-  "login": "Login",
-  "cancel": "Cancel"
-},
-"login": {
-  "title": "Login",
-  "desc1": "Log in to your account and join our festival community.",
-  "desc2": "Enjoy our service!",
-  "email": "Email",
-  "emailPlaceholder": "Enter your email address",
-  "password": "Password",
-  "passwordPlaceholder": "Enter your password",
-  "showPassword": "Show password",
-  "hidePassword": "Hide password",
-  "remember": "Keep me logged in",
-  "forgotPassword": "Forgot password?",
-  "loginBtn": "Login",
-  "noAccount": "Don't have an account?",
-  "signup": "Sign Up",
-  "success": "Login successful!",
-  "fail": "Login failed."
-},
-"signup": {
-  "title": "Sign Up",
-  "desc1": "Join our festival community",
-  "desc2": "and share your experiences.",
-  "email": "Email",
-  "emailPlaceholder": "Enter your email address",
-  "nickname": "Nickname",
-  "nicknamePlaceholder": "Enter your nickname",
-  "password": "Password",
-  "passwordPlaceholder": "Enter your password",
-  "passwordCheck": "Confirm Password",
-  "passwordCheckPlaceholder": "Re-enter your password",
-  "showPassword": "Show password",
-  "hidePassword": "Hide password",
-  "required": "Please fill in all required fields.",
-  "pwMismatch": "Passwords do not match.",
-  "success": "Sign up completed!",
-  "fail": "An error occurred during sign up.",
-  "signupBtn": "Sign Up",
-  "alreadyAccount": "Already have an account?",
-  "login": "Login"
-}
 }
