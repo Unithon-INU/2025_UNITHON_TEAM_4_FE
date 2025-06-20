@@ -9,7 +9,8 @@
     "login": "Login",
     "logout": "Logout",
     "signup": "Sign Up",
-    "language": "Language"
+    "language": "Language",
+    "menu": "Festival Menu"
   },
   "main": {
     "floatingKeywords": [
@@ -20,10 +21,34 @@
         "delay": 0,
         "color": "bg-pink-100 text-pink-700"
       },
-      { "text": "Fireworks", "x": 80, "y": 15, "delay": 1, "color": "bg-red-100 text-red-700" },
-      { "text": "Lantern", "x": 15, "y": 70, "delay": 2, "color": "bg-yellow-100 text-yellow-700" },
-      { "text": "Mud", "x": 85, "y": 60, "delay": 0.5, "color": "bg-amber-100 text-amber-700" },
-      { "text": "Hanji", "x": 25, "y": 45, "delay": 1.5, "color": "bg-blue-100 text-blue-700" },
+      {
+        "text": "Fireworks",
+        "x": 80,
+        "y": 15,
+        "delay": 1,
+        "color": "bg-red-100 text-red-700"
+      },
+      {
+        "text": "Lantern",
+        "x": 15,
+        "y": 70,
+        "delay": 2,
+        "color": "bg-yellow-100 text-yellow-700"
+      },
+      {
+        "text": "Mud",
+        "x": 85,
+        "y": 60,
+        "delay": 0.5,
+        "color": "bg-amber-100 text-amber-700"
+      },
+      {
+        "text": "Hanji",
+        "x": 25,
+        "y": 45,
+        "delay": 1.5,
+        "color": "bg-blue-100 text-blue-700"
+      },
       {
         "text": "MaskDance",
         "x": 75,
@@ -59,7 +84,13 @@
         "delay": 3.3,
         "color": "bg-orange-100 text-orange-700"
       },
-      { "text": "Winter", "x": 90, "y": 30, "delay": 3.7, "color": "bg-slate-100 text-slate-700" }
+      {
+        "text": "Winter",
+        "x": 90,
+        "y": 30,
+        "delay": 3.7,
+        "color": "bg-slate-100 text-slate-700"
+      }
     ],
     "headline1": "Discover Korea's",
     "headline2": "vibrant festivals",
@@ -75,14 +106,22 @@
       "season": "Spring",
       "title": "Spring Blossom Festivals",
       "description": "Vibrant spring festivals with cherry blossoms",
-      "festivals": ["Jinhae Gunhangje", "Yeouido Cherry Blossom", "Gyeongju Blossom Festival"]
+      "festivals": [
+        "Jinhae Gunhangje",
+        "Yeouido Cherry Blossom",
+        "Gyeongju Blossom Festival"
+      ]
     },
     {
       "id": "summer",
       "season": "Summer",
       "title": "Summer Water Festivals",
       "description": "Cool off with summer water festivals",
-      "festivals": ["Boryeong Mud Festival", "Hwacheon Tomato Festival", "Muju Firefly Festival"]
+      "festivals": [
+        "Boryeong Mud Festival",
+        "Hwacheon Tomato Festival",
+        "Muju Firefly Festival"
+      ]
     },
     {
       "id": "autumn",
@@ -100,7 +139,11 @@
       "season": "Winter",
       "title": "Winter Ice Festivals",
       "description": "White snow and winter ice festivals",
-      "festivals": ["Hwacheon Sancheoneo", "Pyeongchang Trout", "Taebaek Snow Festival"]
+      "festivals": [
+        "Hwacheon Sancheoneo",
+        "Pyeongchang Trout",
+        "Taebaek Snow Festival"
+      ]
     }
   ],
   "seasonSection": {
@@ -255,7 +298,15 @@
     },
     "calendar": {
       "monthYearFormat": "MMMM yyyy",
-      "weekdays": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+      "weekdays": [
+        "Sun",
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat"
+      ],
       "today": "Today"
     }
   },

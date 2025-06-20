@@ -1,0 +1,366 @@
+{
+  "loginRequired": "需要登录。请登录后使用。",
+  "navbar": {
+    "menu": "菜单",
+    "home": "首页",
+    "festival": "全国庆典",
+    "period": "按期间庆典",
+    "community": "社区",
+    "mypage": "我的页面",
+    "login": "登录",
+    "logout": "登出",
+    "signup": "注册",
+    "language": "语言"
+  },
+  "main": {
+    "floatingKeywords": [
+      { "text": "樱花庆典", "x": 10, "y": 20, "delay": 0, "color": "bg-pink-100 text-pink-700" },
+      { "text": "烟花庆典", "x": 80, "y": 15, "delay": 1, "color": "bg-red-100 text-red-700" },
+      { "text": "灯笼庆典", "x": 15, "y": 70, "delay": 2, "color": "bg-yellow-100 text-yellow-700" },
+      { "text": "泥浆庆典", "x": 85, "y": 60, "delay": 0.5, "color": "bg-amber-100 text-amber-700" },
+      { "text": "韩纸庆典", "x": 25, "y": 45, "delay": 1.5, "color": "bg-blue-100 text-blue-700" },
+      { "text": "假面舞庆典", "x": 75, "y": 35, "delay": 2.5, "color": "bg-purple-100 text-purple-700" },
+      { "text": "山鳟鱼庆典", "x": 5, "y": 50, "delay": 3, "color": "bg-cyan-100 text-cyan-700" },
+      { "text": "青瓷庆典", "x": 90, "y": 80, "delay": 1.8, "color": "bg-emerald-100 text-emerald-700" },
+      { "text": "传统文化庆典", "x": 70, "y": 70, "delay": 2.8, "color": "bg-lime-100 text-lime-700" },
+      { "text": "秋枫庆典", "x": 35, "y": 80, "delay": 3.3, "color": "bg-orange-100 text-orange-700" },
+      { "text": "冬季冰雪庆典", "x": 90, "y": 30, "delay": 3.7, "color": "bg-slate-100 text-slate-700" }
+    ],
+    "headline1": "发现韩国多彩的庆典，",
+    "headline2": "尽情体验",
+    "desc": "体验韩国四季丰富的文化庆典",
+    "searchPlaceholder": "您在找什么庆典？",
+    "btnAll": "浏览全国庆典",
+    "btnPeriod": "按期间查找",
+    "alertInvalid": "仅输入韩文辅音/元音或包含空格时无法搜索。请更具体地输入。"
+  },
+  "seasonal": [
+    {
+      "id": "spring",
+      "season": "春",
+      "title": "春花庆典",
+      "description": "与樱花一起的绚烂春季庆典",
+      "festivals": ["镇海军港节", "汝矣岛樱花庆典", "庆州樱花庆典"]
+    },
+    {
+      "id": "summer",
+      "season": "夏",
+      "title": "夏日水庆典",
+      "description": "与清凉水一起的夏季庆典",
+      "festivals": ["保宁泥浆庆典", "华川番茄庆典", "茂朱萤火虫庆典"]
+    },
+    {
+      "id": "autumn",
+      "season": "秋",
+      "title": "秋枫庆典",
+      "description": "与美丽枫叶一起的秋季庆典",
+      "festivals": ["晋州南江流灯庆典", "釜山烟花庆典", "安东假面舞节"]
+    },
+    {
+      "id": "winter",
+      "season": "冬",
+      "title": "冬季冰雪庆典",
+      "description": "与白雪一起的冬季庆典",
+      "festivals": ["华川山鳟鱼庆典", "平昌鳟鱼庆典", "太白雪节"]
+    }
+  ],
+  "seasonSection": {
+    "headline": "按季节推荐的庆典",
+    "desc": "每个季节都能遇见特别魅力的庆典"
+  },
+  "keywordSection": {
+    "title": "按关键词探索",
+    "all": "查看所有庆典 →",
+    "keywords": [
+      "春",
+      "夏",
+      "秋",
+      "冬",
+      "传统",
+      "体验",
+      "表演",
+      "美食",
+      "烟花",
+      "灯笼",
+      "樱花",
+      "夜景",
+      "首尔",
+      "釜山",
+      "济州岛",
+      "江原道",
+      "庆尚道",
+      "全罗道"
+    ]
+  },
+  "footerSection": {
+    "aboutTitle": "韩国庆典介绍",
+    "aboutDesc": "通过全年多样的庆典和活动，发现韩国充满活力的文化遗产。",
+    "linksTitle": "快速链接",
+    "allFestivals": "全部庆典",
+    "periodFestivals": "按期间庆典",
+    "community": "社区",
+    "mypage": "我的页面",
+    "subscribeTitle": "订阅",
+    "subscribeDesc": "获取最新庆典信息。",
+    "emailPlaceholder": "电子邮箱地址",
+    "subscribeBtn": "订阅",
+    "copyright": "&copy; 2024 韩国庆典指南. 版权所有."
+  },
+  "featuredFestival": {
+    "featured": "推荐庆典",
+    "badgeFeatured": "推荐",
+    "viewDetail": "查看详情",
+    "sliderIndex": "{{index}} / {{total}} 推荐庆典"
+  },
+  "festival": {
+    "title": "全国庆典",
+    "count": "'{{count}}'",
+    "result": "个庆典",
+    "loadError": "无法加载庆典数据。",
+    "backToList": "返回全部列表",
+    "lastFestival": "最后一个庆典。",
+    "noResult": "没有搜索结果",
+    "resetAll": "重置所有筛选",
+    "allTab": "全部庆典",
+    "ongoingTab": "正在进行的庆典"
+  },
+  "festivalSearchBar": {
+    "placeholder": "按庆典名称搜索",
+    "invalid": "仅输入韩文辅音/元音或空格无法搜索。请更具体地输入。"
+  },
+  "festivalFilter": {
+    "keywords": [
+      "春",
+      "夏",
+      "秋",
+      "冬",
+      "传统",
+      "体验",
+      "表演",
+      "美食",
+      "烟花",
+      "灯笼",
+      "樱花",
+      "夜景",
+      "首尔",
+      "釜山",
+      "济州岛",
+      "江原道"
+    ],
+    "filter": "筛选",
+    "filterApplied": "已应用筛选",
+    "reset": "重置",
+    "apply": "应用",
+    "keyword": "关键词",
+    "keywordMode": "关键词模式",
+    "and": "AND",
+    "or": "OR",
+    "guideAnd": "第一个关键词搜索 + 其余关键词全部包含的庆典筛选",
+    "guideOr": "第一个关键词搜索 + 其余关键词中任意一个包含的庆典筛选",
+    "searchBasis": "搜索基准：",
+    "region": "地区",
+    "season": "季节"
+  },
+  "festivalAppliedFilter": {
+    "appliedFilters": "已应用筛选：",
+    "resetFilters": "重置筛选"
+  },
+  "festivalGrid": {
+    "noPeriod": "无期间信息",
+    "noLocation": "无地区信息",
+    "noDescription": "无说明信息",
+    "loadingPeriod": "正在加载期间...",
+    "loadingDesc": "正在加载介绍...",
+    "badgeFeatured": "推荐庆典",
+    "badgeEnded": "结束",
+    "like": "喜欢"
+  },
+  "periodPage": {
+    "headline": "您想什么时候出发？",
+    "desc": "请选择想要的期间，发现那时举行的特别庆典",
+    "count": "'{{count}}'",
+    "result": "个庆典已找到",
+    "noResult": "没有符合条件的庆典",
+    "noResult2": "无搜索结果",
+    "tryOther": "请用其他条件重新搜索。",
+    "loading": "加载中...",
+    "error": "数据加载失败",
+    "back": "返回",
+    "moreLoading": "正在加载更多...",
+    "lastFestival": "最后一个庆典。"
+  },
+  "periodSelector": {
+    "where": "哪里",
+    "when": "什么时候",
+    "search": "搜索",
+    "enjoy": "享受庆典！",
+    "selectDate": "请选择日期",
+    "selectRegion": "请选择地区",
+    "tilde": " ~ ",
+    "dateFormatOne": "M月d日",
+    "regions": {
+      "all": "全部地区",
+      "seoul": "首尔",
+      "busan": "釜山",
+      "gyeonggi": "京畿道",
+      "gangwon": "江原道",
+      "chungnam": "忠清南道",
+      "chungbuk": "忠清北道",
+      "gyeongnam": "庆尚南道",
+      "gyeongbuk": "庆尚北道",
+      "jeonnam": "全罗南道",
+      "jeonbuk": "全罗北道",
+      "jeolla": "全罗道",
+      "gyeongsang": "庆尚道",
+      "jeju": "济州岛"
+    },
+    "calendar": {
+      "monthYearFormat": "yyyy年M月",
+      "weekdays": ["日", "一", "二", "三", "四", "五", "六"],
+      "today": "今天"
+    }
+  },
+  "festivalDetail": {
+    "noOverview": "无介绍信息",
+    "loading": "加载中...",
+    "ended": "结束",
+    "badgeFestival": "庆典",
+    "summaryTitle": "活动概要",
+    "scenePhoto": "现场照片",
+    "introTitle": "活动介绍",
+    "detailTitle": "活动内容",
+    "collapse": "收起",
+    "showAll": "全部显示",
+    "foodTitle": "附近美食推荐",
+    "foodLoading": "正在加载美食...",
+    "foodNotFound": "找不到周边美食信息。",
+    "meter": "米距离",
+    "backToList": "返回列表"
+  },
+  "community": {
+    "title": "社区",
+    "subtitle": "与全世界庆典爱好者分享经验",
+    "searchPlaceholder": "搜索帖子...",
+    "writePost": "写帖子"
+  },
+  "postGrid": {
+    "noPosts": "没有帖子。",
+    "noMorePosts": "没有更多帖子。",
+    "loading": "正在加载帖子...",
+    "error": "帖子加载失败",
+    "viewMore": "查看更多",
+    "viewLess": "收起",
+    "like": "喜欢",
+    "comment": "评论"
+  },
+  "commentSection": {
+    "title": "评论 {{count}}条",
+    "noComment": "还没有评论。快来写第一条评论吧！",
+    "inputPlaceholder": "请写下评论...",
+    "writeError": "评论发表失败。",
+    "currentUserAlt": "当前用户"
+  },
+  "createPostPage": {
+    "title": "写帖子",
+    "desc": "分享庆典经验，与他人交流",
+    "alertTitleContent": "请输入标题和内容。",
+    "success": "帖子已成功发表！",
+    "error": "帖子发表失败。",
+    "form": {
+      "title": "帖子标题",
+      "titlePlaceholder": "请输入帖子标题",
+      "images": "图片",
+      "imageUploadText": "请上传图片",
+      "fileSize": "({{size}}MB)",
+      "uploadedImages": "已上传图片",
+      "uploadedImageAlt": "上传图片 {{index}}",
+      "addImageBtn": "添加图片",
+      "content": "内容",
+      "contentPlaceholder": "请自由写下关于庆典的经验和感受...",
+      "cancel": "取消",
+      "uploading": "图片上传中...",
+      "imageSizeInfo": "全部图片大小: {{after}}MB",
+      "post": "发表",
+      "posting": "正在发表..."
+    },
+    "imageRequired": {
+      "title": "提示",
+      "desc": "请上传图片。",
+      "confirm": "确认"
+    }
+  },
+  "postDetail": {
+    "notFound": {
+      "title": "找不到帖子",
+      "desc": "请求的帖子不存在或已被删除。"
+    },
+    "errorLoad": "帖子加载失败：",
+    "imageAlt": "{{title}} 图片 {{index}}",
+    "prevImage": "上一张图片",
+    "nextImage": "下一张图片",
+    "imageIndicator": "跳转到图片 {{index}}",
+    "like": "喜欢",
+    "comment": "评论",
+    "bookmark": "收藏"
+  },
+  "mypage": {
+    "loadError": "无法加载个人信息。",
+    "goLoginQ": "要跳转到登录页面吗？",
+    "post": "帖子",
+    "bookmark": "收藏",
+    "editProfile": "编辑个人资料",
+    "accountSetting": "账户设置",
+    "signupDate": "注册日期",
+    "myPosts": "我的帖子",
+    "edit": "编辑",
+    "delete": "删除",
+    "category": "分类",
+    "deletePostTitle": "删除帖子",
+    "deletePostDesc": "确定要删除此帖子吗？此操作无法撤销。",
+    "deleteFail": "帖子删除失败。"
+  },
+  "common": {
+    "login": "登录",
+    "cancel": "取消"
+  },
+  "login": {
+    "title": "登录",
+    "desc1": "登录账号，加入庆典社区",
+    "desc2": "体验更多功能",
+    "email": "邮箱",
+    "emailPlaceholder": "请输入邮箱地址",
+    "password": "密码",
+    "passwordPlaceholder": "请输入密码",
+    "showPassword": "显示密码",
+    "hidePassword": "隐藏密码",
+    "remember": "保持登录状态",
+    "forgotPassword": "忘记密码？",
+    "loginBtn": "登录",
+    "noAccount": "还没有账号？",
+    "signup": "注册",
+    "success": "登录成功！",
+    "fail": "登录失败。"
+  },
+  "signup": {
+    "title": "注册",
+    "desc1": "加入庆典社区，",
+    "desc2": "分享多样经验",
+    "email": "邮箱",
+    "emailPlaceholder": "请输入邮箱地址",
+    "nickname": "昵称",
+    "nicknamePlaceholder": "请输入昵称",
+    "password": "密码",
+    "passwordPlaceholder": "请输入密码",
+    "passwordCheck": "确认密码",
+    "passwordCheckPlaceholder": "请再次输入密码",
+    "showPassword": "显示密码",
+    "hidePassword": "隐藏密码",
+    "required": "请输入所有必填项。",
+    "pwMismatch": "两次输入的密码不一致。",
+    "success": "注册成功！",
+    "fail": "注册过程中出现问题。",
+    "signupBtn": "注册",
+    "alreadyAccount": "已经有账号了？",
+    "login": "登录"
+  }
+}

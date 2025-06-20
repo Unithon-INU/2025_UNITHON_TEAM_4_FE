@@ -134,7 +134,7 @@ function FestivalCard({
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-60 transition-opacity group-hover:opacity-80" />
         </div>
         <div className="relative p-5">
-          <h3 className="mb-2 text-xl font-bold text-gray-900">{festival.name}</h3>
+          <h3 className="mb-2 text-xl font-bold text-gray-900 line-clamp-3">{festival.name}</h3>
           <div className="mb-3 flex flex-col space-y-1">
             <div className="flex items-center text-sm text-gray-600">
               <MapPin className="mr-1 h-[20px] w-[20px] text-[#ff651b]" />

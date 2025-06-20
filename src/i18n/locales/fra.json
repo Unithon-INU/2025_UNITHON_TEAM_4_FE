@@ -1,0 +1,366 @@
+{
+  "loginRequired": "Connexion requise. Veuillez vous connecter.",
+  "navbar": {
+    "menu": "Menu des festivals",
+    "home": "Accueil",
+    "festival": "Festivals nationaux",
+    "period": "Festivals par période",
+    "community": "Communauté",
+    "mypage": "Mon espace",
+    "login": "Connexion",
+    "logout": "Déconnexion",
+    "signup": "Inscription",
+    "language": "Langue"
+  },
+  "main": {
+    "floatingKeywords": [
+      { "text": "Festival des cerisiers", "x": 10, "y": 20, "delay": 0, "color": "bg-pink-100 text-pink-700" },
+      { "text": "Festival des feux d'artifice", "x": 80, "y": 15, "delay": 1, "color": "bg-red-100 text-red-700" },
+      { "text": "Festival des lanternes", "x": 15, "y": 70, "delay": 2, "color": "bg-yellow-100 text-yellow-700" },
+      { "text": "Festival de la boue", "x": 85, "y": 60, "delay": 0.5, "color": "bg-amber-100 text-amber-700" },
+      { "text": "Festival du papier Hanji", "x": 25, "y": 45, "delay": 1.5, "color": "bg-blue-100 text-blue-700" },
+      { "text": "Festival des masques", "x": 75, "y": 35, "delay": 2.5, "color": "bg-purple-100 text-purple-700" },
+      { "text": "Festival du poisson de montagne", "x": 5, "y": 50, "delay": 3, "color": "bg-cyan-100 text-cyan-700" },
+      { "text": "Festival de la céramique céladon", "x": 90, "y": 80, "delay": 1.8, "color": "bg-emerald-100 text-emerald-700" },
+      { "text": "Festival de la culture traditionnelle", "x": 70, "y": 70, "delay": 2.8, "color": "bg-lime-100 text-lime-700" },
+      { "text": "Festival des feuilles d'automne", "x": 35, "y": 80, "delay": 3.3, "color": "bg-orange-100 text-orange-700" },
+      { "text": "Festival de la glace d'hiver", "x": 90, "y": 30, "delay": 3.7, "color": "bg-slate-100 text-slate-700" }
+    ],
+    "headline1": "Découvrez les festivals variés de la Corée,",
+    "headline2": "Explorez",
+    "desc": "Découvrez la richesse des festivals culturels coréens tout au long de l'année",
+    "searchPlaceholder": "Quel festival recherchez-vous ?",
+    "btnAll": "Voir tous les festivals",
+    "btnPeriod": "Rechercher par période",
+    "alertInvalid": "La recherche n'est pas possible avec seulement des consonnes/voyelles coréennes ou des espaces. Veuillez entrer plus de détails."
+  },
+  "seasonal": [
+    {
+      "id": "spring",
+      "season": "Printemps",
+      "title": "Festival des fleurs de printemps",
+      "description": "Festivals éclatants du printemps avec les cerisiers en fleurs",
+      "festivals": ["Festival naval de Jinhae", "Festival des cerisiers de Yeouido", "Festival des cerisiers de Gyeongju"]
+    },
+    {
+      "id": "summer",
+      "season": "Été",
+      "title": "Festival de l'eau d'été",
+      "description": "Festivals d'été rafraîchissants avec de l'eau",
+      "festivals": ["Festival de la boue de Boryeong", "Festival de la tomate de Hwacheon", "Festival des lucioles de Muju"]
+    },
+    {
+      "id": "autumn",
+      "season": "Automne",
+      "title": "Festival des feuilles d'automne",
+      "description": "Festivals d'automne avec de magnifiques feuilles",
+      "festivals": ["Festival des lanternes de Jinju Namgang", "Festival des feux d'artifice de Busan", "Festival des masques d'Andong"]
+    },
+    {
+      "id": "winter",
+      "season": "Hiver",
+      "title": "Festival de la glace d'hiver",
+      "description": "Festivals d'hiver avec de la neige blanche",
+      "festivals": ["Festival du poisson de montagne de Hwacheon", "Festival de la truite de Pyeongchang", "Festival de la neige de Taebaek"]
+    }
+  ],
+  "seasonSection": {
+    "headline": "Festivals recommandés par saison",
+    "desc": "Découvrez des festivals uniques à chaque saison"
+  },
+  "keywordSection": {
+    "title": "Explorer par mot-clé",
+    "all": "Voir tous les festivals →",
+    "keywords": [
+      "Printemps",
+      "Été",
+      "Automne",
+      "Hiver",
+      "Tradition",
+      "Expérience",
+      "Spectacle",
+      "Gastronomie",
+      "Feux d'artifice",
+      "Lanternes",
+      "Cerisiers",
+      "Paysage nocturne",
+      "Séoul",
+      "Busan",
+      "Jeju",
+      "Gangwon",
+      "Gyeongsang",
+      "Jeolla"
+    ]
+  },
+  "footerSection": {
+    "aboutTitle": "Présentation des festivals coréens",
+    "aboutDesc": "Découvrez le patrimoine culturel dynamique de la Corée à travers divers festivals et événements tout au long de l'année.",
+    "linksTitle": "Liens rapides",
+    "allFestivals": "Tous les festivals",
+    "periodFestivals": "Festivals par période",
+    "community": "Communauté",
+    "mypage": "Mon espace",
+    "subscribeTitle": "S'abonner",
+    "subscribeDesc": "Recevez les dernières informations sur les festivals.",
+    "emailPlaceholder": "Adresse e-mail",
+    "subscribeBtn": "S'abonner",
+    "copyright": "&copy; 2024 Guide des festivals coréens. Tous droits réservés."
+  },
+  "featuredFestival": {
+    "featured": "Festival recommandé",
+    "badgeFeatured": "Recommandé",
+    "viewDetail": "Voir les détails",
+    "sliderIndex": "{{index}} / {{total}} festivals recommandés"
+  },
+  "festival": {
+    "title": "Festivals nationaux",
+    "count": "'{{count}}'",
+    "result": "festivals",
+    "loadError": "Impossible de charger les données du festival.",
+    "backToList": "Retour à la liste complète",
+    "lastFestival": "Dernier festival.",
+    "noResult": "Aucun résultat trouvé",
+    "resetAll": "Réinitialiser tous les filtres",
+    "allTab": "Tous les festivals",
+    "ongoingTab": "Festivals en cours"
+  },
+  "festivalSearchBar": {
+    "placeholder": "Rechercher par nom de festival",
+    "invalid": "La recherche n'est pas possible avec seulement des consonnes/voyelles coréennes ou des espaces. Veuillez entrer plus de détails."
+  },
+  "festivalFilter": {
+    "keywords": [
+      "Printemps",
+      "Été",
+      "Automne",
+      "Hiver",
+      "Tradition",
+      "Expérience",
+      "Spectacle",
+      "Gastronomie",
+      "Feux d'artifice",
+      "Lanternes",
+      "Cerisiers",
+      "Paysage nocturne",
+      "Séoul",
+      "Busan",
+      "Jeju",
+      "Gangwon"
+    ],
+    "filter": "Filtrer",
+    "filterApplied": "Filtre appliqué",
+    "reset": "Réinitialiser",
+    "apply": "Appliquer",
+    "keyword": "Mot-clé",
+    "keywordMode": "Mode mot-clé",
+    "and": "ET",
+    "or": "OU",
+    "guideAnd": "Recherche par premier mot-clé + filtrage des festivals contenant tous les autres mots-clés",
+    "guideOr": "Recherche par premier mot-clé + filtrage des festivals contenant au moins un des autres mots-clés",
+    "searchBasis": "Base de recherche :",
+    "region": "Région",
+    "season": "Saison"
+  },
+  "festivalAppliedFilter": {
+    "appliedFilters": "Filtres appliqués :",
+    "resetFilters": "Réinitialiser les filtres"
+  },
+  "festivalGrid": {
+    "noPeriod": "Aucune information de période",
+    "noLocation": "Aucune information de lieu",
+    "noDescription": "Aucune description",
+    "loadingPeriod": "Chargement de la période...",
+    "loadingDesc": "Chargement de la présentation...",
+    "badgeFeatured": "Festival recommandé",
+    "badgeEnded": "Terminé",
+    "like": "J'aime"
+  },
+  "periodPage": {
+    "headline": "Quand souhaitez-vous partir ?",
+    "desc": "Sélectionnez la période souhaitée et découvrez les festivals spéciaux qui s'y déroulent",
+    "count": "'{{count}}'",
+    "result": "festivals trouvés",
+    "noResult": "Aucun festival correspondant",
+    "noResult2": "Aucun résultat trouvé",
+    "tryOther": "Veuillez réessayer avec d'autres critères.",
+    "loading": "Chargement...",
+    "error": "Échec du chargement des données",
+    "back": "Retour",
+    "moreLoading": "Chargement supplémentaire...",
+    "lastFestival": "Dernier festival."
+  },
+  "periodSelector": {
+    "where": "Où",
+    "when": "Quand",
+    "search": "Rechercher",
+    "enjoy": "Profitez du festival !",
+    "selectDate": "Veuillez sélectionner une date",
+    "selectRegion": "Veuillez sélectionner une région",
+    "tilde": " ~ ",
+    "dateFormatOne": "d MMM",
+    "regions": {
+      "all": "Toutes les régions",
+      "seoul": "Séoul",
+      "busan": "Busan",
+      "gyeonggi": "Gyeonggi",
+      "gangwon": "Gangwon",
+      "chungnam": "Chungcheong du Sud",
+      "chungbuk": "Chungcheong du Nord",
+      "gyeongnam": "Gyeongsang du Sud",
+      "gyeongbuk": "Gyeongsang du Nord",
+      "jeonnam": "Jeolla du Sud",
+      "jeonbuk": "Jeolla du Nord",
+      "jeolla": "Jeolla",
+      "gyeongsang": "Gyeongsang",
+      "jeju": "Jeju"
+    },
+    "calendar": {
+      "monthYearFormat": "yyyy MMM",
+      "weekdays": ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
+      "today": "Aujourd'hui"
+    }
+  },
+  "festivalDetail": {
+    "noOverview": "Aucune information de présentation",
+    "loading": "Chargement...",
+    "ended": "Terminé",
+    "badgeFestival": "Festival",
+    "summaryTitle": "Résumé de l'événement",
+    "scenePhoto": "Photo sur place",
+    "introTitle": "Présentation de l'événement",
+    "detailTitle": "Contenu de l'événement",
+    "collapse": "Réduire",
+    "showAll": "Tout afficher",
+    "foodTitle": "Recommandations de restaurants à proximité",
+    "foodLoading": "Chargement des restaurants...",
+    "foodNotFound": "Aucune information sur les restaurants à proximité.",
+    "meter": "mètre",
+    "backToList": "Retour à la liste"
+  },
+  "community": {
+    "title": "Communauté",
+    "subtitle": "Partagez vos expériences avec des passionnés de festivals du monde entier",
+    "searchPlaceholder": "Rechercher des publications...",
+    "writePost": "Écrire une publication"
+  },
+  "postGrid": {
+    "noPosts": "Aucune publication.",
+    "noMorePosts": "Plus de publications.",
+    "loading": "Chargement des publications...",
+    "error": "Échec du chargement des publications",
+    "viewMore": "Voir plus",
+    "viewLess": "Réduire",
+    "like": "J'aime",
+    "comment": "Commentaire"
+  },
+  "commentSection": {
+    "title": "{{count}} commentaires",
+    "noComment": "Aucun commentaire pour le moment. Soyez le premier à commenter !",
+    "inputPlaceholder": "Écrivez un commentaire...",
+    "writeError": "Échec de la publication du commentaire.",
+    "currentUserAlt": "Utilisateur actuel"
+  },
+  "createPostPage": {
+    "title": "Écrire une publication",
+    "desc": "Partagez vos expériences de festival et échangez avec d'autres",
+    "alertTitleContent": "Veuillez saisir un titre et un contenu.",
+    "success": "La publication a été créée avec succès !",
+    "error": "Échec de la création de la publication.",
+    "form": {
+      "title": "Titre de la publication",
+      "titlePlaceholder": "Veuillez saisir le titre de la publication",
+      "images": "Images",
+      "imageUploadText": "Veuillez télécharger des images",
+      "fileSize": "({{size}}MB)",
+      "uploadedImages": "Images téléchargées",
+      "uploadedImageAlt": "Image téléchargée {{index}}",
+      "addImageBtn": "Ajouter une image",
+      "content": "Contenu",
+      "contentPlaceholder": "Écrivez librement vos expériences et impressions sur le festival...",
+      "cancel": "Annuler",
+      "uploading": "Téléchargement de l'image...",
+      "imageSizeInfo": "Taille totale des images : {{after}}MB",
+      "post": "Publier",
+      "posting": "Publication en cours..."
+    },
+    "imageRequired": {
+      "title": "Notification",
+      "desc": "Veuillez télécharger une image.",
+      "confirm": "Confirmer"
+    }
+  },
+  "postDetail": {
+    "notFound": {
+      "title": "Publication introuvable",
+      "desc": "La publication demandée n'existe pas ou a été supprimée."
+    },
+    "errorLoad": "Échec du chargement de la publication :",
+    "imageAlt": "Image {{index}} de {{title}}",
+    "prevImage": "Image précédente",
+    "nextImage": "Image suivante",
+    "imageIndicator": "Aller à l'image {{index}}",
+    "like": "J'aime",
+    "comment": "Commentaire",
+    "bookmark": "Favori"
+  },
+  "mypage": {
+    "loadError": "Impossible de charger les informations du profil.",
+    "goLoginQ": "Voulez-vous accéder à la page de connexion ?",
+    "post": "Publication",
+    "bookmark": "Favori",
+    "editProfile": "Modifier le profil",
+    "accountSetting": "Paramètres du compte",
+    "signupDate": "Date d'inscription",
+    "myPosts": "Mes publications",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "category": "Catégorie",
+    "deletePostTitle": "Supprimer la publication",
+    "deletePostDesc": "Voulez-vous vraiment supprimer cette publication ? Cette action est irréversible.",
+    "deleteFail": "Échec de la suppression de la publication."
+  },
+  "common": {
+    "login": "Connexion",
+    "cancel": "Annuler"
+  },
+  "login": {
+    "title": "Connexion",
+    "desc1": "Connectez-vous pour rejoindre la communauté des festivals",
+    "desc2": "et profitez de toutes les fonctionnalités",
+    "email": "E-mail",
+    "emailPlaceholder": "Veuillez saisir votre adresse e-mail",
+    "password": "Mot de passe",
+    "passwordPlaceholder": "Veuillez saisir votre mot de passe",
+    "showPassword": "Afficher le mot de passe",
+    "hidePassword": "Masquer le mot de passe",
+    "remember": "Rester connecté",
+    "forgotPassword": "Mot de passe oublié ?",
+    "loginBtn": "Connexion",
+    "noAccount": "Vous n'avez pas encore de compte ?",
+    "signup": "Inscription",
+    "success": "Connexion réussie !",
+    "fail": "Échec de la connexion."
+  },
+  "signup": {
+    "title": "Inscription",
+    "desc1": "Rejoignez la communauté des festivals,",
+    "desc2": "partagez diverses expériences",
+    "email": "E-mail",
+    "emailPlaceholder": "Veuillez saisir votre adresse e-mail",
+    "nickname": "Pseudo",
+    "nicknamePlaceholder": "Veuillez saisir votre pseudo",
+    "password": "Mot de passe",
+    "passwordPlaceholder": "Veuillez saisir votre mot de passe",
+    "passwordCheck": "Confirmer le mot de passe",
+    "passwordCheckPlaceholder": "Veuillez saisir à nouveau votre mot de passe",
+    "showPassword": "Afficher le mot de passe",
+    "hidePassword": "Masquer le mot de passe",
+    "required": "Veuillez remplir tous les champs obligatoires.",
+    "pwMismatch": "Les mots de passe ne correspondent pas.",
+    "success": "Inscription réussie !",
+    "fail": "Un problème est survenu lors de l'inscription.",
+    "signupBtn": "Inscription",
+    "alreadyAccount": "Vous avez déjà un compte ?",
+    "login": "Connexion"
+  }
+}
