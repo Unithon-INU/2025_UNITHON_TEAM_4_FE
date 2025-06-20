@@ -1,6 +1,7 @@
 {
   "loginRequired": "ログインが必要です",
   "navbar": {
+    "menu": "メニュー",
     "home": "ホーム",
     "festival": "全国フェスティバル",
     "period": "期間別フェス",

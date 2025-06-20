@@ -20,8 +20,13 @@ const leftNavItems = [
 
 const languages = [
   "한국어",
-  "english",
+  "English",
   "日本語",
+  "中文",
+  "Français",
+  "Español",
+  "Русский",
+
   // 필요시 추가
 ];
 
@@ -44,7 +49,7 @@ export default function Navbar() {
   // 언어 선택 핸들러
   const handleLangSelect = (label: string) => {
     const code = LANG_MAP[label];
-    setLang(code as "kor" | "eng" | "jpn");
+    setLang(code as "kor" | "eng" | "jpn" | "chn" | "fra" | "spa" | "rus");
     i18n.changeLanguage(code);
     setIsLangOpen(false);
   };

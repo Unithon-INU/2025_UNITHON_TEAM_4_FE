@@ -1,8 +1,8 @@
 import { create } from "zustand";
 
 interface LangState {
-  lang: "kor" | "eng" | "jpn";
-  setLang: (lang: "kor" | "eng" | "jpn") => void;
+  lang: "kor" | "eng" | "jpn" | "chn" | "fra" | "spa" | "rus";
+  setLang: (lang: "kor" | "eng" | "jpn" | "chn" | "fra" | "spa" | "rus") => void;
 }
 
 export const useLangStore = create<LangState>((set) => ({

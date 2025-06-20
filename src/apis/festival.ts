@@ -27,7 +27,7 @@ export async function fetchFestivalList(params: GetFestivalListParams = {}) {
     lang,
     numOfRows = 8,
     pageNo = 1,
-    eventStartDate = "20250601",
+    eventStartDate = "20250101",
     eventEndDate,
     areaCode = "",
   } = params;
