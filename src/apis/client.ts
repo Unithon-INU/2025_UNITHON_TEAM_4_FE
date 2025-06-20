@@ -6,11 +6,9 @@ const BACKEND_BASE_URL = "http://15.164.50.164:8080/api/v1";
 
 // 환경에 따라 프록시 경로 다르게 만드는 함수
 const getApiUrl = (endpoint: string) => {
-  // 축제 API라면 v1을 제거
-  const isFestivalApi = endpoint.startsWith("/festivals");
-  const base = isFestivalApi
-    ? BACKEND_BASE_URL.replace(/\/v1$/, "") // v1 제거
-    : BACKEND_BASE_URL;
+  // 프록시를 사용하지 않는 개발 환경에서는 BASE_URL을 그대로 사용
+
+  const base = BACKEND_BASE_URL
   // Vercel(prod) 환경이면 프록시 사용
   if (import.meta.env.MODE === "production") {
     const target = `${base}${endpoint}`;
