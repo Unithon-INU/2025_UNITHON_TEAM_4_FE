@@ -11,7 +11,7 @@ import {
 import Navbar from "../../components/Navbar";
 import { getPost } from "../../apis/post"; // 위에서 만든 API 함수 import
 import CommentSection from "./components/CommentSection"; // 댓글 섹션은 이후에 별도로 넣으신다고 하셨으니 일단 그대로
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 interface PostDetail {
   postId: number;
   likes: number;
@@ -128,7 +128,10 @@ export default function PostDetailPage() {
               <div className="w-[800px] h-[400px] md:h-[500px] relative flex items-center justify-center bg-gray-100">
                 <img
                   src={post.images[currentImageIndex]?.imageUrl || "/placeholder.svg"}
-                  alt={t("postDetail.imageAlt", { title: post.title, index: currentImageIndex + 1 })}
+                  alt={t("postDetail.imageAlt", {
+                    title: post.title,
+                    index: currentImageIndex + 1,
+                  })}
                   className="object-contain w-full h-full"
                   style={{ maxHeight: "100%", maxWidth: "100%" }}
                 />

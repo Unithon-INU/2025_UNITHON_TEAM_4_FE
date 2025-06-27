@@ -314,7 +314,7 @@
       "titlePlaceholder": "게시물 제목을 입력하세요",
       "images": "이미지",
       "imageUploadText": "이미지를 업로드하세요",
-      "fileSize" : "({{size}}MB)",
+      "fileSize": "({{size}}MB)",
       "uploadedImages": "업로드된 이미지",
       "uploadedImageAlt": "업로드 이미지 {{index}}",
       "addImageBtn": "이미지 추가하기",
@@ -405,5 +405,28 @@
     "signupBtn": "회원가입",
     "alreadyAccount": "이미 계정이 있으신가요?",
     "login": "로그인"
+  },
+  "postModify": {
+    "title": "게시물 수정",
+    "desc": "게시물을 수정하고 변경사항을 저장하세요",
+    "loadError": "게시물을 불러오지 못했습니다",
+    "success": "게시물이 성공적으로 수정되었습니다",
+    "error": "게시물 수정에 실패했습니다",
+    "form": {
+      "title": "제목",
+      "titlePlaceholder": "제목을 입력하세요",
+      "images": "이미지",
+      "uploadedImages": "업로드된 이미지",
+      "imageUploadText": "이미지를 업로드하세요",
+      "addImageBtn": "이미지 추가하기",
+      "content": "내용",
+      "contentPlaceholder": "내용을 입력하세요",
+      "cancel": "취소",
+      "update": "수정하기",
+      "updating": "수정 중...",
+      "uploadedImageAlt": "업로드된 이미지 {index}",
+      "existingImageLabel": "기존 이미지 {index}",
+      "newImageLabel": "새 이미지 {index}"
+    }
   }
 }

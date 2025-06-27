@@ -16,7 +16,6 @@ const LoginPage = () => {
       setError("");
       const response = await login({ email, password });
       console.log("로그인 성공:", response);
-      alert(t("login.success")); // 로그인 요청
       window.location.replace("/"); // 🔁 여기서 페이지 이동!
     } catch (err) {
       setError(t("login.fail"));
@@ -70,7 +69,9 @@ const LoginPage = () => {
                 id="password"
                 name="password"
                 value={password}
-                onChange={(e: { target: { value: SetStateAction<string>; }; }) => setPassword(e.target.value)}
+                onChange={(e: { target: { value: SetStateAction<string> } }) =>
+                  setPassword(e.target.value)
+                }
                 className="w-full h-11 rounded-lg border border-gray-200 px-3 pr-10 text-base placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-700"
                 placeholder={t("login.passwordPlaceholder")}
                 autoComplete="off"

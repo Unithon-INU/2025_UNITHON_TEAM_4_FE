@@ -5,7 +5,7 @@ import { Edit, MoreVertical, Trash2, User, MessageCircle, Settings2Icon } from "
 import { fetchUserProfile } from "../../apis/users";
 import { useNavigate } from "react-router-dom";
 import { deletePost } from "../../apis/post";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 const NAVBAR_HEIGHT = 90;
 
 interface Post {
@@ -82,7 +82,7 @@ export default function MyPage() {
   };
 
   const handleEditPost = (postId: number) => {
-    console.log(`게시물 ${postId} 수정`);
+    navigate(`/postmodify/${postId}`);
     setDropdownOpenId(null);
   };
 
@@ -159,17 +159,18 @@ export default function MyPage() {
                       </div>
                     </div>
                     <div className="space-y-3 flex flex-col items-center">
-                      <button className="w-full border border-gray-300 rounded bg-white px-4 py-2 flex items-center justify-center hover:bg-gray-50">
-                        <Edit className="w-4 h-4 mr-2 text-[#ff651b]" />
-                        {t("mypage.editProfile")}
-                      </button>
-                      <button className="w-full border border-gray-300 rounded bg-white px-4 py-2 flex items-center justify-center hover:bg-gray-50">
+                      <button
+                        className="w-full border border-gray-300 rounded bg-white px-4 py-2 flex items-center justify-center hover:bg-gray-50"
+                        onClick={() => navigate("/mypage/account-setting")}
+                      >
                         <Settings2Icon className="w-4 h-4 mr-2 text-[#ff651b]" />
                         {t("mypage.accountSetting")}
                       </button>
                     </div>
                     <div className="pt-4 border-t border-[#ff651b]">
-                      <p className="text-xs text-gray-300">{t("mypage.signupDate")}: {userProfile.createdAt}</p>
+                      <p className="text-xs text-gray-300">
+                        {t("mypage.signupDate")}: {userProfile.createdAt}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -277,9 +278,7 @@ export default function MyPage() {
             <div className="bg-white rounded-lg p-6 w-full max-w-xs shadow-lg">
               <div className="mb-4">
                 <h2 className="text-lg font-semibold mb-1">{t("mypage.deletePostTitle")}</h2>
-                <p className="text-sm text-gray-500">
-                  {t("mypage.deletePostDesc")}
-                </p>
+                <p className="text-sm text-gray-500">{t("mypage.deletePostDesc")}</p>
               </div>
               <div className="flex justify-end gap-2">
                 <button
