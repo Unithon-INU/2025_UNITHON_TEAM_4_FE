@@ -348,6 +348,9 @@
     "accountSetting": "アカウント設定",
     "signupDate": "登録日",
     "myPosts": "自分の投稿",
+    "myFestivals": "自分のフェスティバル",
+    "noFestivals": "いいねしたフェスティバルはありません。",
+    "langSame": "このフェスティバルは[{{lang}}]でブックマークされています。\n言語を{{lang}}に切り替えてください！",
     "edit": "編集",
     "delete": "削除",
     "category": "カテゴリ",
@@ -398,5 +401,30 @@
     "signupBtn": "新規登録",
     "alreadyAccount": "すでにアカウントをお持ちですか？",
     "login": "ログイン"
-  }
+  },
+  "account": {
+  "title": "アカウント設定",
+  "back": "戻る",
+  "profileImageAlt": "プロフィール画像",
+  "changeProfile": "プロフィール変更",
+  "uploading": "アップロード中...",
+  "name": "名前",
+  "changeName": "名前を変更",
+  "nameChangeTitle": "名前を変更",
+  "nameChangePlaceholder": "新しい名前を入力してください",
+  "change": "変更",
+  "nameChangeFail": "名前の変更に失敗しました。",
+  "password": "パスワード",
+  "changePassword": "パスワード変更",
+  "passwordChangeTitle": "パスワード変更",
+  "currentPassword": "現在のパスワード",
+  "newPassword": "新しいパスワード",
+  "confirmNewPassword": "新しいパスワードの確認",
+  "passwordNotMatch": "新しいパスワードが一致しません。",
+  "passwordChangeFail": "パスワードの変更に失敗しました。",
+  "loadError": "アカウント情報の取得に失敗しました。",
+  "imageSizeError": "ファイルサイズは5MB未満である必要があります。",
+  "imageTypeError": "画像ファイルのみアップロードできます。",
+  "imageUploadFail": "プロフィール画像の変更に失敗しました。"
+}
 }

@@ -402,6 +402,9 @@
     "accountSetting": "Account Settings",
     "signupDate": "Joined",
     "myPosts": "My Posts",
+    "myFestivals": "My Festivals",
+    "noFestivals": "You have no liked festivals.",
+    "langSame": "This festival was bookmarked in [{{lang}}].\nPlease switch your language to {{lang}}!",
     "edit": "Edit",
     "delete": "Delete",
     "category": "Category",
@@ -452,5 +455,30 @@
     "signupBtn": "Sign Up",
     "alreadyAccount": "Already have an account?",
     "login": "Login"
-  }
+  },
+  "account": {
+  "title": "Account Settings",
+  "back": "Back",
+  "profileImageAlt": "Profile Image",
+  "changeProfile": "Change Profile",
+  "uploading": "Uploading...",
+  "name": "Name",
+  "changeName": "Change Name",
+  "nameChangeTitle": "Change Name",
+  "nameChangePlaceholder": "Enter new name",
+  "change": "Change",
+  "nameChangeFail": "Failed to change name.",
+  "password": "Password",
+  "changePassword": "Change Password",
+  "passwordChangeTitle": "Change Password",
+  "currentPassword": "Current Password",
+  "newPassword": "New Password",
+  "confirmNewPassword": "Confirm New Password",
+  "passwordNotMatch": "New passwords do not match.",
+  "passwordChangeFail": "Failed to change password.",
+  "loadError": "Failed to load account information.",
+  "imageSizeError": "File size must be less than 5MB.",
+  "imageTypeError": "Only image files can be uploaded.",
+  "imageUploadFail": "Failed to change profile image."
+}
 }

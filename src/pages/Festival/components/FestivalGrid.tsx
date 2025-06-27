@@ -46,7 +46,8 @@ function formatDate(dateStr?: string) {
 export function FestivalGrid({ festivals, onUpdateDetails }: FestivalGridProps) {
   // contentid 기준으로 좋아요 여부 관리
   const [likedMap, setLikedMap] = useState<{ [contentid: string]: boolean }>({});
-  
+  const { i18n } = useTranslation();
+  const lang = i18n.language;
   interface LikedFestival {
     contentId: string;
     title: string;
@@ -74,7 +75,7 @@ export function FestivalGrid({ festivals, onUpdateDetails }: FestivalGridProps) 
       contentId: festival.contentid,
       title: festival.name,
       imageUrl: festival.image,
-      address: festival.location,
+      address: lang,
     });
     // 서버 메시지로 alert (or toast)
     // alert(result.message); // or 원하는 방식으로 알림
