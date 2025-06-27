@@ -226,119 +226,125 @@ export default function MyPage() {
                 {/* 그리드 */}
                 <div className="flex-1 h-full p-6 pt-0">
                   {tab === "post" ? (
-                    <div className="grid grid-cols-3 gap-4">
-                      {sortedPosts.map((post, index) => (
-                        <div
-                          key={post.postId}
-                          className="overflow-hidden rounded-lg bg-gray-100 aspect-square relative shadow-sm hover:shadow-md transition-all duration-300 mb-6 group cursor-pointer"
-                          onClick={() => navigate(`/community/${post.postId}`)}
-                        >
-                          <img
-                            src={post.thumbnailUrl || "/placeholder.svg"}
-                            alt={post.title}
-                            className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
-                          />
-                          {/* 더보기 메뉴 */}
+                    sortedPosts.length === 0 ? (
+                      <div className="text-center py-20 text-gray-400">
+                        {t("mypage.noPosts") || "작성한 게시물이 없습니다."}
+                      </div>
+                    ) : (
+                      <div className="grid grid-cols-3 gap-4">
+                        {sortedPosts.map((post, index) => (
                           <div
-                            className="absolute top-2 right-2 z-20"
-                            onClick={(e) => e.stopPropagation()}
+                            key={post.postId}
+                            className="overflow-hidden rounded-lg bg-gray-100 aspect-square relative shadow-sm hover:shadow-md transition-all duration-300 mb-6 group cursor-pointer"
+                            onClick={() => navigate(`/community/${post.postId}`)}
                           >
-                            <button
-                              className="w-6 h-6 flex items-center justify-center bg-white rounded-full shadow hover:bg-gray-100"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                setDropdownOpenId(dropdownOpenId === index ? null : index);
-                              }}
+                            <img
+                              src={post.thumbnailUrl || "/placeholder.svg"}
+                              alt={post.title}
+                              className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
+                            />
+                            {/* 더보기 메뉴 */}
+                            <div
+                              className="absolute top-2 right-2 z-20"
+                              onClick={(e) => e.stopPropagation()}
                             >
-                              <MoreVertical className="w-4 h-4" />
-                            </button>
-                            {dropdownOpenId === index && (
-                              <div
-                                className="absolute right-0 mt-2 w-28 bg-white border rounded shadow z-10"
-                                onClick={(e) => e.stopPropagation()}
+                              <button
+                                className="w-6 h-6 flex items-center justify-center bg-white rounded-full shadow hover:bg-gray-100"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setDropdownOpenId(dropdownOpenId === index ? null : index);
+                                }}
                               >
-                                <button
-                                  className="flex items-center w-full px-3 py-2 text-sm hover:bg-gray-100"
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    handleEditPost(post.postId);
-                                  }}
+                                <MoreVertical className="w-4 h-4" />
+                              </button>
+                              {dropdownOpenId === index && (
+                                <div
+                                  className="absolute right-0 mt-2 w-28 bg-white border rounded shadow z-10"
+                                  onClick={(e) => e.stopPropagation()}
                                 >
-                                  <Edit className="w-4 h-4 mr-2" />
-                                  {t("mypage.edit")}
-                                </button>
-                                <button
-                                  className="flex items-center w-full px-3 py-2 text-sm text-red-600 hover:bg-gray-100"
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    setSelectedPostId(post.postId);
-                                    setIsDeleteDialogOpen(true);
-                                    setDropdownOpenId(null);
-                                  }}
-                                >
-                                  <Trash2 className="w-4 h-4 mr-2" />
-                                  {t("mypage.delete")}
-                                </button>
-                              </div>
-                            )}
-                          </div>
-                          {/* 하단 정보 오버레이 */}
-                          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-3 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
-                            <div className="flex items-center justify-between text-xs mb-1 opacity-80">
-                              <div className="flex items-center gap-1">
-                                <MessageCircle className="w-3 h-3" />
-                                <span>13</span>
-                              </div>
-                              <span>{post.updatedAt}</span>
+                                  <button
+                                    className="flex items-center w-full px-3 py-2 text-sm hover:bg-gray-100"
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      handleEditPost(post.postId);
+                                    }}
+                                  >
+                                    <Edit className="w-4 h-4 mr-2" />
+                                    {t("mypage.edit")}
+                                  </button>
+                                  <button
+                                    className="flex items-center w-full px-3 py-2 text-sm text-red-600 hover:bg-gray-100"
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      setSelectedPostId(post.postId);
+                                      setIsDeleteDialogOpen(true);
+                                      setDropdownOpenId(null);
+                                    }}
+                                  >
+                                    <Trash2 className="w-4 h-4 mr-2" />
+                                    {t("mypage.delete")}
+                                  </button>
+                                </div>
+                              )}
                             </div>
-                            <p className="text-sm font-medium truncate">{post.title}</p>
-                            <div className="flex items-center justify-between mt-1 text-xs opacity-80">
-                              <span>{t("mypage.category")}</span>
-                              <span>@{userProfile.name}</span>
+                            {/* 하단 정보 오버레이 */}
+                            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-3 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
+                              <div className="flex items-center justify-between text-xs mb-1 opacity-80">
+                                <div className="flex items-center gap-1">
+                                  <MessageCircle className="w-3 h-3" />
+                                  <span>13</span>
+                                </div>
+                                <span>{post.updatedAt}</span>
+                              </div>
+                              <p className="text-sm font-medium truncate">{post.title}</p>
+                              <div className="flex items-center justify-between mt-1 text-xs opacity-80">
+                                <span>{t("mypage.category")}</span>
+                                <span>@{userProfile.name}</span>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      ))}
-                    </div>
+                        ))}
+                      </div>
+                    )
                   ) : (
-                    // 내 축제 탭 그리드
+                    // 축제 탭은 기존 코드 그대로
                     festivalsLoading ? (
                       <div className="text-center py-20">{t("mypage.loading") || "로딩 중..."}</div>
                     ) : likedFestivals.length === 0 ? (
                       <div className="text-center py-20 text-gray-400">{t("mypage.noFestivals") || "좋아요한 축제가 없습니다."}</div>
                     ) : (
                       <div className="grid grid-cols-3 gap-4">
-    {likedFestivals.map((festival: LikedFestival) => {
-      const lang = i18n.language;
-      const bookmarkedLang = festival.address;
-      const code = lang === "kor" ? 15 : 85;
-      return (
-        <div
-          key={festival.contentId}
-          className="overflow-hidden rounded-lg bg-gray-100 aspect-square relative shadow-sm hover:shadow-md transition-all duration-300 mb-6 group cursor-pointer"
-          onClick={() => {
-        if (lang === bookmarkedLang) {
-          window.location.href = `/festival/${festival.contentId}/${code}`;
-        } else {
-          alert(
-            t("mypage.langSame", { lang: bookmarkedLang })
-          );
-        }
-      }}
-        >
-          <img
-            src={festival.imageUrl || "/placeholder.svg"}
-            alt={festival.title}
-            className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
-          />
-          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-3 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
-            <div className="font-regular text-base truncate">{festival.title}</div>
-            {/* <div className="text-xs mt-1">{festival.address}</div> */}
-          </div>
-        </div>
-      );
-    })}
-  </div>
+                        {likedFestivals.map((festival: LikedFestival) => {
+                          const lang = i18n.language;
+                          const bookmarkedLang = festival.address;
+                          const code = lang === "kor" ? 15 : 85;
+                          return (
+                            <div
+                              key={festival.contentId}
+                              className="overflow-hidden rounded-lg bg-gray-100 aspect-square relative shadow-sm hover:shadow-md transition-all duration-300 mb-6 group cursor-pointer"
+                              onClick={() => {
+                                if (lang === bookmarkedLang) {
+                                  window.location.href = `/festival/${festival.contentId}/${code}`;
+                                } else {
+                                  alert(
+                                    t("mypage.langSame", { lang: bookmarkedLang })
+                                  );
+                                }
+                              }}
+                            >
+                              <img
+                                src={festival.imageUrl || "/placeholder.svg"}
+                                alt={festival.title}
+                                className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
+                              />
+                              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-3 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
+                                <div className="font-regular text-base truncate">{festival.title}</div>
+                                {/* <div className="text-xs mt-1">{festival.address}</div> */}
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
                     )
                   )}
                 </div>

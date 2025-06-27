@@ -6,10 +6,9 @@ import {
   Calendar,
   Heart,
   MessageCircle,
-  BookmarkPlus,
 } from "lucide-react";
 import Navbar from "../../components/Navbar";
-import { getPost } from "../../apis/post"; // 위에서 만든 API 함수 import
+import { getPost, togglePostLike, getMyLikedPosts } from "../../apis/post"; // 위에서 만든 API 함수 import
 import CommentSection from "./components/CommentSection"; // 댓글 섹션은 이후에 별도로 넣으신다고 하셨으니 일단 그대로
 import { useTranslation } from "react-i18next";
 interface PostDetail {
@@ -40,17 +39,30 @@ interface PostDetail {
 export default function PostDetailPage() {
   const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
+  const postId = Number(id);
   const [post, setPost] = useState<PostDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
-  const [isBookmarked, setIsBookmarked] = useState(false);
+  const [likeCount, setLikeCount] = useState(0);
+
+  // ✅ 좋아요 상태 동기화 함수 (서버에서 fetch)
+  const fetchLikeStatus = async (currPostId: number) => {
+    try {
+      const likedPosts = await getMyLikedPosts(); // [{ postId: 123, ... }]
+      setIsLiked(likedPosts.some((p) => p.postId === currPostId));
+    } catch (e) {
+      console.error(t("postDetail.errorLoadLikeStatus", { error: e }));
+      setIsLiked(false);
+    }
+  };
 
   const fetchPost = async () => {
     setLoading(true);
     try {
       const { data } = await getPost(Number(id));
       setPost(data);
+      setLikeCount(data.likes);
     } catch (error) {
       console.error(t("postDetail.errorLoad", { error }));
     } finally {
@@ -58,9 +70,12 @@ export default function PostDetailPage() {
     }
   };
 
+  // ✅ 첫 진입 시 게시글 및 좋아요 상태 fetch
   useEffect(() => {
+    if (!postId) return;
     fetchPost();
-  }, [id]);
+    fetchLikeStatus(postId);
+  }, [postId]);
 
   const nextImage = () => {
     if (!post) return;
@@ -72,8 +87,21 @@ export default function PostDetailPage() {
     setCurrentImageIndex((prevIndex) => (prevIndex === 0 ? post.images.length - 1 : prevIndex - 1));
   };
 
-  const toggleLike = () => setIsLiked(!isLiked);
-  const toggleBookmark = () => setIsBookmarked(!isBookmarked);
+  // ✅ 좋아요 토글 핸들러: 서버에 요청 → 완료 후 다시 fetchLikeStatus(postId)
+  const handleToggleLike = async () => {
+  if (!post) return;
+  try {
+    const res = await togglePostLike(post.postId);
+    console.log(res.message); // 서버 응답 메시지 출력 (예: "좋아요 완료" 또는 "좋아요 취소")
+    // 서버 최신 데이터로 동기화 (likes, 댓글 등 모두)
+    await fetchPost(); // 이 줄만 있으면 모든 동기화 문제 해결됨!
+    await fetchLikeStatus(post.postId); // isLiked도 다시 동기화
+  } catch (e) {
+    alert(t("postDetail.errorLike"));
+    console.error(e);
+  }
+};
+
 
   if (loading) {
     return (
@@ -190,26 +218,17 @@ export default function PostDetailPage() {
             </div>
             <div className="flex space-x-4">
               <button
-                onClick={toggleLike}
-                className={`flex items-center ${
-                  isLiked ? "text-[#ff651b]" : "text-gray-500"
-                } hover:text-[#ff651b] transition-colors`}
+                onClick={handleToggleLike}
+                className={`flex items-center ${isLiked ? "text-[#ff651b]" : "text-gray-500"} hover:text-[#ff651b] transition-colors`}
               >
                 <Heart className={`h-5 w-5 ${isLiked ? "fill-current" : ""}`} />
-                <span className="ml-1 text-sm">{isLiked ? post.likes + 1 : post.likes}</span>
+                <span className="ml-1 text-sm">{likeCount}</span>
               </button>
               <button className="flex items-center text-gray-500 hover:text-[#ff651b] transition-colors">
                 <MessageCircle className="h-5 w-5" />
                 <span className="ml-1 text-sm">{post.comments.length}</span>
               </button>
-              <button
-                onClick={toggleBookmark}
-                className={`flex items-center ${
-                  isBookmarked ? "text-[#ff651b]" : "text-gray-500"
-                } hover:text-[#ff651b] transition-colors`}
-              >
-                <BookmarkPlus className={`h-5 w-5 ${isBookmarked ? "fill-current" : ""}`} />
-              </button>
+             
             </div>
           </div>
 

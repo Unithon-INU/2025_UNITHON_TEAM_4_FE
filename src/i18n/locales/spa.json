@@ -301,12 +301,14 @@
     "imageIndicator": "Ir a la imagen {{index}}",
     "like": "Me gusta",
     "comment": "Comentario",
-    "bookmark": "Favorito"
+    "bookmark": "Favorito",
+    "errorLike": "Ocurrió un error al procesar el estado de me gusta."
   },
   "mypage": {
     "loadError": "No se pudo cargar la información del perfil.",
     "goLoginQ": "¿Deseas ir a la página de inicio de sesión?",
     "post": "Publicación",
+    "noPosts": "No hay publicaciones.",
     "bookmark": "Favorito",
     "editProfile": "Editar perfil",
     "accountSetting": "Configuración de la cuenta",

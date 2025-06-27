@@ -391,12 +391,14 @@
     "imageIndicator": "이미지 {{index}}로 이동",
     "like": "좋아요",
     "comment": "댓글",
-    "bookmark": "북마크"
+    "bookmark": "북마크",
+    "errorLike": "좋아요 처리 중 오류가 발생했습니다."
   },
   "mypage": {
     "loadError": "프로필 정보를 불러올 수 없습니다.",
     "goLoginQ": "로그인 페이지로 이동하시겠습니까?",
     "post": "게시물",
+    "noPosts": "작성한 게시물이 없습니다.",
     "bookmark": "내 축제",
     "editProfile": "프로필 수정",
     "accountSetting": "계정 설정",

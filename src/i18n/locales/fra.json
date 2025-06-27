@@ -301,12 +301,14 @@
     "imageIndicator": "Aller à l'image {{index}}",
     "like": "J'aime",
     "comment": "Commentaire",
-    "bookmark": "Favori"
+    "bookmark": "Favori",
+    "errorLike": "Une erreur s'est produite lors du traitement du statut de j'aime."
   },
   "mypage": {
     "loadError": "Impossible de charger les informations du profil.",
     "goLoginQ": "Voulez-vous accéder à la page de connexion ?",
     "post": "Publication",
+    "noPosts": "Aucune publication.",
     "bookmark": "Favori",
     "editProfile": "Modifier le profil",
     "accountSetting": "Paramètres du compte",

@@ -337,12 +337,14 @@
     "imageIndicator": "画像{{index}}に移動",
     "like": "いいね",
     "comment": "コメント",
-    "bookmark": "ブックマーク"
+    "bookmark": "ブックマーク",
+    "errorLike": "いいねの処理中にエラーが発生しました。"
   },
   "mypage": {
     "loadError": "プロフィール情報を読み込めません。",
     "goLoginQ": "ログインページに移動しますか？",
     "post": "投稿",
+    "noPosts": "投稿がありません。",
     "bookmark": "ブックマーク",
     "editProfile": "プロフィール編集",
     "accountSetting": "アカウント設定",

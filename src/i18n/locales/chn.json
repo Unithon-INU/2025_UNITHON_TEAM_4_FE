@@ -301,12 +301,14 @@
     "imageIndicator": "跳转到图片 {{index}}",
     "like": "喜欢",
     "comment": "评论",
-    "bookmark": "收藏"
+    "bookmark": "收藏",
+    "errorLike": "处理喜欢状态时发生错误。"
   },
   "mypage": {
     "loadError": "无法加载个人信息。",
     "goLoginQ": "要跳转到登录页面吗？",
     "post": "帖子",
+    "noPosts": "没有发表的帖子。",
     "bookmark": "收藏",
     "editProfile": "编辑个人资料",
     "accountSetting": "账户设置",

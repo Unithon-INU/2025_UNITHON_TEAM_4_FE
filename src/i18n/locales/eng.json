@@ -391,12 +391,14 @@
     "imageIndicator": "Go to image {{index}}",
     "like": "Like",
     "comment": "Comment",
-    "bookmark": "Bookmark"
+    "bookmark": "Bookmark",
+    "errorLike": "An error occurred while processing the like status."
   },
   "mypage": {
     "loadError": "Failed to load profile information.",
     "goLoginQ": "Go to the login page?",
     "post": "Posts",
+    "noPosts": "You have no posts.",
     "bookmark": "Bookmarks",
     "editProfile": "Edit Profile",
     "accountSetting": "Account Settings",
