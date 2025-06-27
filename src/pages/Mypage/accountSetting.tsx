@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { fetchUser, updateUser, updateProfileImage, changePassword } from "../../apis/users";
 
 // 이름 변경 모달
@@ -12,6 +13,7 @@ const NameChangeModal = ({
   onClose: () => void;
   onSubmit: (name: string) => Promise<void>;
 }) => {
+  const { t } = useTranslation();
   const [name, setName] = useState("");
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,13 +24,13 @@ const NameChangeModal = ({
   return (
     <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg p-6 w-full max-w-xs">
-        <h2 className="text-lg font-bold mb-4">이름 변경</h2>
+        <h2 className="text-lg font-bold mb-4">{t("account.nameChangeTitle")}</h2>
         <form onSubmit={handleSubmit}>
           <input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="새 이름 입력"
+            placeholder={t("account.nameChangePlaceholder")}
             className="w-full border border-gray-300 rounded px-3 py-2 mb-4"
           />
           <div className="flex justify-end gap-2">
@@ -37,14 +39,14 @@ const NameChangeModal = ({
               onClick={onClose}
               className="px-4 py-2 rounded border border-gray-300"
             >
-              취소하기
+              {t("common.cancel")}
             </button>
             <button
               type="submit"
               className="px-4 py-2 rounded text-white"
               style={{ background: "#ff651b" }}
             >
-              변경하기
+              {t("account.change")}
             </button>
           </div>
         </form>
@@ -63,6 +65,7 @@ const PasswordChangeModal = ({
   onClose: () => void;
   onSubmit: (oldPassword: string, newPassword: string) => Promise<void>;
 }) => {
+  const { t } = useTranslation();
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -71,14 +74,14 @@ const PasswordChangeModal = ({
   useEffect(() => {
     if (newPassword && confirmPassword) {
       if (newPassword !== confirmPassword) {
-        setPasswordError("새 비밀번호가 일치하지 않습니다");
+        setPasswordError(t("account.passwordNotMatch"));
       } else {
         setPasswordError("");
       }
     } else {
       setPasswordError("");
     }
-  }, [newPassword, confirmPassword]);
+  }, [newPassword, confirmPassword, t]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -91,24 +94,22 @@ const PasswordChangeModal = ({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-      {" "}
-      {/* 오타: bg255-opacity-40 → bg-black bg-opacity-40 */}
       <div className="bg-white rounded-lg p-6 w-full max-w-xs">
-        <h2 className="text-lg font-bold mb-4">비밀번호 변경</h2>
+        <h2 className="text-lg font-bold mb-4">{t("account.passwordChangeTitle")}</h2>
         <form onSubmit={handleSubmit}>
           <input
             type="password"
             value={oldPassword}
             onChange={(e) => setOldPassword(e.target.value)}
-            placeholder="현재 비밀번호"
+            placeholder={t("account.currentPassword")}
             className="w-full border border-gray-300 rounded px-3 py-2 mb-2"
             required
           />
           <input
-            type="password" // 오타: 25 type="password" → type="password"
+            type="password"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
-            placeholder="새 비밀번호"
+            placeholder={t("account.newPassword")}
             className="w-full border border-gray-300 rounded px-3 py-2 mb-2"
             required
           />
@@ -116,7 +117,7 @@ const PasswordChangeModal = ({
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            placeholder="새 비밀번호 확인"
+            placeholder={t("account.confirmNewPassword")}
             className="w-full border border-gray-300 rounded px-3 py-2 mb-2"
             required
           />
@@ -127,14 +128,14 @@ const PasswordChangeModal = ({
               onClick={onClose}
               className="px-4 py-2 rounded border border-gray-300"
             >
-              취소하기
+              {t("common.cancel")}
             </button>
             <button
               type="submit"
               className="px-4 py-2 rounded text-white"
               style={{ background: "#ff651b" }}
             >
-              변경하기
+              {t("account.change")}
             </button>
           </div>
         </form>
@@ -144,6 +145,7 @@ const PasswordChangeModal = ({
 };
 
 const AccountSetting = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [user, setUser] = useState<{ name: string; profileImageUrl?: string }>({ name: "" });
   const [profileImage, setProfileImage] = useState<string>("");
@@ -155,29 +157,27 @@ const AccountSetting = () => {
   useEffect(() => {
     const loadUser = async () => {
       try {
-        const res = await fetchUser(); // 실제 fetchUser로 수정
+        const res = await fetchUser();
         setUser({ name: res.data.name, profileImageUrl: res.data.profileImageUrl });
         setProfileImage(res.data.profileImageUrl || "");
       } catch {
-        setStatusMessage("계정 정보를 불러오는데 실패했습니다.");
+        setStatusMessage(t("account.loadError"));
       }
     };
     loadUser();
-  }, []);
+  }, [t]);
 
   const handleProfileImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files?.[0]) return;
     const file = e.target.files[0];
 
-    // 파일 크기 검증 (5MB 제한)
     if (file.size > 5 * 1024 * 1024) {
-      setStatusMessage("파일 크기는 5MB 이하여야 합니다.");
+      setStatusMessage(t("account.imageSizeError"));
       return;
     }
 
-    // 파일 타입 검증
     if (!file.type.startsWith("image/")) {
-      setStatusMessage("이미지 파일만 업로드 가능합니다."); // 오타: 252 삭제
+      setStatusMessage(t("account.imageTypeError"));
       return;
     }
 
@@ -186,14 +186,13 @@ const AccountSetting = () => {
       setStatusMessage("");
 
       const res = await updateProfileImage(file);
-      setStatusMessage(res.message); // 서버에서 내려준 메시지를 그대로 보여줌
+      setStatusMessage(res.message);
 
-      // 프로필 이미지 새로고침
       const updated = await fetchUser();
       setProfileImage(updated.data.profileImageUrl || "");
     } catch (error) {
       console.error("프로필 이미지 변경 실패:", error);
-      setStatusMessage("프로필 이미지 변경에 실패했습니다.");
+      setStatusMessage(t("account.imageUploadFail"));
     } finally {
       setIsUploading(false);
       e.target.value = "";
@@ -206,7 +205,7 @@ const AccountSetting = () => {
       setUser((prev) => ({ ...prev, name: res.data.name }));
       setStatusMessage(res.message);
     } catch {
-      setStatusMessage("이름 변경에 실패했습니다.");
+      setStatusMessage(t("account.nameChangeFail"));
     }
   };
 
@@ -215,7 +214,7 @@ const AccountSetting = () => {
       const res = await changePassword({ oldPassword, newPassword });
       setStatusMessage(res.message);
     } catch {
-      setStatusMessage("비밀번호 변경에 실패했습니다.");
+      setStatusMessage(t("account.passwordChangeFail"));
     }
   };
 
@@ -228,20 +227,20 @@ const AccountSetting = () => {
             className="text-gray-500 text-lg font-semibold flex items-center"
             onClick={() => navigate("/mypage")}
           >
-            <span className="mr-1 text-2xl">&#8592;</span> 돌아가기
+            <span className="mr-1 text-2xl">&#8592;</span> {t("account.back")}
           </button>
         </div>
         <div className="flex-1 text-center mb-10">
-          <span className="text-2xl font-bold">계정 설정</span>
+          <span className="text-2xl font-bold">{t("account.title")}</span>
         </div>
 
         {/* 프로필 이미지 */}
         <div className="flex flex-col items-center mb-8">
           <div className="w-28 h-28 rounded-full border-2 border-gray-200 flex items-center justify-center overflow-hidden bg-gray-100 mb-2">
             {profileImage ? (
-              <img src={profileImage} alt="프로필" className="w-full h-full object-cover" />
+              <img src={profileImage} alt={t("account.profileImageAlt")} className="w-full h-full object-cover" />
             ) : (
-              <span className="text-gray-400">프로필 이미지</span>
+              <span className="text-gray-400">{t("account.profileImageAlt")}</span>
             )}
           </div>
           <label
@@ -251,7 +250,7 @@ const AccountSetting = () => {
             }`}
             style={{ background: isUploading ? "#ccc" : "#ff651b" }}
           >
-            {isUploading ? "업로드 중..." : "프로필 변경"}
+            {isUploading ? t("account.uploading") : t("account.changeProfile")}
             <input
               id="profile-image"
               type="file"
@@ -265,7 +264,7 @@ const AccountSetting = () => {
 
         {/* 이름 */}
         <div className="mb-6">
-          <label className="block text-gray-600 mb-1">이름</label>
+          <label className="block text-gray-600 mb-1">{t("account.name")}</label>
           <div className="flex items-center">
             <input
               type="text"
@@ -278,14 +277,14 @@ const AccountSetting = () => {
               style={{ background: "#ff651b" }}
               onClick={() => setIsNameModalOpen(true)}
             >
-              이름 변경
+              {t("account.changeName")}
             </button>
           </div>
         </div>
 
         {/* 비밀번호 */}
         <div className="mb-8">
-          <label className="block text-gray-600 mb-1">비밀번호</label>
+          <label className="block text-gray-600 mb-1">{t("account.password")}</label>
           <div className="flex items-center">
             <input
               type="password"
@@ -298,7 +297,7 @@ const AccountSetting = () => {
               style={{ background: "#ff651b" }}
               onClick={() => setIsPasswordModalOpen(true)}
             >
-              비밀번호 변경
+              {t("account.changePassword")}
             </button>
           </div>
         </div>

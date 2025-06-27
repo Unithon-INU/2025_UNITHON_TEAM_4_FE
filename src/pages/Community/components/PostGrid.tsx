@@ -1,8 +1,8 @@
-// pages/Community/components/PostGrid.tsx
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useInfinitePosts } from "../../../hooks/useInfinitePosts";
 import { useBottomObserver } from "../../../hooks/useBottomObserver";
+import { Heart } from "lucide-react"; // 추가!
 
 export default function PostGrid() {
   const { t } = useTranslation();
@@ -25,8 +25,16 @@ export default function PostGrid() {
                 className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
               />
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-3 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <p className="text-sm font-medium truncate">{post.title}</p>
-                <div className="flex items-center justify-between mt-1">
+                <div className="flex items-center justify-between">
+                  <p className="text-sm font-medium truncate">{post.title}</p>
+                  {post.likes > 0 && (
+                    <div className="flex items-center gap-1 ml-2">
+                      <Heart className="w-4 h-4 text-[#ff651b]" fill="#ff651b" />
+                      <span className="text-xs font-semibold">{post.likes}</span>
+                    </div>
+                  )}
+                </div>
+                <div className="flex items-center justify-between mt-2">
                   <span className="text-xs opacity-80">@{post.writer.name}</span>
                   <span className="text-xs opacity-80">
                     {new Date(post.createdAt).toLocaleDateString()}

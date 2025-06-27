@@ -14,8 +14,20 @@
   },
   "main": {
     "floatingKeywords": [
-      { "text": "벚꽃축제", "x": 10, "y": 20, "delay": 0, "color": "bg-pink-100 text-pink-700" },
-      { "text": "불꽃축제", "x": 80, "y": 15, "delay": 1, "color": "bg-red-100 text-red-700" },
+      {
+        "text": "벚꽃축제",
+        "x": 10,
+        "y": 20,
+        "delay": 0,
+        "color": "bg-pink-100 text-pink-700"
+      },
+      {
+        "text": "불꽃축제",
+        "x": 80,
+        "y": 15,
+        "delay": 1,
+        "color": "bg-red-100 text-red-700"
+      },
       {
         "text": "등불축제",
         "x": 15,
@@ -30,7 +42,13 @@
         "delay": 0.5,
         "color": "bg-amber-100 text-amber-700"
       },
-      { "text": "한지축제", "x": 25, "y": 45, "delay": 1.5, "color": "bg-blue-100 text-blue-700" },
+      {
+        "text": "한지축제",
+        "x": 25,
+        "y": 45,
+        "delay": 1.5,
+        "color": "bg-blue-100 text-blue-700"
+      },
       {
         "text": "탈춤축제",
         "x": 75,
@@ -38,7 +56,13 @@
         "delay": 2.5,
         "color": "bg-purple-100 text-purple-700"
       },
-      { "text": "산천어축제", "x": 5, "y": 50, "delay": 3, "color": "bg-cyan-100 text-cyan-700" },
+      {
+        "text": "산천어축제",
+        "x": 5,
+        "y": 50,
+        "delay": 3,
+        "color": "bg-cyan-100 text-cyan-700"
+      },
       {
         "text": "청자축제",
         "x": 90,
@@ -82,28 +106,44 @@
       "season": "봄",
       "title": "봄꽃 축제",
       "description": "벚꽃과 함께하는 화사한 봄 축제들",
-      "festivals": ["진해 군항제", "여의도 벚꽃축제", "경주 벚꽃축제"]
+      "festivals": [
+        "진해 군항제",
+        "여의도 벚꽃축제",
+        "경주 벚꽃축제"
+      ]
     },
     {
       "id": "summer",
       "season": "여름",
       "title": "여름 물축제",
       "description": "시원한 물과 함께하는 여름 축제들",
-      "festivals": ["보령 머드축제", "화천 토마토축제", "무주 반딧불축제"]
+      "festivals": [
+        "보령 머드축제",
+        "화천 토마토축제",
+        "무주 반딧불축제"
+      ]
     },
     {
       "id": "autumn",
       "season": "가을",
       "title": "가을 단풍축제",
       "description": "아름다운 단풍과 함께하는 가을 축제들",
-      "festivals": ["진주 남강 유등축제", "부산 불꽃축제", "안동 탈춤페스티벌"]
+      "festivals": [
+        "진주 남강 유등축제",
+        "부산 불꽃축제",
+        "안동 탈춤페스티벌"
+      ]
     },
     {
       "id": "winter",
       "season": "겨울",
       "title": "겨울 얼음축제",
       "description": "하얀 눈과 함께하는 겨울 축제들",
-      "festivals": ["화천 산천어축제", "평창 송어축제", "태백 눈축제"]
+      "festivals": [
+        "화천 산천어축제",
+        "평창 송어축제",
+        "태백 눈축제"
+      ]
     }
   ],
   "seasonSection": {
@@ -189,7 +229,6 @@
       "제주도",
       "강원도"
     ],
-
     "filter": "필터",
     "filterApplied": "필터 적용됨",
     "reset": "초기화",
@@ -214,7 +253,7 @@
     "noDescription": "설명 정보 없음",
     "loadingPeriod": "기간 불러오는 중...",
     "loadingDesc": "소개 불러오는 중...",
-    "badgeFeatured": "추천 축제",
+    "badgeFeatured": "",
     "badgeEnded": "종료",
     "like": "좋아요"
   },
@@ -259,7 +298,15 @@
     },
     "calendar": {
       "monthYearFormat": "yyyy년M월",
-      "weekdays": ["일", "월", "화", "수", "목", "금", "토"],
+      "weekdays": [
+        "일",
+        "월",
+        "화",
+        "수",
+        "목",
+        "금",
+        "토"
+      ],
       "today": "오늘"
     }
   },
@@ -344,17 +391,22 @@
     "imageIndicator": "이미지 {{index}}로 이동",
     "like": "좋아요",
     "comment": "댓글",
-    "bookmark": "북마크"
+    "bookmark": "북마크",
+    "errorLike": "좋아요 처리 중 오류가 발생했습니다."
   },
   "mypage": {
     "loadError": "프로필 정보를 불러올 수 없습니다.",
     "goLoginQ": "로그인 페이지로 이동하시겠습니까?",
     "post": "게시물",
-    "bookmark": "북마크",
+    "noPosts": "작성한 게시물이 없습니다.",
+    "bookmark": "내 축제",
     "editProfile": "프로필 수정",
     "accountSetting": "계정 설정",
     "signupDate": "가입일",
     "myPosts": "내 게시물",
+    "myFestivals": "내 축제",
+    "noFestivals": "좋아요한 축제가 없습니다.",
+    "langSame": "이 축제는 [{{lang}}]에서 북마크 되었습니다.\n언어를 {{lang}}로 변경해주세요!",
     "edit": "수정",
     "delete": "삭제",
     "category": "카테고리",
@@ -406,27 +458,29 @@
     "alreadyAccount": "이미 계정이 있으신가요?",
     "login": "로그인"
   },
-  "postModify": {
-    "title": "게시물 수정",
-    "desc": "게시물을 수정하고 변경사항을 저장하세요",
-    "loadError": "게시물을 불러오지 못했습니다",
-    "success": "게시물이 성공적으로 수정되었습니다",
-    "error": "게시물 수정에 실패했습니다",
-    "form": {
-      "title": "제목",
-      "titlePlaceholder": "제목을 입력하세요",
-      "images": "이미지",
-      "uploadedImages": "업로드된 이미지",
-      "imageUploadText": "이미지를 업로드하세요",
-      "addImageBtn": "이미지 추가하기",
-      "content": "내용",
-      "contentPlaceholder": "내용을 입력하세요",
-      "cancel": "취소",
-      "update": "수정하기",
-      "updating": "수정 중...",
-      "uploadedImageAlt": "업로드된 이미지 {index}",
-      "existingImageLabel": "기존 이미지 {index}",
-      "newImageLabel": "새 이미지 {index}"
-    }
+  "account": {
+    "title": "계정 설정",
+    "back": "돌아가기",
+    "profileImageAlt": "프로필 이미지",
+    "changeProfile": "프로필 변경",
+    "uploading": "업로드 중...",
+    "name": "이름",
+    "changeName": "이름 변경",
+    "nameChangeTitle": "이름 변경",
+    "nameChangePlaceholder": "새 이름 입력",
+    "change": "변경하기",
+    "nameChangeFail": "이름 변경에 실패했습니다.",
+    "password": "비밀번호",
+    "changePassword": "비밀번호 변경",
+    "passwordChangeTitle": "비밀번호 변경",
+    "currentPassword": "현재 비밀번호",
+    "newPassword": "새 비밀번호",
+    "confirmNewPassword": "새 비밀번호 확인",
+    "passwordNotMatch": "새 비밀번호가 일치하지 않습니다",
+    "passwordChangeFail": "비밀번호 변경에 실패했습니다.",
+    "loadError": "계정 정보를 불러오는데 실패했습니다.",
+    "imageSizeError": "파일 크기는 5MB 이하여야 합니다.",
+    "imageTypeError": "이미지 파일만 업로드 가능합니다.",
+    "imageUploadFail": "프로필 이미지 변경에 실패했습니다."
   }
 }

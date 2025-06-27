@@ -301,17 +301,22 @@
     "imageIndicator": "Ir a la imagen {{index}}",
     "like": "Me gusta",
     "comment": "Comentario",
-    "bookmark": "Favorito"
+    "bookmark": "Favorito",
+    "errorLike": "Ocurrió un error al procesar el estado de me gusta."
   },
   "mypage": {
     "loadError": "No se pudo cargar la información del perfil.",
     "goLoginQ": "¿Deseas ir a la página de inicio de sesión?",
     "post": "Publicación",
+    "noPosts": "No hay publicaciones.",
     "bookmark": "Favorito",
     "editProfile": "Editar perfil",
     "accountSetting": "Configuración de la cuenta",
     "signupDate": "Fecha de registro",
     "myPosts": "Mis publicaciones",
+    "myFestivals": "Mis festivales",
+    "noFestivals": "No hay festivales que te gusten.",
+    "langSame": "Este festival fue guardado en favoritos en [{{lang}}].\n¡Por favor, cambia el idioma a {{lang}}!",
     "edit": "Editar",
     "delete": "Eliminar",
     "category": "Categoría",
@@ -362,5 +367,30 @@
     "signupBtn": "Registrarse",
     "alreadyAccount": "¿Ya tienes una cuenta?",
     "login": "Iniciar sesión"
-  }
+  },
+  "account": {
+  "title": "Configuración de la cuenta",
+  "back": "Volver",
+  "profileImageAlt": "Imagen de perfil",
+  "changeProfile": "Cambiar perfil",
+  "uploading": "Subiendo...",
+  "name": "Nombre",
+  "changeName": "Cambiar nombre",
+  "nameChangeTitle": "Cambiar nombre",
+  "nameChangePlaceholder": "Introduce un nuevo nombre",
+  "change": "Cambiar",
+  "nameChangeFail": "No se pudo cambiar el nombre.",
+  "password": "Contraseña",
+  "changePassword": "Cambiar contraseña",
+  "passwordChangeTitle": "Cambiar contraseña",
+  "currentPassword": "Contraseña actual",
+  "newPassword": "Nueva contraseña",
+  "confirmNewPassword": "Confirmar nueva contraseña",
+  "passwordNotMatch": "Las nuevas contraseñas no coinciden.",
+  "passwordChangeFail": "No se pudo cambiar la contraseña.",
+  "loadError": "No se pudo cargar la información de la cuenta.",
+  "imageSizeError": "El tamaño del archivo debe ser menor de 5MB.",
+  "imageTypeError": "Solo se pueden subir archivos de imagen.",
+  "imageUploadFail": "No se pudo cambiar la imagen de perfil."
+}
 }

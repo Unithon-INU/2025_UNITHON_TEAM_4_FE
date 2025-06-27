@@ -301,17 +301,22 @@
     "imageIndicator": "Aller à l'image {{index}}",
     "like": "J'aime",
     "comment": "Commentaire",
-    "bookmark": "Favori"
+    "bookmark": "Favori",
+    "errorLike": "Une erreur s'est produite lors du traitement du statut de j'aime."
   },
   "mypage": {
     "loadError": "Impossible de charger les informations du profil.",
     "goLoginQ": "Voulez-vous accéder à la page de connexion ?",
     "post": "Publication",
+    "noPosts": "Aucune publication.",
     "bookmark": "Favori",
     "editProfile": "Modifier le profil",
     "accountSetting": "Paramètres du compte",
     "signupDate": "Date d'inscription",
     "myPosts": "Mes publications",
+    "myFestivals": "Mes festivals",
+    "noFestivals": "Aucun festival aimé.",
+    "langSame": "Ce festival a été ajouté aux favoris en [{{lang}}].\nVeuillez changer la langue en {{lang}} !",
     "edit": "Modifier",
     "delete": "Supprimer",
     "category": "Catégorie",
@@ -362,5 +367,30 @@
     "signupBtn": "Inscription",
     "alreadyAccount": "Vous avez déjà un compte ?",
     "login": "Connexion"
-  }
+  },
+  "account": {
+  "title": "Paramètres du compte",
+  "back": "Retour",
+  "profileImageAlt": "Image de profil",
+  "changeProfile": "Changer la photo de profil",
+  "uploading": "Téléchargement...",
+  "name": "Nom",
+  "changeName": "Changer le nom",
+  "nameChangeTitle": "Changer le nom",
+  "nameChangePlaceholder": "Entrez un nouveau nom",
+  "change": "Changer",
+  "nameChangeFail": "Échec du changement de nom.",
+  "password": "Mot de passe",
+  "changePassword": "Changer le mot de passe",
+  "passwordChangeTitle": "Changer le mot de passe",
+  "currentPassword": "Mot de passe actuel",
+  "newPassword": "Nouveau mot de passe",
+  "confirmNewPassword": "Confirmer le nouveau mot de passe",
+  "passwordNotMatch": "Les nouveaux mots de passe ne correspondent pas.",
+  "passwordChangeFail": "Échec du changement de mot de passe.",
+  "loadError": "Échec du chargement des informations du compte.",
+  "imageSizeError": "La taille du fichier doit être inférieure à 5 Mo.",
+  "imageTypeError": "Seuls les fichiers image peuvent être téléchargés.",
+  "imageUploadFail": "Échec du changement de la photo de profil."
+}
 }

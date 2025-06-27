@@ -1,4 +1,4 @@
-import { useState,  useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useFestivalOverview, useFestivalPeriod } from "../../../hooks/useFestivalList";
 import { Link } from "react-router-dom";
 import { Heart, MapPin, Calendar } from "lucide-react";
@@ -6,10 +6,12 @@ import { Button } from "../../../components/ui/button";
 import { Badge } from "../../../components/ui/Badge";
 import { motion } from "framer-motion";
 import { useTranslation } from 'react-i18next';
+import { toggleFestivalLike, getLikedFestivals } from "../../../apis/festival";
+
 // 타입 선언
 export type Festival = {
   id: string;
-  contentid: string;
+  contentid: string;         // 프론트는 contentid만 사용
   contenttypeid: string;
   name: string;
   location: string;
@@ -19,7 +21,7 @@ export type Festival = {
   keywords: string[];
   description: string;
   featured?: boolean;
-  ended?: boolean; // 종료 여부
+  ended?: boolean;
 };
 export type DetailsMap = {
   [id: string]: {
@@ -29,39 +31,97 @@ export type DetailsMap = {
   };
 };
 
+interface FestivalGridProps {
+  festivals: Festival[];
+  onUpdateDetails: React.Dispatch<React.SetStateAction<DetailsMap>>;
+}
+
 // 날짜 포맷터
 function formatDate(dateStr?: string) {
   if (!dateStr || dateStr.length !== 8) return dateStr || "";
   return `${dateStr.slice(0, 4)}.${dateStr.slice(4, 6)}.${dateStr.slice(6, 8)}`;
 }
 
-// // 종료여부 판단 함수
-// function isFestivalEnded(eventenddate?: string): boolean {
-//   if (!eventenddate || eventenddate.length !== 8) return false;
-//   const today = new Date();
-//   const y = today.getFullYear();
-//   const m = String(today.getMonth() + 1).padStart(2, "0");
-//   const d = String(today.getDate()).padStart(2, "0");
-//   const todayStr = `${y}${m}${d}`; // "20240606"
-//   return eventenddate < todayStr;
-// }
+// FestivalGrid
+export function FestivalGrid({ festivals, onUpdateDetails }: FestivalGridProps) {
+  // contentid 기준으로 좋아요 여부 관리
+  const [likedMap, setLikedMap] = useState<{ [contentid: string]: boolean }>({});
+  const { i18n } = useTranslation();
+  const lang = i18n.language;
+  interface LikedFestival {
+    contentId: string;
+    title: string;
+    imageUrl: string;
+    address: string;
+  }
+  // 내 좋아요 목록 fetch
+  useEffect(() => {
+    getLikedFestivals().then(res => {
+      // 응답: [{ contentId: "1234", ... }, ...]
+      const map: { [contentid: string]: boolean } = {};
+      (res ?? []).forEach((f: LikedFestival) => {
+        // contentId → contentid로 변환 (string 일치 보장)
+        map[String(f.contentId)] = true;
+      });
+      setLikedMap(map);
+      console.log('초기 likedMap:', map);
+    });
+  }, []);
 
-interface FestivalGridProps {
-  festivals: Festival[];
-  onUpdateDetails: React.Dispatch<React.SetStateAction<DetailsMap>>;
+  // 좋아요 토글 핸들러
+  const handleToggleLike = async (festival: Festival) => {
+  try {
+    const result = await toggleFestivalLike({
+      contentId: festival.contentid,
+      title: festival.name,
+      imageUrl: festival.image,
+      address: lang,
+    });
+    // 서버 메시지로 alert (or toast)
+    // alert(result.message); // or 원하는 방식으로 알림
+    // 새로고침으로 완벽하게 동기화
+    // 새로고침 대신 likedMap만 갱신
+      setLikedMap((prev) => ({
+        ...prev,
+        [festival.contentid]: !prev[festival.contentid],
+      }));
+      alert(result.message || (likedMap[String(festival.contentid)] ? "좋아요 취소됨" : "좋아요 추가됨"));
+      console.log('업데이트된 likedMap:', { ...likedMap });
+  } catch (e) {
+    console.error(e);
+    alert("좋아요 처리 중 오류가 발생했습니다.");
+  }
+};
+
+
+  return (
+    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      {festivals.map((festival) => (
+        <FestivalCard
+          key={festival.id}
+          festival={festival}
+          onUpdateDetails={onUpdateDetails}
+          liked={!!likedMap[String(festival.contentid)]}
+          onLike={() => handleToggleLike(festival)}
+        />
+      ))}
+    </div>
+  );
 }
 
-// 내부 FestivalCard 선언 (여기서 fetch!)
+// FestivalCard
 function FestivalCard({
   festival,
   onUpdateDetails,
+  liked,
+  onLike,
 }: {
   festival: Festival;
   onUpdateDetails: FestivalGridProps["onUpdateDetails"];
+  liked: boolean;
+  onLike: () => void;
 }) {
-  const [liked, setLiked] = useState(false);
   const { t } = useTranslation();
-  // 상세정보 패치
   const { data: infoData, isLoading: infoLoading } = useFestivalOverview(festival.contentid);
   const { data: periodData, isLoading: periodLoading } = useFestivalPeriod(
     festival.contentid,
@@ -76,10 +136,6 @@ function FestivalCard({
       ? `${formatDate(eventStart)} ~ ${formatDate(eventEnd)}`
       : festival.period || t("festivalGrid.noPeriod");
 
-  // 종료 여부 계산
-  // const ended = isFestivalEnded(eventEnd);
-
-  // fetch된 값이 있으면 상위로 올려줌 (부모 state 업데이트)
   useEffect(() => {
     if (!infoLoading && !periodLoading && (overview || formattedPeriod)) {
       onUpdateDetails((prev) =>
@@ -98,7 +154,7 @@ function FestivalCard({
       );
     }
   }, [infoLoading, periodLoading, formattedPeriod, overview, festival.id, eventEnd, onUpdateDetails]);
- 
+
   return (
     <div
       className={`group relative overflow-hidden rounded-xl bg-[#fffefb] transition-all hover:shadow-lg ${
@@ -119,13 +175,11 @@ function FestivalCard({
             }}
             className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
           />
-          {/* 추천 뱃지 */}
           {festival.featured && !festival.ended &&(
             <div className="absolute left-3 top-3 z-10">
               <Badge className="bg-[#ff651b] text-white">{t("festivalGrid.badgeFeatured")}</Badge>
             </div>
           )}
-          {/* 종료 뱃지 */}
           {festival.ended && (
             <div className="absolute right-3 top-3 z-10">
               <Badge className="bg-gray-500 text-white">{t("festivalGrid.badgeEnded")}</Badge>
@@ -156,18 +210,6 @@ function FestivalCard({
               overview || t("festivalGrid.noDescription")
             )}
           </p>
-          <div className="flex flex-wrap gap-1">
-            {/* {(festival.keywords ?? []).slice(0, 3).map((keyword) => (
-              <Badge key={keyword} variant="outline" className="text-xs text-gray-700">
-                {keyword}
-              </Badge>
-            ))} */}
-            {/* {festival.keywords && festival.keywords.length > 3 && (
-              <Badge variant="outline" className="text-xs text-gray-700">
-                +{festival.keywords.length - 3}
-              </Badge>
-            )} */}
-          </div>
         </div>
       </Link>
       <Button
@@ -178,7 +220,7 @@ function FestivalCard({
         }`}
         onClick={(e) => {
           e.preventDefault();
-          setLiked((v) => !v);
+          onLike();
         }}
       >
         <motion.span
@@ -199,17 +241,6 @@ function FestivalCard({
         </motion.span>
         <span className="sr-only">{t("festivalGrid.like")}</span>
       </Button>
-    </div>
-  );
-}
-
-// FestivalGrid
-export function FestivalGrid({ festivals, onUpdateDetails }: FestivalGridProps) {
-  return (
-    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-      {festivals.map((festival) => (
-        <FestivalCard key={festival.id} festival={festival} onUpdateDetails={onUpdateDetails} />
-      ))}
     </div>
   );
 }

@@ -117,3 +117,13 @@ export const updatePost = async (
     throw error;
   }
 };
+// posts 좋아요 토글 (PostId 기반)
+export const togglePostLike = async (postId: number): Promise<{ message: string }> => {
+  const res = await client.post(getApiUrl(`/postLikes/${postId}/like`));
+  return res.data; // { message: '좋아요 완료' | '좋아요 취소', ... }
+};
+// 내가 좋아요 누른 게시글 리스트
+export const getMyLikedPosts = async (): Promise<{ postId: number }[]> => {
+  const res = await client.get(getApiUrl("/postLikes/myLikes"));
+  return res.data; // [{ postId, ... }]
+};
