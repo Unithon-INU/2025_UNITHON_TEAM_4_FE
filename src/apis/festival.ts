@@ -132,3 +132,30 @@ export async function fetchLocationFood(params: GetLocationFoodParams) {
   // 바로 배열만 리턴
   return res.data.data.response.body.items.item;
 }
+
+/** 축제 좋아요/좋아요 취소 (토글) */
+export async function toggleFestivalLike({
+  contentId,
+  title,
+  imageUrl,
+  address,
+}: {
+  contentId: string;
+  title: string;
+  imageUrl: string;
+  address: string;
+}) {
+  // POST /api/v1/festivals/{contentId}like
+  const res = await client.post(
+    getApiUrl(`/festivals/${contentId}/like`),
+    { contentId, title, imageUrl, address }
+  );
+  return res.data; // { message: '좋아요 추가됨' | '좋아요 취소됨', ... }
+}
+
+/** 내가 좋아요한 축제 목록 조회 */
+export async function getLikedFestivals() {
+  // GET /api/v1/festivals/likes
+  const res = await client.get(getApiUrl("/festivals/likes"));
+  return res.data; // [{ contentId, title, imageUrl, address }, ...]
+}
