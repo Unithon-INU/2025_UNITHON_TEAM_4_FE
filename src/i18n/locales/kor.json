@@ -106,44 +106,28 @@
       "season": "봄",
       "title": "봄꽃 축제",
       "description": "벚꽃과 함께하는 화사한 봄 축제들",
-      "festivals": [
-        "진해 군항제",
-        "여의도 벚꽃축제",
-        "경주 벚꽃축제"
-      ]
+      "festivals": ["진해 군항제", "여의도 벚꽃축제", "경주 벚꽃축제"]
     },
     {
       "id": "summer",
       "season": "여름",
       "title": "여름 물축제",
       "description": "시원한 물과 함께하는 여름 축제들",
-      "festivals": [
-        "보령 머드축제",
-        "화천 토마토축제",
-        "무주 반딧불축제"
-      ]
+      "festivals": ["보령 머드축제", "화천 토마토축제", "무주 반딧불축제"]
     },
     {
       "id": "autumn",
       "season": "가을",
       "title": "가을 단풍축제",
       "description": "아름다운 단풍과 함께하는 가을 축제들",
-      "festivals": [
-        "진주 남강 유등축제",
-        "부산 불꽃축제",
-        "안동 탈춤페스티벌"
-      ]
+      "festivals": ["진주 남강 유등축제", "부산 불꽃축제", "안동 탈춤페스티벌"]
     },
     {
       "id": "winter",
       "season": "겨울",
       "title": "겨울 얼음축제",
       "description": "하얀 눈과 함께하는 겨울 축제들",
-      "festivals": [
-        "화천 산천어축제",
-        "평창 송어축제",
-        "태백 눈축제"
-      ]
+      "festivals": ["화천 산천어축제", "평창 송어축제", "태백 눈축제"]
     }
   ],
   "seasonSection": {
@@ -253,7 +237,7 @@
     "noDescription": "설명 정보 없음",
     "loadingPeriod": "기간 불러오는 중...",
     "loadingDesc": "소개 불러오는 중...",
-    "badgeFeatured": "",
+    "badgeFeatured": "추천",
     "badgeEnded": "종료",
     "like": "좋아요"
   },
@@ -298,15 +282,7 @@
     },
     "calendar": {
       "monthYearFormat": "yyyy년M월",
-      "weekdays": [
-        "일",
-        "월",
-        "화",
-        "수",
-        "목",
-        "금",
-        "토"
-      ],
+      "weekdays": ["일", "월", "화", "수", "목", "금", "토"],
       "today": "오늘"
     }
   },

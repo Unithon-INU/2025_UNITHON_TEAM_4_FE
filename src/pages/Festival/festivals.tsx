@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from "react-router-dom";
 import Navbar from "../../components/Navbar/index";
 import { Tabs, TabsList, TabsTrigger } from "./components/Tabs";
 import { Button } from "../../components/ui/button";
@@ -45,9 +45,9 @@ function getTodayStr() {
 
 export default function FestivalPage() {
   // 탭 상태
-    const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const [tab, setTab] = useState<"all" | "featured" | "upcoming" | "ongoing">("all");
+  const [tab, setTab] = useState<"all" | "featured" | "upcoming" | "ongoing">("ongoing");
   const [searchQuery, setSearchQuery] = useState(() => searchParams.get("search") ?? "");
   const [selectedKeywords, setSelectedKeywords] = useState<string[]>([]);
   const [selectedRegion, setSelectedRegion] = useState("all");
@@ -55,11 +55,11 @@ export default function FestivalPage() {
   const [detailsMap, setDetailsMap] = useState<DetailsMap>({});
   const [keywordFilterMode, setKeywordFilterMode] = useState<"AND" | "OR">("OR");
   const { t } = useTranslation();
-  
+
   useEffect(() => {
     setSearchQuery(searchParams.get("search") ?? "");
   }, [searchParams]);
-  
+
   // 탭에 따라 API 파라미터 조정
   const todayStr = getTodayStr();
   let eventStartDate: string | undefined = undefined;
@@ -291,15 +291,14 @@ export default function FestivalPage() {
 
         {/* 탭 컴포넌트 */}
         {!(searchQuery.trim().length > 0 || selectedKeywords.length > 0) && (
-
-        <Tabs value={tab} onValueChange={setTab as (value: string) => void}>
-          <TabsList>
-            <TabsTrigger value="all">{t("festival.allTab")}</TabsTrigger>
-            {/* <TabsTrigger value="featured">{t("festival.featuredTab")}</TabsTrigger> */}
-            {/* <TabsTrigger value="upcoming">{t("festival.upcomingTab")}</TabsTrigger> */}
-            <TabsTrigger value="ongoing">{t("festival.ongoingTab")}</TabsTrigger>
-          </TabsList>
-        </Tabs>
+          <Tabs value={tab} onValueChange={setTab as (value: string) => void}>
+            <TabsList>
+              <TabsTrigger value="all">{t("festival.allTab")}</TabsTrigger>
+              {/* <TabsTrigger value="featured">{t("festival.featuredTab")}</TabsTrigger> */}
+              {/* <TabsTrigger value="upcoming">{t("festival.upcomingTab")}</TabsTrigger> */}
+              <TabsTrigger value="ongoing">{t("festival.ongoingTab")}</TabsTrigger>
+            </TabsList>
+          </Tabs>
         )}
 
         {/* 필터링된 축제 리스트 */}
@@ -309,7 +308,9 @@ export default function FestivalPage() {
             <div ref={bottomRef} style={{ height: 48 }} />
             {isFetchingNextPage && <LoadingFestival />}
             {!hasNextPage && (
-              <div className="text-center text-gray-400 text-sm py-4">{t("festival.lastFestival")}</div>
+              <div className="text-center text-gray-400 text-sm py-4">
+                {t("festival.lastFestival")}
+              </div>
             )}
           </>
         ) : (

@@ -8,7 +8,7 @@ const BACKEND_BASE_URL = "http://3.37.127.104:8080/api/v1";
 const getApiUrl = (endpoint: string) => {
   // 프록시를 사용하지 않는 개발 환경에서는 BASE_URL을 그대로 사용
 
-  const base = BACKEND_BASE_URL
+  const base = BACKEND_BASE_URL;
   // Vercel(prod) 환경이면 프록시 사용
   if (import.meta.env.MODE === "production") {
     const target = `${base}${endpoint}`;
@@ -56,8 +56,8 @@ client.interceptors.response.use(
   (error) => {
     // 로그인 필요: /login으로 이동
     if (
-      error.response?.status === 401 ||
-      (error.response?.status === 403 && window.location.pathname !== "/login")
+      (error.response?.status === 401 || error.response?.status === 403) &&
+      window.location.pathname !== "/login"
     ) {
       alert(i18next.t("loginRequired")); // i18n 메시지로 alert
       localStorage.clear();
