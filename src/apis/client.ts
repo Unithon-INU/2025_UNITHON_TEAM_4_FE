@@ -2,7 +2,7 @@ import axios, { InternalAxiosRequestConfig } from "axios";
 import i18next from "i18next";
 
 // 실제 백엔드 서버 주소 (포트 포함! 실제 서버에 맞게 수정)
-const BACKEND_BASE_URL = "http://3.37.127.104:8080/api/v1";
+const BACKEND_BASE_URL = import.meta.env.VITE_UNITHON_SERVER_URL;
 
 // 환경에 따라 프록시 경로 다르게 만드는 함수
 const getApiUrl = (endpoint: string) => {
