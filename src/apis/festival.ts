@@ -32,7 +32,7 @@ export async function fetchFestivalList(params: GetFestivalListParams = {}) {
     areaCode = "",
   } = params;
 
-  const res = await client.get<FestivalListResponse>(getApiUrl("/festivals/list"), {
+  const res = await client.get<FestivalListResponse>(getApiUrl("/festivals/list", "v2"), {
     params: {
       lang,
       numOfRows,
@@ -52,7 +52,7 @@ export async function fetchFestivalList(params: GetFestivalListParams = {}) {
 // ✅ 여기만 v2로 전송!
 export async function fetchFestivalSearch(keyword: string, lang: string, pageNo = 1) {
   const res = await client.get<FestivalListResponse>(
-    getApiUrl("/festivals/search", "v2"),
+    getApiUrl("/festivals/search"),
     {
       params: { keyword, lang, pageNo, numOfRows: 8 },
     }
@@ -65,7 +65,7 @@ export async function fetchFestivalSearch(keyword: string, lang: string, pageNo 
 // ########################## 축제list overview, period용 API ##########################
 // 1. 개별 축제 overview(소개) fetch
 export async function fetchFestivalInfo(contentId: string, lang: string) {
-  const res = await client.get<FestivalInfoResponse>(getApiUrl("/festivals/info"), {
+  const res = await client.get<FestivalInfoResponse>(getApiUrl("/festivals/info", "v2"), {
     params: {
       lang,
       contentId,
@@ -76,7 +76,7 @@ export async function fetchFestivalInfo(contentId: string, lang: string) {
 
 // 2. 개별 축제 기간(시작일/종료일) fetch
 export async function fetchFestivalPeriod(contentId: string, contentTypeId: string, lang: string) {
-  const res = await client.get<FestivalDetailIntroResponse>(getApiUrl("/festivals/detailIntro"), {
+  const res = await client.get<FestivalDetailIntroResponse>(getApiUrl("/festivals/detailIntro", "v2"), {
     params: {
       lang,
       contentId,
@@ -88,7 +88,7 @@ export async function fetchFestivalPeriod(contentId: string, contentTypeId: stri
 
 // 행사내용(detailInfo) fetch
 export async function fetchFestivalDetailInfo(contentId: string, contentTypeId: string, lang: string) {
-  const res = await client.get<FestivalDetailInfoResponse>(getApiUrl("/festivals/detailInfo"), {
+  const res = await client.get<FestivalDetailInfoResponse>(getApiUrl("/festivals/detailInfo", "v2"), {
     params: {
       lang,
       contentId,
@@ -121,7 +121,7 @@ export async function fetchLocationFood(params: GetLocationFoodParams) {
   } = params;
 
   const res = await client.get<LocationFoodResponse>(
-    getApiUrl("/festivals/locationFood"),
+    getApiUrl("/festivals/locationFood", "v2"),
     {
       params: {
         lang,
