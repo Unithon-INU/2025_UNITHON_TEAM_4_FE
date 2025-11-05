@@ -49,10 +49,14 @@ export async function fetchFestivalList(params: GetFestivalListParams = {}) {
 }
 
 // 1. 축제 검색 (GET /api/festivals/search?keyword=키워드)
+// ✅ 여기만 v2로 전송!
 export async function fetchFestivalSearch(keyword: string, lang: string, pageNo = 1) {
-  const res = await client.get<FestivalListResponse>(getApiUrl("/festivals/search"), {
-    params: { keyword, lang, pageNo, numOfRows: 8 },
-  });
+  const res = await client.get<FestivalListResponse>(
+    getApiUrl("/festivals/search", "v2"),
+    {
+      params: { keyword, lang, pageNo, numOfRows: 8 },
+    }
+  );
   const item = res.data.data.response.body.items.item;
   const totalCount = res.data.data.response.body.totalCount;
   return { item, totalCount };
@@ -81,6 +85,7 @@ export async function fetchFestivalPeriod(contentId: string, contentTypeId: stri
   });
   return res.data.data.response.body.items.item[0];
 }
+
 // 행사내용(detailInfo) fetch
 export async function fetchFestivalDetailInfo(contentId: string, contentTypeId: string, lang: string) {
   const res = await client.get<FestivalDetailInfoResponse>(getApiUrl("/festivals/detailInfo"), {
@@ -145,7 +150,7 @@ export async function toggleFestivalLike({
   imageUrl: string;
   address: string;
 }) {
-  // POST /api/v1/festivals/{contentId}like
+  // POST /api/v1/festivals/{contentId}/like
   const res = await client.post(
     getApiUrl(`/festivals/${contentId}/like`),
     { contentId, title, imageUrl, address }
