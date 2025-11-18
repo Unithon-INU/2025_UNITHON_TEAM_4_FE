@@ -52,7 +52,7 @@ export async function fetchFestivalList(params: GetFestivalListParams = {}) {
 // ✅ 여기만 v2로 전송!
 export async function fetchFestivalSearch(keyword: string, lang: string, pageNo = 1) {
   const res = await client.get<FestivalListResponse>(
-    getApiUrl("/festivals/search"),
+    getApiUrl("/festivals/search", "v2"),
     {
       params: { keyword, lang, pageNo, numOfRows: 8 },
     }
@@ -121,7 +121,7 @@ export async function fetchLocationFood(params: GetLocationFoodParams) {
   } = params;
 
   const res = await client.get<LocationFoodResponse>(
-    getApiUrl("/festivals/locationFood", "v2"),
+    getApiUrl("/festivals/locationFood"),
     {
       params: {
         lang,
