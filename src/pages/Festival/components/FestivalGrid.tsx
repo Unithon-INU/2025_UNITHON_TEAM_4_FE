@@ -14,6 +14,7 @@ export type Festival = {
   contentid: string; // 프론트는 contentid만 사용
   contenttypeid: string;
   name: string;
+  areacode?: string | null;
   location: string;
   period: string;
   eventstartdate?: string;
@@ -38,6 +39,26 @@ interface FestivalGridProps {
   festivals: Festival[];
   onUpdateDetails: React.Dispatch<React.SetStateAction<DetailsMap>>;
 }
+
+const areaCodeMap: Record<string, string> = {
+  "1": "서울",
+  "2": "인천",
+  "3": "대전",
+  "4": "대구",
+  "5": "광주",
+  "6": "부산",
+  "7": "울산",
+  "8": "세종",
+  "31": "경기도",
+  "32": "강원도",
+  "33": "충청북도",
+  "34": "충청남도",
+  "35": "경상북도",
+  "36": "경상남도",
+  "37": "전라북도",
+  "38": "전라남도",
+  "39": "제주도",
+};
 
 // 날짜 포맷: yyyyMMdd 또는 yyyy-MM-dd를 2025.12.25 형태로 변환
 function normalizeDateString(dateStr?: string): string | undefined {
@@ -126,6 +147,17 @@ function FestivalCard({
   const { data: infoData, isLoading: infoLoading } = useFestivalOverview(festival.contentid);
 
   const overview = infoData?.overview ?? festival.description ?? "";
+  const infoAreaName = infoData?.areacode ? areaCodeMap[String(infoData.areacode)] : undefined;
+  const baseAreaName = infoAreaName ?? (festival.areacode ? areaCodeMap[String(festival.areacode)] : undefined);
+  const addr1 = infoData?.addr1 ?? "";
+  const addr2 = infoData?.addr2 ?? "";
+  const location =
+    baseAreaName || addr1 || addr2
+      ? `${baseAreaName ?? ""}${addr1 ? (baseAreaName ? ` ${addr1}` : addr1) : ""}${
+          addr2 ? `, ${addr2}` : ""
+        }`.trim()
+      : festival.location;
+
   const eventStart = festival.eventstartdate;
   const eventEnd = festival.eventenddate;
   const formattedPeriod =
@@ -191,7 +223,7 @@ function FestivalCard({
           <div className="mb-3 flex flex-col space-y-1">
             <div className="flex items-center text-sm text-gray-600">
               <MapPin className="mr-1 h-[20px] w-[20px] text-[#ff651b]" />
-              {festival.location || t("festivalGrid.noLocation")}
+              {location || t("festivalGrid.noLocation")}
             </div>
             <div className="flex items-center text-sm text-gray-600">
               <Calendar className="mr-1 h-4 w-4 text-[#ff651b]" />
