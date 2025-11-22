@@ -47,12 +47,12 @@ export default function FestivalDetailPage() {
   const image2 = infoData?.firstimage2;
   const title = infoData?.title ?? "-";
   const tel = infoData?.tel ?? "-";
-  const addr = infoData?.addr1 ?? "" + (infoData?.addr2 ? ` ${infoData.addr2}` : "");
-  const zipcode = infoData?.zipcode ?? "";
+  // const addr = infoData?.addr1 ?? "" + (infoData?.addr2 ? ` ${infoData.addr2}` : "");
+  // const zipcode = infoData?.zipcode ?? "";
   const period = periodData
     ? `${formatDate(periodData.eventstartdate)} ~ ${formatDate(periodData.eventenddate)}`
     : "";
-  const eventplace = infoData?.addr1 ?? "";
+  const eventplace = infoData?.addr2 ?? "";
 
   // 종료여부
   const ended =
@@ -152,14 +152,14 @@ export default function FestivalDetailPage() {
               <span className="font-medium">{eventplace}</span>
             </div>
           )}
-          {addr && (
+          {/* {addr && (
             <div className="flex items-center">
               <MapPin className="h-5 w-5 mr-1 text-[#ff651b]" />
               <span>
                 {addr} {zipcode && <span>({zipcode})</span>}
               </span>
             </div>
-          )}
+          )} */}
           {tel && (
             <div className="flex items-center">
               <Phone className="h-5 w-5 mr-1 text-[#ff651b]" />
