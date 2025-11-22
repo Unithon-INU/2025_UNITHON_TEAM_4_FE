@@ -130,9 +130,10 @@ export default function FestivalPage() {
         id: item.contentid,
         contentid: item.contentid,
         contenttypeid: item.contenttypeid,
+        areacode: item.areacode,
         name: item.title,
         location:
-          (areaCodeMap[item.areacode] || "미정") +
+          (areaCodeMap[item.areacode] || "") +
           (item.addr1 ? ` ${item.addr1}` : "") +
           (item.addr2 ? `, ${item.addr2}` : ""),
         period: periodText,

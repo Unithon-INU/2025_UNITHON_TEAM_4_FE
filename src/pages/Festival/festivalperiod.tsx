@@ -89,13 +89,14 @@ export default function FestivalPeriodPage() {
 
   const allFestivalData: Festival[] = apiFestivals?.pages
     ? apiFestivals.pages.flatMap((page) =>
-        page.item.map((item) => {
+      page.item.map((item) => {
           const eventStart = item.eventstartdate;
           const eventEnd = item.eventenddate;
           return {
             id: item.contentid,
             contentid: item.contentid,
             contenttypeid: item.contenttypeid,
+            areacode: item.areacode,
             name: item.title,
             location:
               (areaCodeMap[item.areacode] || "미정") +
