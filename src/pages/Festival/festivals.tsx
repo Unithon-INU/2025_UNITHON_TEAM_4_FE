@@ -1,8 +1,7 @@
-"use client";
 
 import { useState, useMemo, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import Navbar from "../../components/Navbar/index";
+import Navbar from "../../components/Navbar";
 import { Tabs, TabsList, TabsTrigger } from "./components/Tabs";
 import { Button } from "../../components/ui/button";
 import { FestivalGrid, Festival, DetailsMap } from "./components/FestivalGrid";
@@ -11,7 +10,7 @@ import { AppliedFilters } from "./components/AppliedFilters";
 import { FeaturedFestivalSlider } from "./components/FeaturedFestivalSlider";
 import { useInfiniteFestivalList, useInfiniteFestivalSearch } from "../../hooks/useFestivalList";
 import { useBottomObserver } from "../../hooks/useBottomObserver";
-import { LoadingFestival } from "./LoadingFestival"; // 로딩 컴포넌트 (스켈레톤)
+import { LoadingFestival } from "./LoadingFestival";
 import { useTranslation } from "react-i18next";
 
 const areaCodeMap: Record<string, string> = {
@@ -34,7 +33,6 @@ const areaCodeMap: Record<string, string> = {
   "39": "제주도",
 };
 
-// 오늘 날짜 yyyyMMdd
 function getTodayStr() {
   const today = new Date();
   const y = today.getFullYear();
@@ -43,8 +41,19 @@ function getTodayStr() {
   return `${y}${m}${d}`;
 }
 
+const normalizeDateString = (dateStr?: string) => {
+  if (!dateStr) return undefined;
+  const cleaned = dateStr.replace(/-/g, "");
+  return cleaned.length === 8 ? cleaned : undefined;
+};
+
+const formatDate = (dateStr?: string) => {
+  const normalized = normalizeDateString(dateStr);
+  if (!normalized) return dateStr || "";
+  return `${normalized.slice(0, 4)}.${normalized.slice(4, 6)}.${normalized.slice(6, 8)}`;
+};
+
 export default function FestivalPage() {
-  // 탭 상태
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [tab, setTab] = useState<"all" | "featured" | "upcoming" | "ongoing">("ongoing");
@@ -60,16 +69,13 @@ export default function FestivalPage() {
     setSearchQuery(searchParams.get("search") ?? "");
   }, [searchParams]);
 
-  // 탭에 따라 API 파라미터 조정
   const todayStr = getTodayStr();
-  let eventStartDate: string | undefined = undefined;
-  let eventEndDate: string | undefined = undefined;
+  let eventStartDate: string | undefined;
+  let eventEndDate: string | undefined;
 
-  if (tab === "all") {
-    eventStartDate = undefined; // 오늘 이후 시작
-  } else if (tab === "ongoing") {
+  if (tab === "ongoing") {
     eventStartDate = todayStr;
-    eventEndDate = todayStr; // 종료일이 오늘 이후(진행중)
+    eventEndDate = todayStr;
   }
 
   const filterParams = {
@@ -78,61 +84,61 @@ export default function FestivalPage() {
     eventEndDate,
   };
 
-  // --- 검색/리스트 구분
   const isSearching = searchQuery.trim().length > 0 || selectedKeywords.length > 0;
   const keyword = selectedKeywords[0] || searchQuery.trim() || "";
 
-  // 훅 사용
   const searchResult = useInfiniteFestivalSearch(keyword);
   const listResult = useInfiniteFestivalList(filterParams);
 
-  // 조건에 따라 사용할 값만 선택
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isError } = isSearching
     ? searchResult
     : listResult;
 
-  // 종료여부 판단 함수
-  function isFestivalEnded(eventenddate?: string): boolean {
-    if (!eventenddate || eventenddate.length !== 8) return false;
-    const today = new Date();
-    const y = today.getFullYear();
-    const m = String(today.getMonth() + 1).padStart(2, "0");
-    const d = String(today.getDate()).padStart(2, "0");
-    const todayStr = `${y}${m}${d}`;
-    return eventenddate < todayStr;
-  }
+  const isFestivalEnded = (eventenddate?: string): boolean => {
+    const normalized = normalizeDateString(eventenddate);
+    if (!normalized) return false;
+    return normalized < getTodayStr();
+  };
 
-  // 데이터 누적(flat)
   const festivals: Festival[] = useMemo(() => {
     if (!data) return [];
-    // 페이지별로 아이템 추출
+
     const allItems = data.pages.flatMap((page) => {
       if (Array.isArray(page)) return page;
       if ("item" in page) return page.item;
       return [];
     });
 
-    // 이하 기존로직 동일
     const notEndedItems = allItems.filter((item) => {
-      const eventEnd = detailsMap?.[item.contentid]?.eventenddate;
+      const eventEnd = detailsMap?.[item.contentid]?.eventenddate ?? item.eventenddate;
       return !isFestivalEnded(eventEnd);
     });
 
     const featuredIds = notEndedItems.slice(0, 5).map((item) => item.contentid);
 
     return allItems.map((item) => {
-      const eventEnd = detailsMap?.[item.contentid]?.eventenddate;
+      const eventStart = detailsMap?.[item.contentid]?.eventstartdate ?? item.eventstartdate;
+      const eventEnd = detailsMap?.[item.contentid]?.eventenddate ?? item.eventenddate;
       const ended = isFestivalEnded(eventEnd);
+
+      const periodText =
+        eventStart && eventEnd
+          ? `${formatDate(eventStart)} ~ ${formatDate(eventEnd)}`
+          : t("festivalGrid.noPeriod");
+
       return {
         id: item.contentid,
         contentid: item.contentid,
         contenttypeid: item.contenttypeid,
+        areacode: item.areacode,
         name: item.title,
         location:
-          (areaCodeMap[item.areacode] || "미정") +
+          (areaCodeMap[item.areacode] || "") +
           (item.addr1 ? ` ${item.addr1}` : "") +
           (item.addr2 ? `, ${item.addr2}` : ""),
-        period: "기간 정보 없음",
+        period: periodText,
+        eventstartdate: eventStart,
+        eventenddate: eventEnd,
         image: item.firstimage ?? "",
         image2: item.firstimage2 ?? "",
         keywords: item.areacode ? [areaCodeMap[item.areacode]] : [],
@@ -141,20 +147,20 @@ export default function FestivalPage() {
         featured: !ended && featuredIds.includes(item.contentid),
       };
     });
-  }, [data, detailsMap]);
+  }, [data, detailsMap, t]);
 
-  // 상세 정보(detailsMap) 반영
   const festivalsWithDetails: Festival[] = useMemo(
     () =>
       festivals.map((f) => ({
         ...f,
         period: detailsMap[f.id]?.period ?? f.period,
         description: detailsMap[f.id]?.description ?? f.description,
+        eventenddate: detailsMap[f.id]?.eventenddate ?? f.eventenddate,
+        eventstartdate: detailsMap[f.id]?.eventstartdate ?? f.eventstartdate,
       })),
     [festivals, detailsMap]
   );
 
-  // --- 필터/계절/ANDOR (기존 필터는 데이터 누적 후 클라이언트에서 처리)
   const filteredFestivals: Festival[] = useMemo(() => {
     let filtered = festivalsWithDetails;
     if (selectedKeywords.length > 0) {
@@ -183,24 +189,11 @@ export default function FestivalPage() {
         )
       );
     }
-    // 추천 탭: featured만
-    // if (tab === "featured") {
-    //   filtered = filtered.filter((f) => f.featured);
-    // }
     return filtered;
-  }, [
-    festivalsWithDetails,
-    selectedKeywords,
-    selectedRegion,
-    selectedSeason,
-    keywordFilterMode,
-    // tab,
-  ]);
+  }, [festivalsWithDetails, selectedKeywords, selectedRegion, selectedSeason, keywordFilterMode]);
 
-  // --- 상세 fetch map 연결
   const handleUpdateDetails: React.Dispatch<React.SetStateAction<DetailsMap>> = setDetailsMap;
 
-  // --- 필터/검색 리셋
   const resetFilters = () => {
     setSearchQuery("");
     setSelectedRegion("all");
@@ -208,28 +201,23 @@ export default function FestivalPage() {
     setSelectedKeywords([]);
     setDetailsMap({});
     setTab("all");
-    // 무한스크롤에선 festivals가 자동 초기화됨
   };
 
-  // "적용하기"에서만 키워드 반영
   const handleApplyKeywords = (appliedKeywords: string[]) => {
     setSelectedKeywords(appliedKeywords);
     setSearchQuery("");
   };
 
-  // 검색어 입력
   const handleSearch = (query: string) => {
     setSearchQuery(query);
     setSearchParams({ search: query });
     setSelectedKeywords([]);
   };
 
-  // --- 무한스크롤: IntersectionObserver 하단 div
   const bottomRef = useBottomObserver(() => {
     if (hasNextPage && !isFetchingNextPage) fetchNextPage();
   }, hasNextPage);
 
-  // --- totalCount
   const totalCount = useMemo(() => {
     if (!data) return 0;
     const firstPage = data.pages[0];
@@ -238,7 +226,6 @@ export default function FestivalPage() {
     return 0;
   }, [data]);
 
-  // --- 에러/로딩 처리
   if (isLoading) return <LoadingFestival />;
   if (isError)
     return (
@@ -250,7 +237,6 @@ export default function FestivalPage() {
       </div>
     );
 
-  // --- 추천 슬라이더
   const featuredFestivals = festivalsWithDetails.filter((f) => f.featured);
 
   return (
@@ -289,19 +275,15 @@ export default function FestivalPage() {
           />
         </div>
 
-        {/* 탭 컴포넌트 */}
         {!(searchQuery.trim().length > 0 || selectedKeywords.length > 0) && (
           <Tabs value={tab} onValueChange={setTab as (value: string) => void}>
             <TabsList>
               <TabsTrigger value="all">{t("festival.allTab")}</TabsTrigger>
-              {/* <TabsTrigger value="featured">{t("festival.featuredTab")}</TabsTrigger> */}
-              {/* <TabsTrigger value="upcoming">{t("festival.upcomingTab")}</TabsTrigger> */}
               <TabsTrigger value="ongoing">{t("festival.ongoingTab")}</TabsTrigger>
             </TabsList>
           </Tabs>
         )}
 
-        {/* 필터링된 축제 리스트 */}
         {filteredFestivals.length > 0 ? (
           <>
             <FestivalGrid festivals={filteredFestivals} onUpdateDetails={handleUpdateDetails} />

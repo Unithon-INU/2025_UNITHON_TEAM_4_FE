@@ -1,4 +1,3 @@
-
 export interface FestivalListItem {
   addr1: string;
   addr2?: string | null;
@@ -16,6 +15,9 @@ export interface FestivalListItem {
   zipcode?: string | null;
   overview?: string | null;
   item?: union | null;
+  // 날짜는 API에 따라 yyyyMMdd 또는 yyyy-MM-dd 형태로 내려올 수 있어 string으로만 보관
+  eventstartdate?: string;
+  eventenddate?: string;
 }
 
 export interface FestivalListResponse {
