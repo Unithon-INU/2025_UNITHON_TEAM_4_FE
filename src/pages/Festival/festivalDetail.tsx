@@ -52,7 +52,7 @@ export default function FestivalDetailPage() {
   const period = periodData
     ? `${formatDate(periodData.eventstartdate)} ~ ${formatDate(periodData.eventenddate)}`
     : "";
-  const eventplace = periodData?.eventplace ?? "";
+  const eventplace = infoData?.addr1 ?? "";
 
   // 종료여부
   const ended =
